@@ -29,6 +29,14 @@ These are NOT part of the core engine but are commonly used for specific game ty
 
 ---
 
+### ✅ VContainer
+- **Purpose:** Runtime dependency injection container for Unity
+- **When to use:** Pure C# services, scoped composition roots, explicit scene composition
+- **Status for Glass Refrain:** Approved for planned adoption
+- **Important rule:** Runtime DI container, not a substitute for scene ownership boundaries
+
+---
+
 ### ✅ Addressables
 - **Purpose:** Advanced asset management (async loading, remote content, memory control)
 - **When to use:** Large projects, DLC, remote content delivery
@@ -227,6 +235,56 @@ For packages NOT listed above, use the following approach when users ask:
    - Preview vs Production-Ready
    - Still supported in Unity 6.3 LTS
 3. Optionally cache findings in `plugins/[package-name].md` for future reference
+
+---
+
+## Glass Refrain DI Adoption Order
+
+1. Install `VContainer`
+2. Create a minimal manual `LifetimeScope` baseline
+3. Configure `ProjectRootLifetimeScope` through `VContainerSettings`
+4. Add `NhemDangFugBixs.VContainer.SourceGenerator` in a separate OpenSpec change
+5. Register only 2-3 pure C# services using generated registration
+6. Run Play Mode smoke test
+7. Add `di-smoke` validation later
+8. Consider official `VContainer.SourceGenerator.dll` only after M0 architecture is stable and profiling or iteration show value
+
+---
+
+## VContainer Source Generation Policy
+
+### Official VContainer Source Generator
+
+- **Purpose:** Injection and resolve acceleration
+- **Status for Glass Refrain:** Optional later optimization
+- **How it is typically integrated:** `VContainer.SourceGenerator.dll` under `Assets/`, marked as `RoslynAnalyzer`
+- **What it is not:** A substitute for registration architecture
+- **When to evaluate it:** Only after M0 DI structure is stable and profiling or iteration show value
+
+### `NhemDangFugBixs.VContainer.SourceGenerator`
+
+- **Purpose:** Compile-time DI architecture guardrails
+- **Status for Glass Refrain:** Planned
+- **Use cases:** Marker-based scope registration, generated installers, analyzer guardrails, duplicate or invalid registration checks, future `di-smoke`
+- **What it is not:** A reason to auto-register MonoBehaviours, ScriptableObjects, or scene objects
+
+### Shared Rules
+
+- Generated DI only for pure C# services
+- Unity scene objects remain explicitly composed
+- Combat truth must never be registered globally
+- Do not confuse generated registration with injection acceleration
+
+---
+
+## Asmdef / Package Dependency Notes
+
+- Keep `VContainer` references concentrated in Bootstrap, Infrastructure, and composition assemblies
+- Keep `Cinemachine` references isolated to the Camera assembly
+- Keep `DOTween` references isolated to UI, VFX, and camera polish assemblies
+- Keep `R3` out of hot combat truth paths
+- If `NhemDangFugBixs` attributes require a domain asmdef reference, limit it to lightweight runtime attributes only
+- Do not allow domain assemblies to reference composition assemblies
 
 ---
 

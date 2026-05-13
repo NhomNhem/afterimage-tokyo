@@ -1,0 +1,3 @@
+[submodule "afterimage-tokyo-docs"]
+	path = afterimage-tokyo-docs
+	url = https://github.com/NhomNhem/afterimage-tokyo-docs.git
