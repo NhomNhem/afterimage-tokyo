@@ -23,12 +23,298 @@
 #   NNN = three-digit zero-padded sequence per system, starting at 001
 #
 # STATUS VALUES: active | deprecated | superseded-by: TR-[system]-NNN
-
+#
 version: 1
-last_updated: ""
-
-requirements: []
-
+last_updated: "2026-05-15"
+#
+requirements:
+  - id: TR-M0-FOUNDATION-001
+    system: m0-foundation
+    gdd: design/gdd/m0-runtime-foundation.md
+    requirement: "Unity 6000.3.x with URP, additive scene composition, and defined scene responsibilities"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-runtime-foundation.md
+    adr_refs:
+      - ADR-0001
+    implementation_refs:
+      - Assets/_Project/Code/Bootstrap
+      - Assets/_Project/Code/Infrastructure
+      - Assets/_Project/Content/Scenes/Bootstrap
+      - Assets/_Project/Content/Scenes/Systems
+      - Assets/_Project/Content/Scenes/Gameplay
+      - Assets/_Project/Content/Scenes/Camera
+      - Assets/_Project/Content/Scenes/UI
+      - Assets/_Project/Content/Scenes/Levels
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestSceneComposition.cs
+      - Assets/_Project/Tests/PlayMode/TestSceneLoading.cs
+    notes: "Records foundation layer decisions for M0"
+  - id: TR-M0-FOUNDATION-002
+    system: m0-foundation
+    gdd: design/gdd/m0-vcontainer-scopes.md
+    requirement: "Manual VContainer scopes with ProjectRootLifetimeScope and GameplayScope separation"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-vcontainer-scopes.md
+    adr_refs:
+      - ADR-0001
+      - ADR-0004
+    implementation_refs:
+      - Assets/_Project/Code/Bootstrap/ProjectRootLifetimeScope.cs
+      - Assets/_Project/Code/Gameplay/GameplayScope.cs
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestVContainerScopes.cs
+    notes: "Defines lifetime scope boundaries for dependency injection"
+  - id: TR-M0-INPUT-001
+    system: m0-input
+    gdd: design/gdd/m0-input-system.md
+    requirement: "Input Mapping owns raw input truth and emits intent only"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-input-system.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Input
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestInputIntent.cs
+    notes: "Defines input system boundaries and responsibilities"
+  - id: TR-M0-TRUTH-001
+    system: m0-truth
+    gdd: design/gdd/m0-pure-csharp-truth.md
+    requirement: "Pure C# classes own gameplay truth; Unity components are adapters only"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-pure-csharp-truth.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Core
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestPureCSharpTruth.cs
+    notes: "Establishes Pure C# as the authoritative gameplay truth layer"
+  - id: TR-M0-ANIMATION-001
+    system: m0-animation
+    gdd: design/gdd/m0-animator-presentation-only.md
+    requirement: "Animator system owns presentation only; does not affect gameplay truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-animator-presentation-only.md
+    adr_refs:
+      - ADR-0003
+    implementation_refs:
+      - Assets/_Project/Code/VFX
+      - Assets/_Project/Code/Animation
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestAnimatorPresentationOnly.cs
+    notes: "Ensures animator remains presentation-only system"
+  - id: TR-M0-COMBAT-001
+    system: m0-combat
+    gdd: design/gdd/m0-combat-core-ownership.md
+    requirement: "Combat Core owns combat validation and result truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-combat-core-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Combat
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestCombatCoreOwnership.cs
+    notes: "Defines Combat Core as owner of combat validity and results"
+  - id: TR-M0-LOCOMOTION-001
+    system: m0-locomotion
+    gdd: design/gdd/m0-locomotion-truth-ownership.md
+    requirement: "Player Locomotion owns movement truth and expression"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-locomotion-truth-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Locomotion
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestLocomotionTruthOwnership.cs
+    notes: "Establishes Locomotion as owner of movement truth"
+  - id: TR-M0-TARGET-001
+    system: m0-target
+    gdd: design/gdd/m0-target-context-ownership.md
+    requirement: "Lock-On / Target Context owns target truth and state"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-target-context-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Targeting
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestTargetContextOwnership.cs
+    notes: "Defines Target Context as owner of target truth"
+  - id: TR-M0-CAMERA-001
+    system: m0-camera
+    gdd: design/gdd/m0-camera-framing-readonly.md
+    requirement: "Camera owns framing and readability only; does not own target/movement truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-camera-framing-readonly.md
+    adr_refs:
+      - ADR-0003
+    implementation_refs:
+      - Assets/_Project/Code/Camera
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestCameraFramingReadOnly.cs
+    notes: "Establishes camera as presentation-only system for framing/readability"
+  - id: TR-M0-ENEMY-001
+    system: m0-enemy
+    gdd: design/gdd/m0-enemy-intent-ownership.md
+    requirement: "Enemy Intent & Telegraph owns enemy-side readability and punish truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-enemy-intent-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Enemy
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestEnemyIntentOwnership.cs
+    notes: "Defines Enemy Intent as owner of telegraph/commit/recovery"
+  - id: TR-M0-HEALTH-001
+    system: m0-health
+    gdd: design/gdd/m0-health-damage-ownership.md
+    requirement: "Health / Damage / Hit Reaction owns damage/application and consequence truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-health-damage-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Health
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestHealthDamageOwnership.cs
+    notes: "Establishes Health as owner of damage and consequence"
+  - id: TR-M0-MEMORY-001
+    system: m0-memory
+    gdd: design/gdd/m0-memory-state-ownership.md
+    requirement: "Memory State owns reveal acceptance and memory-side consequence truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-memory-state-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Memory
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestMemoryStateOwnership.cs
+    notes: "Defines Memory State as owner of reveal acceptance"
+  - id: TR-M0-MEMORY-VFX-001
+    system: m0-memory-vfx
+    gdd: design/gdd/m0-memory-vfx-response-presentation.md
+    requirement: "Memory VFX Response is downstream presentation only"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-memory-vfx-response-presentation.md
+    adr_refs:
+      - ADR-0003
+    implementation_refs:
+      - Assets/_Project/Code/VFX
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestMemoryVFXResponsePresentation.cs
+    notes: "Ensures Memory VFX Response remains presentation-only"
+  - id: TR-M0-ENCOUNTER-001
+    system: m0-encounter
+    gdd: design/gdd/m0-encounter-framework-ownership.md
+    requirement: "Encounter Framework owns encounter lifecycle only"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-encounter-framework-ownership.md
+    adr_refs:
+      - ADR-0002
+    implementation_refs:
+      - Assets/_Project/Code/Encounter
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestEncounterFrameworkOwnership.cs
+    notes: "Defines Encounter Framework as owner of lifecycle only"
+  - id: TR-M0-DEBUG-001
+    system: m0-debug
+    gdd: design/gdd/m0-debug-overlay-read-only.md
+    requirement: "Debug Overlay owns grouping and presentation only; does not own debug truth"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-debug-overlay-read-only.md
+    adr_refs:
+      - ADR-0003
+    implementation_refs:
+      - Assets/_Project/Code/UI
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestDebugOverlayReadOnly.cs
+    notes: "Establishes Debug Overlay as read-only presentation system"
+  - id: TR-M0-DI-001
+    system: m0-di
+    gdd: design/gdd/m0-manual-vcontainer-scopes.md
+    requirement: "All VContainer registrations are manual; no automatic scanning or code generation"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-manual-vcontainer-scopes.md
+    adr_refs:
+      - ADR-0004
+    implementation_refs:
+      - Assets/_Project/Code/Bootstrap/CompositionRoot.cs
+      - Assets/_Project/Code/Gameplay/CompositionRoot.cs
+      - Assets/_Project/Code/Camera/CompositionRoot.cs
+      - Assets/_Project/Code/UI/CompositionRoot.cs
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestManualDIRegistration.cs
+    notes: "Ensures manual DI registration to prevent accidental global registrations"
+  - id: TR-M0-CONTRACTS-001
+    system: m0-contracts
+    gdd: design/gdd/m0-shared-contracts-hub.md
+    requirement: "M0Contracts.cs is temporary shared contract hub; contracts-only, no behavior logic"
+    created: 2026-05-15
+    revised: ""
+    status: active
+    source_gdds:
+      - design/gdd/m0-shared-contracts-hub.md
+    adr_refs:
+      - ADR-0005
+    implementation_refs:
+      - Assets/_Project/Code/Core/M0Contracts.cs
+    test_refs:
+      - Assets/_Project/Tests/EditMode/TestContractsOnly.cs
+    notes: "Defines shared contracts strategy and temporary hub nature"
+#
 # --- EXAMPLE ENTRIES (remove when first real entries are added) ---
 #
 # - id: TR-combat-001
