@@ -1,7 +1,7 @@
 # Story 1-4: [Combat] Player Attack Resolution
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Core
 > **Type**: Logic
 > **Estimate**: 1.0d
@@ -27,10 +27,10 @@
 
 ## Acceptance Criteria
 
-- [ ] Light and Heavy attack intents from Input resolve in `M0CombatCore`.
-- [ ] Attack validity is checked against current state (e.g., cannot attack while recovering).
-- [ ] Successful attack requests emit `ActionLockContext` and `RecoveryContext`.
-- [ ] Hit/Miss results are calculated based on spacing/timing truth.
+- [x] Light and Heavy attack intents from Input resolve in `M0CombatCore`.
+- [x] Attack validity is checked against current state (e.g., cannot attack while recovering).
+- [x] Successful attack requests emit `ActionLockContext` and `RecoveryContext`.
+- [x] Hit/Miss results are calculated based on spacing/timing truth.
 
 ---
 
@@ -71,7 +71,29 @@
 - Logic: `Assets/_Project/Tests/EditMode/CombatResolution_test.cs`
 - Manual verification: Debug Overlay showing combat state transitions and lock reasons.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Complete
+
+**Evidence summary**:
+- OpenSpec change: `wire-m0-player-attack-resolution` — all tasks complete
+- Code review verdict: APPROVED WITH SUGGESTIONS (no blockers)
+- EditMode tests: `Assets/_Project/Tests/EditMode/CombatResolution_test.cs` — 16 tests, 0 errors
+  - Intent routing (LightAttack, HeavyAttack)
+  - State rejection (Recovery, AttackStartup, HitReact)
+  - Placeholder hit/whiff resolution
+  - ActionLock emission after accepted attack (AC-2)
+  - Snapshot immutability, no damage mutation, manual DI, no forbidden APIs
+- Runtime scene wiring: `Gameplay_CombatPrototype.unity`
+  - `Enemy_M0TargetablePlaceholder` + `M0TargetableSceneAdapter` — registers with `ITargetableRegistry` via VContainer
+  - `CameraMovementBasisProvider_Gameplay` — explicitly assigned on `M0GameplayTickHandler`
+- PlayMode paths verified: no lock-on → whiff; LockOn → hit (placeholder); release → whiff
+- No damage/health mutation. No hit reaction. No enemy AI. No parry/dodge/counter.
+- No animation/root motion/VFX/camera polish. No KCC. No locomotion rewrite. No forbidden APIs.
+
+**Known follow-up (not blockers)**:
+- Player is a bare scene object — no reusable Player prefab yet (future story)
+- `CameraMovementBasisProvider` uses `Camera.main` fallback when Camera scene not additive-loaded (non-blocking tech debt)
+- `ResolveAttack` is `public` — suggest `internal` in a future cleanup pass
+- Existing unrelated `NhemBootstrap` EditMode test failure is separate tooling debt
 
 ---
 

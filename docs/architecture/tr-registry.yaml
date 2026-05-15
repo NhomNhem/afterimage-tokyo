@@ -121,13 +121,13 @@ requirements:
     notes: "Ensures animator remains presentation-only system"
   - id: TR-M0-COMBAT-001
     system: m0-combat
-    gdd: design/gdd/m0-combat-core-ownership.md
+    gdd: design/gdd/combat-core.md
     requirement: "Combat Core owns combat validation and result truth"
     created: 2026-05-15
     revised: ""
     status: active
     source_gdds:
-      - design/gdd/m0-combat-core-ownership.md
+      - design/gdd/combat-core.md
     adr_refs:
       - ADR-0002
     implementation_refs:
@@ -185,13 +185,13 @@ requirements:
     notes: "Establishes camera as presentation-only system for framing/readability"
   - id: TR-M0-ENEMY-001
     system: m0-enemy
-    gdd: design/gdd/m0-enemy-intent-ownership.md
+    gdd: design/gdd/enemy-intent-telegraph.md
     requirement: "Enemy Intent & Telegraph owns enemy-side readability and punish truth"
     created: 2026-05-15
     revised: ""
     status: active
     source_gdds:
-      - design/gdd/m0-enemy-intent-ownership.md
+      - design/gdd/enemy-intent-telegraph.md
     adr_refs:
       - ADR-0002
     implementation_refs:

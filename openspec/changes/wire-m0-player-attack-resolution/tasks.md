@@ -82,37 +82,37 @@
 
 ## 9. Manual Verification
 
-- [ ] 9.1 Unity Editor play mode: Bootstrap → Systems → Level → Gameplay scenes load
-- [ ] 9.2 Press LightAttack key: intent routes to Combat Core
-- [ ] 9.3 Press HeavyAttack key: intent routes to Combat Core
-- [ ] 9.4 Debug Overlay shows combat state transitions and lock reasons
-- [ ] 9.5 Verify attack rejection during recovery state
-- [ ] 9.6 Verify hit/whiff resolution against target context
+- [x] 9.1 Unity Editor play mode: Bootstrap → Systems → Level → Gameplay scenes load
+- [x] 9.2 Press LightAttack key: intent routes to Combat Core
+- [x] 9.3 Press HeavyAttack key: intent routes to Combat Core
+- [x] 9.4 Debug Overlay shows combat state transitions and lock reasons
+- [x] 9.5 Verify attack rejection during recovery state
+- [x] 9.6 Verify hit/whiff resolution against target context
 
 ## 10. Scope Exclusions Verification
 
-- [ ] 10.1 Code review: No damage/health mutation present
-- [ ] 10.2 Code review: No hit reaction implementation
-- [ ] 10.3 Code review: No parry/dodge integration
-- [ ] 10.4 Code review: No counter window implementation beyond placeholder shape
-- [ ] 10.5 Code review: No enemy AI expansion
-- [ ] 10.6 Code review: No animation/root motion authority
-- [ ] 10.7 Code review: No combo system
-- [ ] 10.8 Code review: No stamina system
-- [ ] 10.9 Code review: No skill system
-- [ ] 10.10 Code review: No VFX/camera polish
-- [ ] 10.11 Code review: No target-relative movement rewrite
-- [ ] 10.12 Code review: No locomotion rewrite
-- [ ] 10.13 Code review: No camera-owned combat or target truth
-- [ ] 10.14 Code review: No generated DI
-- [ ] 10.15 Code review: No legacy Input Manager calls
-- [ ] 10.16 Code review: No hardcoded device polling via Keyboard.current, Mouse.current, Gamepad.current
-- [ ] 10.17 Code review: No FindObjectOfType, FindFirstObjectByType, GameObject.Find, Resources.Load
+- [x] 10.1 Code review: No damage/health mutation present
+- [x] 10.2 Code review: No hit reaction implementation
+- [x] 10.3 Code review: No parry/dodge integration
+- [x] 10.4 Code review: No counter window implementation beyond placeholder shape
+- [x] 10.5 Code review: No enemy AI expansion
+- [x] 10.6 Code review: No animation/root motion authority
+- [x] 10.7 Code review: No combo system
+- [x] 10.8 Code review: No stamina system
+- [x] 10.9 Code review: No skill system
+- [x] 10.10 Code review: No VFX/camera polish
+- [x] 10.11 Code review: No target-relative movement rewrite
+- [x] 10.12 Code review: No locomotion rewrite
+- [x] 10.13 Code review: No camera-owned combat or target truth
+- [x] 10.14 Code review: No generated DI
+- [x] 10.15 Code review: No legacy Input Manager calls
+- [x] 10.16 Code review: No hardcoded device polling via Keyboard.current, Mouse.current, Gamepad.current
+- [x] 10.17 Code review: No FindObjectOfType, FindFirstObjectByType, GameObject.Find, Resources.Load
 
 ## 11. Documentation & Handoff
 
-- [ ] 11.1 Update `M0Contracts.cs` XML docs for new combat types
-- [ ] 11.2 Add combat section to Debug Overlay documentation
-- [ ] 11.3 Verify Story 1-4 acceptance criteria pass
-- [ ] 11.4 Mark Story 1-4 as Complete in story file
-- [ ] 11.5 Update sprint-1.md task status for S1-4
+- [x] 11.1 Update `M0Contracts.cs` XML docs for new combat types
+- [x] 11.2 Add combat section to Debug Overlay documentation
+- [x] 11.3 Verify Story 1-4 acceptance criteria pass
+- [x] 11.4 Mark Story 1-4 as Complete in story file
+- [x] 11.5 Update sprint-1.md task status for S1-4

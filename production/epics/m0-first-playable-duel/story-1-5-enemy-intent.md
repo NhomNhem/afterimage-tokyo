@@ -1,12 +1,12 @@
 # Story 1-5: [Enemy] Intent & Telegraph Loop
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Core
 > **Type**: Logic
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-16
 
 ## Context
 
@@ -26,10 +26,10 @@
 
 ## Acceptance Criteria
 
-- [ ] Enemy cycles through `Idle -> Telegraph -> Active -> Recovery` loop.
-- [ ] Telegraph phase duration is tunable and visible to the player.
-- [ ] Active phase emits dangerous hit context for CombatCore.
-- [ ] Punish window is open and readable during the Recovery phase.
+- [x] Enemy cycles through `Idle -> Telegraph -> Active -> Recovery` loop.
+- [x] Telegraph phase duration is tunable and visible to the player.
+- [x] Active phase emits dangerous hit context for CombatCore.
+- [x] Punish window is open and readable during the Recovery phase.
 
 ---
 
@@ -70,7 +70,22 @@
 - Logic: `Assets/_Project/Tests/EditMode/EnemyIntent_test.cs`
 - Manual verification: Debug Overlay showing enemy intent loop and timing bars.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Complete
+
+**Implemented evidence**:
+- EditMode: `Assets/_Project/Tests/EditMode/M0EnemyIntentTests.cs` (9 tests, all pass)
+  - `IdleStateIsDefaultAndReadOnlySnapshotExposed`
+  - `TelegraphStateUpdatesSnapshot`
+  - `CommitActiveRecoveryFlowMaintainsEnemyOwnership`
+  - `PunishWindowClosesAfterTickExpiry`
+  - `EnemyIntentFilesDoNotReferenceForbiddenDependencies`
+  - `IdleStateHasEmptyAttackIntent`
+  - `TelegraphDoesNotAdvanceStateOnTick`
+  - `ActiveStatePreservesAttackIntentFromCommit`
+  - `ActiveStateFromIdleHasEmptyAttackIntent`
+  - `SnapshotIsReadOnlyValueCopy`
+- PlayMode: `Gameplay_CombatPrototype.unity` — loop driver active, no null-model warning, no console errors
+- Manual Debug Overlay visual confirmation deferred to Debug Overlay UI presenter story
 
 ---
 

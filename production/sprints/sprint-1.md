@@ -16,8 +16,8 @@ Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo S
 | S1-1 | [Foundation] Scene & VContainer Wiring | lead-programmer | 1.0 | None | Bootstrap loads all 6 scenes; VContainer resolves Core/Infrastructure/Domain. |
 | S1-2 | [Locomotion] Camera-Relative Movement | gameplay-programmer | 1.0 | S1-1 | Player moves relative to Camera basis; facing supports move/target directions. |
 | S1-3 | [Targeting] Lock-On Wiring | gameplay-programmer | 0.5 | S1-1 | Toggle Lock-On acquires/releases target; TargetContext is source of truth. |
-| S1-4 | [Combat] Player Attack Resolution | gameplay-programmer | 1.0 | S1-1, S1-2 | Light/Heavy attacks resolve in M0CombatCore; locks/recovery apply to Locomotion. |
-| S1-5 | [Enemy] Intent & Telegraph Loop | ai-programmer | 1.0 | S1-1 | Enemy cycles Telegraph -> Active -> Recovery; Punish window is readable. |
+| S1-4 ✅ | [Combat] Player Attack Resolution | gameplay-programmer | 1.0 | S1-1, S1-2 | Light/Heavy attacks resolve in M0CombatCore; locks/recovery apply to Locomotion. |
+| S1-5 ✅ | [Enemy] Intent & Telegraph Loop | ai-programmer | 1.0 | S1-1 | Enemy cycles Telegraph -> Active -> Recovery; Punish window is readable. |
 | S1-6 | [Combat] Parry & Dodge Integration | gameplay-programmer | 1.0 | S1-4, S1-5 | Parry/Dodge resolve in Core; successful Parry opens CounterWindow. |
 | S1-7 | [Consequence] Health & Hit Reactions | gameplay-programmer | 1.0 | S1-4, S1-5 | Damage applies to Health; Hit Reactions suppression applies to Locomotion. |
 | S1-8 | [Encounter] Reset & Duel Lifecycle | lead-programmer | 0.5 | S1-1, S1-7 | Encounter Start/End/Reset resets system states and participant positions. |
