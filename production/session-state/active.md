@@ -13,3 +13,9 @@
 - Story: production/epics/m0-first-playable-duel/story-1-2-camera-locomotion.md — [Locomotion] Camera-Relative Movement
 - Tech debt logged: None
 - Next recommended: None (user requested not to start Story 1-3 yet)
+
+## Session Extract — /story-done 2026-05-16
+- Verdict: COMPLETE
+- Story: production/epics/m0-first-playable-duel/story-1-6-defensive-wiring.md — [Combat] Parry & Dodge Integration
+- Tech debt logged: None
+- Next recommended: TBD (check sprint plan)

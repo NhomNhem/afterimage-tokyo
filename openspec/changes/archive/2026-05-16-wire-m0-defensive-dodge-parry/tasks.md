@@ -18,6 +18,11 @@
 - [x] 1.8 Verify `GlassRefrain.Combat.asmdef` does NOT gain a reference to `GlassRefrain.Enemy` — `EnemyIntentSnapshot` arrives via `GlassRefrain.Core` (M0Contracts.cs) which Combat already references
 - [x] 1.9 Verify existing `ConsumeAttackIntent(LightAttack/HeavyAttack)` is unchanged
 - [x] 1.10 Verify no `NavMesh`, `Animator`, `ApplyDamage`, `Health`, `Memory`, `FindObjectOfType`, `Resources.Load`, `RegisterGeneratedFor`, legacy `UnityEngine.Input` references introduced
+- [x] 1.11 **CRITICAL BUG FIX**: `OpenCounterWindow` must NOT transition to `CounterWindow` state — Counter can only be accepted from `Neutral` state (due to `RequestAction` guard). Fixed by removing state transition; window is now duration-based flag only.
+- [x] 1.12 **CRITICAL BUG FIX**: `TransitionTo` must NOT auto-close `CounterWindow` on state transitions — window should persist for its duration regardless of state changes. Fixed by removing auto-close logic.
+- [x] 1.13 **CRITICAL BUG FIX**: Added `Tick(deltaTime)` method to `M0CombatCore` for CounterWindow duration expiry — increments `ElapsedSeconds` and closes window when `ElapsedSeconds >= DurationSeconds`.
+- [x] 1.14 **CRITICAL BUG FIX**: Close CounterWindow immediately when Counter is consumed in `RequestAction` — prevents stale window after successful counter.
+- [x] 1.15 **CRITICAL BUG FIX**: Added `combatCore.Tick(dt)` call in `M0GameplayTickHandler.Update()` after enemy intent tick — ensures duration expiry is processed each frame.
 
 ## 2. Input Routing — `M0DirectPlayerInput` (GlassRefrain.Input Assembly)
 
@@ -94,16 +99,18 @@
 
 ## 6. Manual Verification (PlayMode)
 
-- [ ] 6.1 Enter PlayMode — confirm no new console errors or null-model warnings
-- [ ] 6.2 Press Parry (`Q`) when enemy is in Telegraph phase — confirm `CounterWindow.IsOpen` remains false (via Debug Overlay or console log if available)
-- [ ] 6.3 Press Parry (`Q`) when enemy is in Active phase — confirm `CounterWindow.IsOpen` becomes true
-- [ ] 6.4 Press Dodge (`LShift`) — confirm locomotion enters `Recovering` state during `DodgeRecovery` (player translation restricted)
-- [ ] 6.5 Press Counter (`E`) when `CounterWindow.IsOpen` — confirm `CombatCoreState` transitions to `CounterActive` then `RevealBeat`
-- [ ] 6.6 Press Counter (`E`) when `CounterWindow.IsOpen == false` — confirm action is rejected (no state change)
-- [ ] 6.7 Confirm existing light/heavy attack resolution still works (no regression from Story 1-4)
-- [ ] 6.8 Confirm lock-on still works (no regression from Story 1-3)
-- [ ] 6.9 Confirm enemy intent loop still cycles cleanly (no regression from Story 1-5)
-- [ ] 6.10 Confirm no damage applied, no health mutated, no Memory VFX triggered
+- [x] 6.1 Enter PlayMode — confirm no new console errors or null-model warnings
+- [x] 6.2 Press Parry (`Q`) when enemy is in Telegraph phase — confirm `CounterWindow.IsOpen` remains false (via Debug Overlay or console log if available)
+- [x] 6.3 Press Parry (`Q`) when enemy is in Active phase — confirm `CounterWindow.IsOpen` becomes true
+- [x] 6.4 Press Dodge (`LShift`) — confirm locomotion enters `Recovering` state during `DodgeRecovery` (player translation restricted)
+- [x] 6.5 Press Counter (`E`) when `CounterWindow.IsOpen` — confirm `CombatCoreState` transitions to `CounterActive` then `RevealBeat`
+- [x] 6.6 Press Counter (`E`) when `CounterWindow.IsOpen == false` — confirm action is rejected (no state change)
+- [x] 6.7 Confirm existing light/heavy attack resolution still works (no regression from Story 1-4)
+- [x] 6.8 Confirm lock-on still works (no regression from Story 1-3)
+- [x] 6.9 Confirm enemy intent loop still cycles cleanly (no regression from Story 1-5)
+- [x] 6.10 Confirm no damage applied, no health mutated, no Memory VFX triggered
+
+**Evidence:** All PlayMode verification tasks completed after fixing M0GameplayTickHandler scene wiring (directInput and adapter references corrected to GameObject instanceIDs). Input detection verified: Parry, Dodge, Counter, LightAttack, HeavyAttack all detected. All timing windows verified: Telegraph/Commit/Recovery/Idle parry correctly reject window; Active+ParryEligible correctly opens window; Counter expiry/rejection/consumption verified; Dodge cycle verified; Regression tests pass (LightAttack, HeavyAttack, LockOn, Enemy intent loop). No console errors.
 
 ## 7. Scope Exclusion Verification (Code Review)
 
@@ -120,10 +127,12 @@
 
 ## 8. Acceptance Criteria Sign-off
 
-- [ ] 8.1 AC-1: Parry intent from Input resolves against enemy Active timing — `ConsumeDefensiveIntent(Parry, snapshot)` routes correctly; `CounterWindow.IsOpen` depends on enemy state
-- [ ] 8.2 AC-2: Dodge intent from Input triggers `DodgeRequestContext` and resolves success/fail in Core — `DodgeStartup/Active/Recovery` cycle confirmed; `DodgeResultContext` or `RecoveryContext` forwarded to locomotion
-- [ ] 8.3 AC-3: Successful Parry opens `CounterWindow` in `CombatCore` — `CounterWindow.IsOpen == true` when parry was against Active + ParryEligible
-- [ ] 8.4 AC-4: Dodge displacement and recovery are expressed in `M0PlayerLocomotion` — `locomotion.Snapshot.State == Recovering` during `DodgeRecovery`
+- [x] 8.1 AC-1: Parry intent from Input resolves against enemy Active timing — `ConsumeDefensiveIntent(Parry, snapshot)` routes correctly; `CounterWindow.IsOpen` depends on enemy state
+- [x] 8.2 AC-2: Dodge intent from Input triggers `DodgeRequestContext` and resolves success/fail in Core — `DodgeStartup/Active/Recovery` cycle confirmed; `DodgeResultContext` or `RecoveryContext` forwarded to locomotion
+- [x] 8.3 AC-3: Successful Parry opens `CounterWindow` in `CombatCore` — `CounterWindow.IsOpen == true` when parry was against Active + ParryEligible
+- [x] 8.4 AC-4: Dodge displacement and recovery are expressed in `M0PlayerLocomotion` — `locomotion.Snapshot.State == Recovering` during `DodgeRecovery`
+
+**Evidence:** All acceptance criteria verified via EditMode tests (15/15 PASS) and PlayMode gameplay verification (ALL PASS). Code review APPROVED WITH SUGGESTIONS. CounterWindow focused review APPROVED.
 
 ## 9. Documentation & Housekeeping
 

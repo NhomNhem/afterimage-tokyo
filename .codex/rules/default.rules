@@ -1,0 +1,305 @@
+# afterimage-tokyo / Glass Refrain Codex execution rules
+# Purpose:
+# - Allow safe read/build/test commands.
+# - Prompt before commands that mutate git/history/project files.
+# - Block high-risk destructive operations.
+
+# =========================
+# Safe read-only commands
+# =========================
+
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log", "branch", "remote", "show"]],
+    decision = "allow",
+    justification = "Read-only Git inspection is safe for project analysis.",
+    match = [
+        "git status",
+        "git diff",
+        "git log --oneline -20",
+        "git branch",
+        "git remote -v",
+        "git show HEAD",
+    ],
+)
+
+prefix_rule(
+    pattern = ["rg"],
+    decision = "allow",
+    justification = "ripgrep search is read-only and useful for codebase navigation.",
+    match = [
+        "rg VContainer",
+        "rg \"ICombatCoreService\" Assets/_Project",
+    ],
+)
+
+prefix_rule(
+    pattern = ["dir"],
+    decision = "allow",
+    justification = "Directory listing is read-only.",
+    match = [
+        "dir",
+        "dir Assets",
+    ],
+)
+
+prefix_rule(
+    pattern = ["ls"],
+    decision = "allow",
+    justification = "Directory listing is read-only.",
+    match = [
+        "ls",
+        "ls Assets",
+    ],
+)
+
+prefix_rule(
+    pattern = ["cat"],
+    decision = "allow",
+    justification = "Reading files is safe.",
+    match = [
+        "cat AGENTS.md",
+        "cat Packages/manifest.json",
+    ],
+)
+
+prefix_rule(
+    pattern = ["type"],
+    decision = "allow",
+    justification = "Reading files is safe on Windows.",
+    match = [
+        "type AGENTS.md",
+        "type Packages\\manifest.json",
+    ],
+)
+
+# =========================
+# Build / test commands
+# =========================
+
+prefix_rule(
+    pattern = ["dotnet", ["build", "test", "restore"]],
+    decision = "allow",
+    justification = "dotnet build/test/restore are expected development operations.",
+    match = [
+        "dotnet build",
+        "dotnet test",
+        "dotnet restore",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pwsh", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/release-gate.ps1"],
+    decision = "prompt",
+    justification = "Release gate can compile/run project checks; prompt before execution.",
+    match = [
+        "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/release-gate.ps1",
+    ],
+)
+
+prefix_rule(
+    pattern = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/release-gate.ps1"],
+    decision = "prompt",
+    justification = "Release gate can compile/run project checks; prompt before execution.",
+    match = [
+        "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/release-gate.ps1",
+    ],
+)
+
+# =========================
+# Git mutation commands
+# =========================
+
+prefix_rule(
+    pattern = ["git", ["add", "commit", "restore", "checkout", "switch", "merge", "rebase", "stash", "tag"]],
+    decision = "prompt",
+    justification = "Git mutations should be reviewed before changing project state.",
+    match = [
+        "git add .",
+        "git commit -m test",
+        "git restore Assets/_Project",
+        "git checkout main",
+        "git switch feat/combat",
+        "git merge main",
+        "git rebase main",
+        "git stash",
+        "git tag v0.1.0",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "prompt",
+    justification = "Pushing changes affects the remote repository.",
+    match = [
+        "git push",
+        "git push origin feat/combat",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "pull"],
+    decision = "prompt",
+    justification = "Pulling can merge/rebase and alter the working tree.",
+    match = [
+        "git pull",
+        "git pull --rebase",
+    ],
+)
+
+# =========================
+# Dangerous Git commands
+# =========================
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Hard reset can destroy local work. Use git restore selectively after user approval.",
+    match = [
+        "git reset --hard",
+        "git reset --hard HEAD",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "clean"],
+    decision = "prompt",
+    justification = "git clean can delete untracked files. Review before running.",
+    match = [
+        "git clean -fd",
+        "git clean -fdx",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--force"],
+    decision = "forbidden",
+    justification = "Force push can rewrite shared history. Use a protected branch or explicit manual command.",
+    match = [
+        "git push --force",
+        "git push --force origin main",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "branch", "-D"],
+    decision = "prompt",
+    justification = "Deleting branches should be confirmed.",
+    match = [
+        "git branch -D feat/old-work",
+    ],
+)
+
+# =========================
+# Package manager commands
+# =========================
+
+prefix_rule(
+    pattern = ["npm", ["install", "update", "audit", "run"]],
+    decision = "prompt",
+    justification = "Node package commands can modify lockfiles or execute scripts.",
+    match = [
+        "npm install",
+        "npm update",
+        "npm audit fix",
+        "npm run build",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pnpm", ["install", "update", "run"]],
+    decision = "prompt",
+    justification = "Package manager commands can modify lockfiles or execute scripts.",
+    match = [
+        "pnpm install",
+        "pnpm update",
+        "pnpm run build",
+    ],
+)
+
+# =========================
+# Destructive file operations
+# =========================
+
+prefix_rule(
+    pattern = ["rm", "-rf"],
+    decision = "prompt",
+    justification = "Recursive deletion is dangerous. Confirm target before deleting.",
+    match = [
+        "rm -rf Library",
+        "rm -rf Temp",
+    ],
+    not_match = [
+        "rm file.txt",
+    ],
+)
+
+prefix_rule(
+    pattern = ["del"],
+    decision = "prompt",
+    justification = "Deleting files should be reviewed.",
+    match = [
+        "del file.txt",
+    ],
+)
+
+prefix_rule(
+    pattern = ["rmdir"],
+    decision = "prompt",
+    justification = "Removing directories should be reviewed.",
+    match = [
+        "rmdir /s Library",
+    ],
+)
+
+prefix_rule(
+    pattern = ["Remove-Item"],
+    decision = "prompt",
+    justification = "PowerShell deletion should be reviewed.",
+    match = [
+        "Remove-Item Library -Recurse -Force",
+    ],
+)
+
+# =========================
+# Network / external side effects
+# =========================
+
+prefix_rule(
+    pattern = ["curl"],
+    decision = "prompt",
+    justification = "Network calls should be reviewed for security.",
+    match = [
+        "curl https://example.com",
+    ],
+)
+
+prefix_rule(
+    pattern = ["wget"],
+    decision = "prompt",
+    justification = "Network downloads should be reviewed for security.",
+    match = [
+        "wget https://example.com/file.zip",
+    ],
+)
+
+# =========================
+# Absolute no-go commands
+# =========================
+
+prefix_rule(
+    pattern = ["format"],
+    decision = "forbidden",
+    justification = "Disk formatting is never allowed from an agent.",
+    match = [
+        "format C:",
+    ],
+)
+
+prefix_rule(
+    pattern = ["shutdown"],
+    decision = "forbidden",
+    justification = "System shutdown is outside project work.",
+    match = [
+        "shutdown /s",
+    ],
+)

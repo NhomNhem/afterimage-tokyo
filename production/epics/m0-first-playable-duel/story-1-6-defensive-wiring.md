@@ -1,12 +1,12 @@
 # Story 1-6: [Combat] Parry & Dodge Integration
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Core
 > **Type**: Logic/Integration
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-16
 
 ## Context
 
@@ -78,3 +78,13 @@
 
 - Depends on: Story 1-3, Story 1-4, Story 1-5
 - Unlocks: Story 1-7, Story 1-10
+
+---
+
+## Completion Notes
+**Completed**: 2026-05-16
+**Criteria**: 4/4 passing (all verified via EditMode tests and runtime input verification)
+**Deviations**: None
+**Test Evidence**: Logic test file at Assets/_Project/Tests/EditMode/M0DefensiveResolutionTests.cs (15/15 PASS), runtime input verification PASS, PlayMode gameplay verification PASS
+**Code Review**: APPROVED WITH SUGGESTIONS
+**Scene Wiring**: Gameplay_CombatPrototype.unity fixed and saved (M0GameplayTickHandler references corrected to GameObject instanceIDs)
