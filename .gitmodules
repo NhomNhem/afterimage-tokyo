@@ -1,3 +1,6 @@
 [submodule "afterimage-tokyo-docs"]
 	path = afterimage-tokyo-docs
 	url = https://github.com/NhomNhem/afterimage-tokyo-docs.git
+[submodule "afterimage-tokyo-gameclient"]
+	path = afterimage-tokyo
+	url = https://github.com/NhomNhem/afterimage-tokyo-gamecilent.git

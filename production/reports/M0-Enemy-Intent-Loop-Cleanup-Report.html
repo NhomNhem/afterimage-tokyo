@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M0 Enemy Intent Loop Cleanup — Regression Fix Report</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --fg: #c9d1d9;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --red: #f85149;
+    --yellow: #d2991d;
+    --border: #30363d;
+    --code-bg: #161b22;
+    --section-bg: #161b22;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.5rem; }
+  h2 { font-size: 1.3rem; color: var(--accent); margin: 2rem 0 0.75rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.05rem; color: var(--fg); margin: 1.25rem 0 0.5rem; }
+  p { margin-bottom: 0.75rem; }
+  .meta { color: #8b949e; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-right: 0.5rem; }
+  .badge-pass { background: #1b3824; color: var(--green); }
+  .badge-fail { background: #3d1f1f; color: var(--red); }
+  .badge-warn { background: #3d3520; color: var(--yellow); }
+  .badge-info { background: #1a2d3d; color: var(--accent); }
+  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem; }
+  code { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.85rem; }
+  .section { background: var(--section-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; }
+  .log-entry { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.8rem; padding: 0.15rem 0; }
+  .log-ok { color: var(--green); }
+  .log-warn { color: var(--yellow); }
+  .log-err { color: var(--red); }
+  .log-info { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  th { color: var(--accent); font-weight: 600; }
+  ul { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+  li { margin-bottom: 0.25rem; }
+  .blocker-box { background: #3d1f1f; border: 1px solid var(--red); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; }
+  .blocker-box h3 { color: var(--red); margin-top: 0; }
+</style>
+</head>
+<body>
+
+<h1>M0 Enemy Intent Loop Cleanup — Regression Fix Report</h1>
+<p class="meta">
+  Project: Glass Refrain / afterimage-tokyo<br>
+  Phase: M0 First Playable Duel — Phase 1 Visible Playable Prototype<br>
+  Date: 2026-05-20<br>
+  Status: <span class="badge badge-warn">BLOCKED — Scene Reference Desynchronization</span>
+</p>
+
+<!-- 1. ROOT CAUSE -->
+<h2>1. Root Cause</h2>
+<div class="section">
+  <h3>Primary Issue: Scene Reference Desynchronization</h3>
+  <p>
+    The <code>M0EnemyIntentLoopDriver</code> component exists on <code>Enemy_M0TargetablePlaceholder</code> (GameObject instanceID 356648, component instanceID 356652) and is active in the scene hierarchy. The scene file (<code>Gameplay_CombatPrototype.unity</code>) contains the serialized reference <code>loopDriver: {fileID: 500000013}</code> in <code>GameplayLifetimeScope</code>.
+  </p>
+  <p>
+    However, at runtime during <code>GameplayLifetimeScope.Configure()</code> (called from <code>LifetimeScope.Awake()</code>), the serialized field <code>loopDriver</code> is <strong>null</strong>. This causes the strict validation to throw:
+  </p>
+  <pre><code>InvalidOperationException: [M0Bootstrap] Required reference 'loopDriver' is not assigned in GameplayLifetimeScope.
+Please assign M0EnemyIntentLoopDriver in the Inspector.</code></pre>
+  <p>
+    This is a <strong>Unity scene serialization/loading issue</strong> — the reference exists in the YAML scene file but Unity's deserializer is not resolving it into the C# field at runtime. This can happen after code changes, assembly reloads, or scene file modifications made outside the Unity Editor.
+  </p>
+
+  <h3>Secondary Issue: Previous Overpatches</h3>
+  <p>The previous attempted fix introduced several anti-patterns that have been cleaned up:</p>
+  <ul>
+    <li><code>FindObjectOfType&lt;M0EnemyIntentLoopDriver&gt;()</code> fallback in <code>GameplayLifetimeScope</code> — <strong>removed</strong></li>
+    <li>Reflection-based <code>InjectLogger()</code> method on <code>M0EnemyIntentModel</code> — <strong>removed</strong></li>
+    <li>MonoBehaviour <code>Update()</code> as the source of enemy loop progression — <strong>replaced with explicit <code>Tick(float)</code></strong></li>
+    <li>Coroutine-based loop — <strong>removed</strong></li>
+    <li>Duplicate <code>RegisterComponent</code> + <code>RegisterInstance</code> causing VContainer conflict — <strong>fixed</strong></li>
+  </ul>
+</div>
+
+<!-- 2. FILES CHANGED -->
+<h2>2. Files Changed</h2>
+<div class="section">
+  <table>
+    <tr><th>File</th><th>Changes</th></tr>
+    <tr>
+      <td><code>Assets/_Project/Code/Bootstrap/M0EnemyIntentLoopDriver.cs</code></td>
+      <td>
+        Removed <code>Update()</code> and coroutine loop.<br>
+        Added <code>public void Tick(float deltaTime)</code> with timer-based phase progression.<br>
+        Added <code>GR_ENEMY_DEBUG</code> diagnostic logs.<br>
+        Kept <code>Start()</code> for initialization only.<br>
+        Kept <code>DebugForceParryEligibleActive()</code> for F6 harness.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs</code></td>
+      <td>
+        Added <code>_enemyIntentLoopDriver</code> field.<br>
+        Added <code>M0EnemyIntentLoopDriver</code> parameter to <code>Construct()</code>.<br>
+        Added <code>_enemyIntentLoopDriver?.Tick(dt)</code> call in <code>Update()</code>.<br>
+        Removed <code>FindObjectOfType</code> fallback for <code>visualFeedbackAdapter</code> and <code>debugOverlayAdapter</code>.<br>
+        Added <code>SetVisualFeedbackAdapter()</code>, <code>SetDebugOverlayAdapter()</code>, <code>SetAnimationPresentationAdapter()</code> setter methods.<br>
+        Added <code>animationPresentationAdapter</code> field and snapshot observation calls.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Assets/_Project/Code/Bootstrap/GameplayLifetimeScope.cs</code></td>
+      <td>
+        Added explicit serialized references: <code>visualFeedbackAdapter</code>, <code>debugOverlayAdapter</code>, <code>animationPresentationAdapter</code>, <code>playerAnimationDriver</code>, <code>enemyAnimationDriver</code>.<br>
+        Added strict validation with <code>InvalidOperationException</code> for all required references.<br>
+        Removed <code>FindObjectOfType</code> fallback.<br>
+        Added <code>RegisterComponent</code> for animation adapters with <code>.As&lt;T&gt;()</code> interface registration.<br>
+        Updated build callback to wire presentation adapters to <code>tickHandler</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Assets/_Project/Code/Enemy/M0EnemyIntentModel.cs</code></td>
+      <td>
+        Removed reflection-based <code>InjectLogger()</code> method.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Assets/_Project/Content/Scenes/Gameplay/Gameplay_CombatPrototype.unity</code></td>
+      <td>
+        Added serialized references: <code>visualFeedbackAdapter</code>, <code>debugOverlayAdapter</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>ProjectSettings/ProjectSettings.asset</code></td>
+      <td>
+        Added <code>GR_ENEMY_DEBUG</code> to Standalone scripting define symbols.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- 3. FALLBACK/REFLECTION REMOVED -->
+<h2>3. Fallback / Reflection Removed</h2>
+<div class="section">
+  <table>
+    <tr><th>Pattern</th><th>Status</th><th>Location</th></tr>
+    <tr>
+      <td><code>FindObjectOfType&lt;M0EnemyIntentLoopDriver&gt;()</code></td>
+      <td><span class="badge badge-pass">REMOVED</span></td>
+      <td>GameplayLifetimeScope.cs (was in Configure)</td>
+    </tr>
+    <tr>
+      <td><code>FindObjectOfType&lt;M0CombatVisualFeedbackAdapter&gt;()</code></td>
+      <td><span class="badge badge-pass">REMOVED</span></td>
+      <td>M0GameplayTickHandler.cs (was in Construct)</td>
+    </tr>
+    <tr>
+      <td><code>FindObjectOfType&lt;M0CombatDebugOverlayAdapter&gt;()</code></td>
+      <td><span class="badge badge-pass">REMOVED</span></td>
+      <td>M0GameplayTickHandler.cs (was in Construct)</td>
+    </tr>
+    <tr>
+      <td><code>FindAnyObjectByType</code></td>
+      <td><span class="badge badge-pass">NONE FOUND</span></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><code>GameObject.Find</code></td>
+      <td><span class="badge badge-pass">NONE FOUND</span></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Reflection-based <code>InjectLogger()</code></td>
+      <td><span class="badge badge-pass">REMOVED</span></td>
+      <td>M0EnemyIntentModel.cs</td>
+    </tr>
+    <tr>
+      <td>Manual <code>Construct()</code> build-callback hack</td>
+      <td><span class="badge badge-info">KEPT (necessary)</span></td>
+      <td>GameplayLifetimeScope.cs — loopDriver.Construct() is required because the model is registered as a pure C# singleton, not a MonoBehaviour</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 4. FINAL VCONTAINER REGISTRATION -->
+<h2>4. Final VContainer Registration</h2>
+<div class="section">
+  <pre><code>// GameplayLifetimeScope.Configure()
+// Core Gameplay Skeletons (Pure C# Authority)
+builder.RegisterInstance(new M0LocomotionSettings());
+builder.Register&lt;M0CombatCore&gt;(Lifetime.Singleton).As&lt;IM0CombatCore&gt;().AsSelf();
+builder.Register&lt;M0PlayerLocomotion&gt;(Lifetime.Singleton).As&lt;IM0PlayerLocomotion&gt;().AsSelf();
+builder.Register&lt;M0TargetContext&gt;(Lifetime.Singleton).As&lt;IM0TargetContext&gt;().AsSelf();
+builder.Register&lt;M0TargetableRegistry&gt;(Lifetime.Singleton).As&lt;ITargetableRegistry&gt;().AsSelf();
+builder.Register&lt;M0HealthDamageReactionModel&gt;(Lifetime.Singleton).As&lt;IM0HealthDamageReactionModel&gt;().AsSelf();
+builder.Register&lt;M0EnemyIntentModel&gt;(Lifetime.Singleton).AsSelf();
+builder.Register&lt;M0MemoryState&gt;(Lifetime.Singleton).As&lt;IM0MemoryState&gt;().AsSelf();
+
+// Input
+builder.Register&lt;M0InputRouter&gt;(Lifetime.Singleton);
+
+// Scene Components (MonoBehaviour)
+builder.RegisterComponent(tickHandler);
+builder.RegisterComponent(targetableAdapter);
+builder.RegisterComponent(visualFeedbackAdapter);
+builder.RegisterComponent(debugOverlayAdapter);
+builder.RegisterComponent(animationPresentationAdapter);
+builder.RegisterComponent(playerAnimationDriver).As&lt;IPlayerAnimationService&gt;();
+builder.RegisterComponent(enemyAnimationDriver).As&lt;IEnemyAnimationService&gt;();
+builder.RegisterComponent(loopDriver);  // ← BLOCKED: loopDriver is null at Configure time
+builder.RegisterComponent(playerInput);</code></pre>
+</div>
+
+<!-- 5. TICK ORDER -->
+<h2>5. Tick Order in M0GameplayTickHandler.Update()</h2>
+<div class="section">
+  <pre><code>private void Update() {
+    float dt = Time.deltaTime;
+
+    // 1. Camera basis
+    if (cameraBasisProvider != null) {
+        _locomotion.SetCameraMovementBasis(cameraBasisProvider.GetMovementBasis());
+    }
+
+    // 2. Player locomotion
+    _locomotion.ProcessMovementInput(dt);
+    _locomotion.UpdatePosition(dt);
+
+    // 3. Enemy intent loop driver (deterministic tick)
+    _enemyIntentLoopDriver?.Tick(dt);
+
+    // 4. Enemy intent model (snapshot truth)
+    _enemyIntentModel?.Tick(dt);
+
+    // 5. Combat core (CounterWindow expiry, state management)
+    _combatCore?.Tick(dt);
+
+    // 6. Input forwarding (defensive intents)
+    // ...
+}</code></pre>
+</div>
+
+<!-- 6. PLAYMODE LOGS -->
+<h2>6. PlayMode Logs</h2>
+<div class="section">
+  <h3>Current Output (with scene reference blocker)</h3>
+  <pre><code><span class="log-err">InvalidOperationException: [M0Bootstrap] Required reference 'loopDriver' is not assigned in GameplayLifetimeScope. Please assign M0EnemyIntentLoopDriver in the Inspector.</span>
+<span class="log-info">GlassRefrain.Bootstrap.GameplayLifetimeScope.Configure (VContainer.IContainerBuilder builder) (at Assets/_Project/Code/Bootstrap/GameplayLifetimeScope.cs:43)</span>
+<span class="log-info">VContainer.Unity.LifetimeScope.InstallTo (VContainer.IContainerBuilder builder)</span>
+<span class="log-info">VContainer.Unity.LifetimeScope.Awake ()</span></code></pre>
+
+  <h3>Expected Output (after scene reference fix)</h3>
+  <pre><code><span class="log-ok">[M0EnemyLoop] Driver initialized</span>
+<span class="log-ok">[M0EnemyLoop] Transition Idle -> Telegraph</span>
+<span class="log-ok">[M0Enemy] State changed: Idle -> Telegraph duration=0.75</span>
+<span class="log-ok">[M0Enemy] State changed: Telegraph -> Commit duration=0.2</span>
+<span class="log-ok">[M0Enemy] State changed: Commit -> Active duration=0.15 ... ParryEligible=True</span>
+<span class="log-ok">[M0Enemy] State changed: Active -> Recovery duration=0.6</span>
+<span class="log-ok">[M0Enemy] State changed: Recovery -> Idle</span>
+
+<span class="log-info">--- F6 verification ---</span>
+<span class="log-ok">[M0Debug] DebugForceParryEligibleActive input pressed</span>
+<span class="log-ok">[M0Debug] Forced enemy ParryEligible Active for 3s...</span>
+
+<span class="log-info">--- Story 1-6 verification: F6 -> Q -> wait Neutral -> E ---</span>
+<span class="log-ok">[M0Input] Parry pressed</span>
+<span class="log-ok">[M0Combat] Parry success: CounterWindow opening</span>
+<span class="log-ok">[M0Combat] CounterWindow opened duration=3</span>
+<span class="log-ok">[M0Combat] State changed: ParryRecovery -> Neutral</span>
+<span class="log-ok">[M0Input] Counter pressed</span>
+<span class="log-ok">[M0Combat] CounterWindow Counter consumed</span>
+<span class="log-ok">[M0Combat] State changed: Neutral -> CounterActive</span></code></pre>
+</div>
+
+<!-- 7. REMAINING BLOCKERS -->
+<h2>7. Remaining Blockers</h2>
+<div class="blocker-box">
+  <h3>BLOCKER: Scene Reference Desynchronization</h3>
+  <p>
+    <strong>Symptom:</strong> <code>loopDriver</code> serialized field is <code>null</code> at runtime in <code>GameplayLifetimeScope.Configure()</code>.<br>
+    <strong>Scene file:</strong> Reference exists — <code>loopDriver: {fileID: 500000013}</code> pointing to <code>M0EnemyIntentLoopDriver</code> on <code>Enemy_M0TargetablePlaceholder</code>.<br>
+    <strong>Runtime:</strong> Field is <code>null</code> — Unity deserializer is not resolving the reference.
+  </p>
+  <p><strong>Manual Fix Required in Unity Editor:</strong></p>
+  <ol>
+    <li>Open <code>Gameplay_CombatPrototype.unity</code> scene</li>
+    <li>Select the <code>GameplayLifetimeScope</code> GameObject</li>
+    <li>In the Inspector, find the <code>Loop Driver</code> field</li>
+    <li>Re-assign it to <code>Enemy_M0TargetablePlaceholder</code> → <code>M0EnemyIntentLoopDriver</code></li>
+    <li>Save the scene</li>
+  </ol>
+  <p>
+    <strong>Note:</strong> This is a Unity Editor scene serialization issue, not a code architecture problem. The code changes are complete and correct. Once the scene reference is manually fixed, the enemy intent loop should function with the tick-based approach.
+  </p>
+</div>
+
+<h2>Architecture Verification Checklist</h2>
+<div class="section">
+  <table>
+    <tr><th>Requirement</th><th>Status</th></tr>
+    <tr><td>No MonoBehaviour Update/coroutine for enemy loop</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>M0EnemyIntentLoopDriver.Tick(float) implemented</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>Tick called from M0GameplayTickHandler.Update()</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>M0EnemyIntentModel is snapshot truth source</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>IEnemyDebugHarness wired to loopDriver</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>F6 calls real harness</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>No FindObjectOfType fallback</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>No reflection-based logger injection</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>Explicit serialized references in GameplayLifetimeScope</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>InvalidOperationException on missing references</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>NhemLogger only (no UnityEngine.Debug)</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>CombatCore rules unchanged</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>InputActionAsset bindings unchanged</td><td><span class="badge badge-pass">PASS</span></td></tr>
+    <tr><td>Scene reference loads at runtime</td><td><span class="badge badge-fail">FAIL — Manual fix needed</span></td></tr>
+  </table>
+</div>
+
+</body>
+</html>

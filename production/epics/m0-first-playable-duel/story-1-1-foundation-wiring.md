@@ -1,12 +1,12 @@
 # Story 1-1: [Foundation] Scene & VContainer Wiring
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Complete
+> **Status**: Verified
 > **Layer**: Foundation
 > **Type**: Integration
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-19
 
 ## Context
 
@@ -88,3 +88,9 @@
 **Test Evidence**: Integration tests at `Assets/_Project/Tests/EditMode/SceneComposition_test.cs` and `VContainerRegistry_test.cs`. Manual Unity Editor verification confirmed.
 **Code Review**: Skipped (Lean mode verification only)
 **OpenSpec Change**: `wire-m0-foundation-and-vcontainer`
+
+## Verification Update — 2026-05-19
+
+**Validated Status**: VERIFIED
+
+**Evidence**: Strict manual DI restored for M0; generated DI runtime composition removed; PlayMode startup/composition verified clean.

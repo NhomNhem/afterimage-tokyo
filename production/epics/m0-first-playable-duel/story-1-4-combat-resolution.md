@@ -1,12 +1,12 @@
 # Story 1-4: [Combat] Player Attack Resolution
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Complete
+> **Status**: Verified
 > **Layer**: Core
 > **Type**: Logic
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-19
 
 ## Context
 
@@ -94,6 +94,18 @@
 - `CameraMovementBasisProvider` uses `Camera.main` fallback when Camera scene not additive-loaded (non-blocking tech debt)
 - `ResolveAttack` is `public` — suggest `internal` in a future cleanup pass
 - Existing unrelated `NhemBootstrap` EditMode test failure is separate tooling debt
+
+## Verification Update — 2026-05-19
+
+**Validated Status**: VERIFIED
+
+Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral.
+
+Additional evidence:
+- M0CombatCoreTests pass 13/13.
+- Snapshot sync regression was fixed.
+- Combat state progression is verified in EditMode.
+- The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput.
 
 ---
 

@@ -13,11 +13,11 @@ Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo S
 ### Must Have (Critical Path)
 | ID | Task | Agent/Owner | Est. Days | Dependencies | Acceptance Criteria |
 |----|------|-------------|-----------|-------------|-------------------|
-| S1-1 | [Foundation] Scene & VContainer Wiring | lead-programmer | 1.0 | None | Bootstrap loads all 6 scenes; VContainer resolves Core/Infrastructure/Domain. |
+| S1-1 ✅ | [Foundation] Scene & VContainer Wiring | lead-programmer | 1.0 | None | Bootstrap loads all 6 scenes; VContainer resolves Core/Infrastructure/Domain. |
 | S1-2 | [Locomotion] Camera-Relative Movement | gameplay-programmer | 1.0 | S1-1 | Player moves relative to Camera basis; facing supports move/target directions. |
 | S1-3 | [Targeting] Lock-On Wiring | gameplay-programmer | 0.5 | S1-1 | Toggle Lock-On acquires/releases target; TargetContext is source of truth. |
 | S1-4 ✅ | [Combat] Player Attack Resolution | gameplay-programmer | 1.0 | S1-1, S1-2 | Light/Heavy attacks resolve in M0CombatCore; locks/recovery apply to Locomotion. |
-| S1-5 ✅ | [Enemy] Intent & Telegraph Loop | ai-programmer | 1.0 | S1-1 | Enemy cycles Telegraph -> Active -> Recovery; Punish window is readable. |
+| S1-5 | [Enemy] Intent & Telegraph Loop | ai-programmer | 1.0 | S1-1 | Enemy cycles Telegraph -> Active -> Recovery; Punish window is readable. |
 | S1-6 | [Combat] Parry & Dodge Integration | gameplay-programmer | 1.0 | S1-4, S1-5 | Parry/Dodge resolve in Core; successful Parry opens CounterWindow. |
 | S1-7 | [Consequence] Health & Hit Reactions | gameplay-programmer | 1.0 | S1-4, S1-5 | Damage applies to Health; Hit Reactions suppression applies to Locomotion. |
 | S1-8 | [Encounter] Reset & Duel Lifecycle | lead-programmer | 0.5 | S1-1, S1-7 | Encounter Start/End/Reset resets system states and participant positions. |
@@ -32,6 +32,34 @@ Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo S
 | ID | Task | Agent/Owner | Est. Days | Dependencies | Acceptance Criteria |
 |----|------|-------------|-----------|-------------|-------------------|
 | S1-11 | [Presentation] Animator Observer Adapters | lead-programmer | 1.0 | S1-4, S1-5 | Animator observes states/resolutions to trigger clips; no authority in Animator. |
+
+## Current Validated Status — 2026-05-19
+
+Sprint status is based on verified M0 Combat EditMode and PlayMode evidence, not earlier progress summaries.
+
+| Story / Task | Validated Status | Evidence / Remaining Verification |
+|---|---|---|
+| S1-1 [Foundation] Scene & VContainer Wiring | VERIFIED | Strict manual DI restored; PlayMode startup/composition clean. |
+| S1-2 [Locomotion] Camera-Relative Movement | IMPLEMENTED - NEEDS VERIFICATION | WASD movement still needs clean manual verification. |
+| S1-3 [Targeting] Lock-On Wiring | IMPLEMENTED - NEEDS VERIFICATION | LockOn input route observed; target acquisition/context change not proven. |
+| S1-4 [Combat] Player Attack Resolution | VERIFIED | M0CombatCoreTests pass 13/13; LightAttack and HeavyAttack PlayMode cycles verified with Mouse Left and Mouse Right. |
+| S1-5 [Enemy] Intent & Telegraph Loop | IMPLEMENTED - NEEDS VERIFICATION | Enemy cycling previously observed; parry-eligible timing/counter-window path remains unproven. |
+| S1-6 [Combat] Parry & Dodge Integration | IMPLEMENTED - NEEDS COUNTER WINDOW VERIFICATION | Dodge and Parry basic cycles verified; CounterWindow open/accepted counter path remains unverified. |
+| S1-7 [Consequence] Health & Hit Reactions | READY FOR DEV | Do not start implementation from this status update. |
+| S1-8 [Encounter] Reset & Duel Lifecycle | READY FOR DEV | Lifecycle wiring still needs verification before upgrade. |
+| S1-9 [Presentation] Debug Overlay Snapshots | PARTIAL / IN PROGRESS | Combat/enemy labels update; last input, lock-on, and counter-window visibility still need confirmation. |
+| S1-10 [Memory] Reveal & VFX Placeholder | BACKLOG | RevealBeat path not verified. |
+| S1-11 [Presentation] Animator Observer Adapters | BACKLOG | No verification evidence. |
+
+### Verification Corrections
+
+The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput.
+
+Actual M0 bindings: Move=WASD, LightAttack=Mouse Left, HeavyAttack=Mouse Right, Dodge=Left Shift, Parry=Q, Counter=E, LockOn=Tab, ResetEncounter=R, ToggleDebugOverlay=F3.
+
+Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral.
+
+Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path remains unverified.
 
 ## Carryover from Previous Sprint
 | Task | Reason | New Estimate |

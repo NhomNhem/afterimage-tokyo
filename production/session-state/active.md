@@ -19,3 +19,9 @@
 - Story: production/epics/m0-first-playable-duel/story-1-6-defensive-wiring.md — [Combat] Parry & Dodge Integration
 - Tech debt logged: None
 - Next recommended: TBD (check sprint plan)
+
+## Session Extract — /story-done 2026-05-21
+- Verdict: COMPLETE WITH NOTES
+- Story: production/epics/m0-first-playable-duel/story-1-7-health-consequence.md — [Consequence] Health & Hit Reactions
+- Tech debt logged: 1 item (`harden-m0-health-combat-confirmation-contract`)
+- Next recommended: production/epics/m0-first-playable-duel/story-1-8-encounter-lifecycle.md

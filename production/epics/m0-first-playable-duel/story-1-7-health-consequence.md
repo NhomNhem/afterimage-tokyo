@@ -1,12 +1,12 @@
 # Story 1-7: [Consequence] Health & Hit Reactions
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Core
 > **Type**: Logic/Integration
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-21
 
 ## Context
 
@@ -26,10 +26,23 @@
 
 ## Acceptance Criteria
 
-- [ ] Damage is applied to Health only after a confirmed `CombatCore` hit result.
-- [ ] Hit Reaction state triggers movement/control suppression in `M0PlayerLocomotion`.
-- [ ] Stagger state in enemy is triggered by player hits or counter success.
-- [ ] Health state (current/max) is visible in debug.
+- [x] Damage is applied to Health only after a confirmed `CombatCore` hit result.
+- [x] Hit Reaction state triggers movement/control suppression in `M0PlayerLocomotion`.
+- [x] Hit-reaction intent placeholder is emitted after valid player hit/counter consequence.
+- [x] Health snapshot/state change event is observable for debug integration (full Debug Overlay rendering is out of scope in this story).
+
+---
+
+## Requirement Trace
+
+**TR-M0-HEALTH-001**: Health / Damage / Hit Reaction owns damage/application and consequence truth.
+
+- AC1 maps to TR-M0-HEALTH-001 consequence gating: Health applies damage only from resolved `CombatCore` outcomes.
+- AC2 maps to TR-M0-HEALTH-001 reaction consequence: Hit Reaction emits suppression context consumed by `M0PlayerLocomotion`.
+- AC3 maps to TR-M0-HEALTH-001 reaction consequence: Successful resolved hits/counters emit health-owned hit-reaction intent placeholder.
+- AC4 maps to TR-M0-HEALTH-001 debug visibility: Health consequence snapshot/event is exposed for read-only debug integration.
+
+Boundary note: Health/Hit Reaction observes resolved combat outcomes and applies consequence truth; it must not replace or bypass `CombatCore` action validity/result authority.
 
 ---
 
@@ -44,6 +57,8 @@
 ## Out of Scope
 
 - [Story 1-8]: Encounter reset on defeat.
+- Full enemy stagger gameplay implementation.
+- Full Debug Overlay UI rendering/wiring for health channels.
 
 ---
 
@@ -63,14 +78,23 @@
 
 ---
 
+## Performance Budget
+
+- Scope impact: Consequence-only processing for resolved hit outcomes (no authority changes to `CombatCore`).
+- CPU budget target: no measurable frame spike from health/reaction consequence handling in 1v1 M0 duel.
+- Allocation budget target: no per-frame GC allocation in hot consequence paths.
+- If any regression is observed, capture evidence in story test notes before completion.
+
+---
+
 ## Test Evidence
 
 **Story Type**: Logic/Integration
 **Required evidence**:
-- Logic: `Assets/_Project/Tests/EditMode/HealthConsequence_test.cs`
+- Logic: `Assets/_Project/Tests/EditMode/M0HealthConsequenceTests.cs`
 - Manual verification: Debug Overlay showing health bars and suppression reason.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Automated and debug-integration evidence complete (see `production/qa/evidence/story-1-7-health-consequence-evidence.md`)
 
 ---
 
@@ -78,3 +102,12 @@
 
 - Depends on: Story 1-4, Story 1-5
 - Unlocks: Story 1-8
+
+---
+
+## Completion Notes
+**Completed**: 2026-05-21  
+**Criteria**: 4/4 passing  
+**Deviations**: None blocking. Follow-up recorded: `harden-m0-health-combat-confirmation-contract` (replace string-based resolved-combat gating with typed resolved-combat outcome contract).  
+**Test Evidence**: Logic + integration evidence at `production/qa/evidence/story-1-7-health-consequence-evidence.md` (Unity MCP EditMode PASS 6/6).  
+**Code Review**: Complete — APPROVED WITH SUGGESTIONS.

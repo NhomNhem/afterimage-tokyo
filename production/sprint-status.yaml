@@ -3,60 +3,75 @@ goal: "Wire the M0 technical skeletons into a functional one-player / one-enemy 
 start: "2026-05-15"
 end: "2026-05-29"
 generated: "2026-05-15"
-updated: "2026-05-15"
+updated: "2026-05-21"
+
+verification_notes:
+  - "The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput."
+  - "Actual M0 bindings: Move=WASD, LightAttack=Mouse Left, HeavyAttack=Mouse Right, Dodge=Left Shift, Parry=Q, Counter=E, LockOn=Tab, ResetEncounter=R, ToggleDebugOverlay=F3."
+  - "Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral."
+  - "Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path remains unverified."
 
 stories:
   - id: "1-1"
     name: "[Foundation] Scene & VContainer Wiring"
     file: "production/epics/m0-first-playable-duel/story-1-1-foundation-wiring.md"
     priority: must-have
-    status: done
+    status: verified
     owner: "lead-programmer"
     estimate_days: 1.0
     completed: "2026-05-15"
+    verified: "2026-05-19"
+    notes: "Strict manual DI restored; PlayMode startup/composition clean."
   - id: "1-2"
     name: "[Locomotion] Camera-Relative Movement"
     file: "production/epics/m0-first-playable-duel/story-1-2-camera-locomotion.md"
     priority: must-have
-    status: done
+    status: implemented-needs-verification
     owner: "gameplay-programmer"
     estimate_days: 1.0
-    completed: "2026-05-15"
+    notes: "WASD movement still needs clean manual verification in current PlayMode pass."
   - id: "1-3"
     name: "[Targeting] Lock-On Wiring"
     file: "production/epics/m0-first-playable-duel/story-1-3-targeting-wiring.md"
     priority: must-have
-    status: ready-for-dev
+    status: implemented-needs-verification
     owner: "gameplay-programmer"
     estimate_days: 0.5
+    notes: "LockOn input route observed, but target acquisition/context change not yet proven."
   - id: "1-4"
     name: "[Combat] Player Attack Resolution"
     file: "production/epics/m0-first-playable-duel/story-1-4-combat-resolution.md"
     priority: must-have
-    status: ready-for-dev
+    status: verified
     owner: "gameplay-programmer"
     estimate_days: 1.0
+    verified: "2026-05-19"
+    notes: "M0CombatCoreTests pass 13/13; LightAttack and HeavyAttack PlayMode cycles verified with Mouse Left/Mouse Right."
   - id: "1-5"
     name: "[Enemy] Intent & Telegraph Loop"
     file: "production/epics/m0-first-playable-duel/story-1-5-enemy-intent.md"
     priority: must-have
-    status: ready-for-dev
+    status: implemented-needs-verification
     owner: "ai-programmer"
     estimate_days: 1.0
+    notes: "Enemy cycling previously observed, but parry-eligible timing and counter-window path remain unproven."
   - id: "1-6"
     name: "[Combat] Parry & Dodge Integration"
     file: "production/epics/m0-first-playable-duel/story-1-6-defensive-wiring.md"
     priority: must-have
-    status: ready-for-dev
+    status: implemented-needs-counter-window-verification
     owner: "gameplay-programmer"
     estimate_days: 1.0
+    notes: "Dodge and Parry basic cycles verified; CounterWindow open/accepted counter path and RevealBeat path not verified."
   - id: "1-7"
     name: "[Consequence] Health & Hit Reactions"
     file: "production/epics/m0-first-playable-duel/story-1-7-health-consequence.md"
     priority: must-have
-    status: ready-for-dev
+    status: done
     owner: "gameplay-programmer"
     estimate_days: 1.0
+    completed: "2026-05-21"
+    notes: "Story complete. AC1-AC4 PASS. Evidence: production/qa/evidence/story-1-7-health-consequence-evidence.md. Follow-up: harden-m0-health-combat-confirmation-contract."
   - id: "1-8"
     name: "[Encounter] Reset & Duel Lifecycle"
     file: "production/epics/m0-first-playable-duel/story-1-8-encounter-lifecycle.md"
@@ -68,9 +83,10 @@ stories:
     name: "[Presentation] Debug Overlay Snapshots"
     file: "production/epics/m0-first-playable-duel/story-1-9-debug-overlay.md"
     priority: should-have
-    status: backlog
+    status: partial-in-progress
     owner: "lead-programmer"
     estimate_days: 0.5
+    notes: "Combat/enemy labels update; last input, lock-on, and counter-window visibility still need confirmation."
   - id: "1-10"
     name: "[Memory] Reveal & VFX Placeholder"
     file: "production/epics/m0-first-playable-duel/story-1-10-memory-reveal.md"

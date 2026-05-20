@@ -1,12 +1,12 @@
 # Story 1-9: [Presentation] Debug Overlay Snapshots
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Partial / In Progress
 > **Layer**: Presentation
 > **Type**: UI/Logic
 > **Estimate**: 0.5d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-19
 
 ## Context
 
@@ -78,3 +78,9 @@
 
 - Depends on: Story 1-1, Story 1-8
 - Unlocks: None
+
+## Verification Update — 2026-05-19
+
+**Validated Status**: PARTIAL / IN PROGRESS
+
+Combat and enemy labels update during PlayMode validation. Last Input, LockOn target, and CounterWindow visibility still need confirmation before this story can move to VERIFIED.

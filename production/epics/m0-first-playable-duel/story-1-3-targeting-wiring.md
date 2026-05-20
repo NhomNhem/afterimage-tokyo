@@ -1,12 +1,12 @@
 # Story 1-3: [Targeting] Lock-On Wiring
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Implemented - Needs Verification
 > **Layer**: Core
 > **Type**: Logic/Integration
 > **Estimate**: 0.5d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-19
 
 ## Context
 
@@ -193,3 +193,9 @@ No measurable performance impact expected. Story 1-3 supports one player, one en
 
 - Depends on: Story 1-1
 - Unlocks: Story 1-4, Story 1-6
+
+## Verification Update — 2026-05-19
+
+**Validated Status**: IMPLEMENTED - NEEDS VERIFICATION
+
+LockOn input route was observed with the actual binding Tab. Target acquisition and TargetContext state change have not yet been cleanly verified in PlayMode.

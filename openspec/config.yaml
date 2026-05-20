@@ -1,20 +1,141 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  ## Project
+  Glass Refrain (afterimage-tokyo) — long-term single-player semi-linear action RPG.
+  Tone: sad, mysterious, memory-based.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  Current milestone: M0 — proving katana combat feel in a Tokyo Street duel arena.
+  M0 loop: read → evade/parry → counter → reveal
+
+  M0 proves ONE readable duel:
+    - one player, one simple enemy, one arena
+    - target focus, camera readability, hit reaction
+    - enemy telegraph, restrained memory reveal response, debug visibility
+
+  ## Tech Stack
+  - Engine: Unity 6000.3.x
+  - Language: C#
+  - Render Pipeline: URP
+  - Input: Unity New Input System (no legacy Input.GetKey / GetAxis / GetButton)
+  - DI: VContainer (constructor injection for pure services, method injection for MonoBehaviours)
+  - Reactive: R3
+  - Async: Unity Awaitable first, UniTask when needed
+  - Inspector: Odin Inspector
+  - VCS: Git, trunk-based development
+
+  ## Architecture
+  Clean Architecture boundaries:
+    Domain         → pure rules and data
+    Application    → orchestration / use cases
+    Infrastructure → Unity/package/external implementations
+    Presentation   → UI, camera, VFX, input presentation
+    Bootstrap      → dependency composition and scene setup
+
+  Rules:
+    - Presentation must NOT own gameplay truth
+    - Infrastructure must NOT leak into Domain
+    - No global singleton managers without explicit approval
+    - No god classes (GameManager, CombatManager, PlayerManager)
+    - Prefer specific names: CombatCoreService, TargetContextService, DamageResolver, EncounterLifecycleService
+    - Prefer composition over inheritance
+    - Prefer small interfaces; split read/command interfaces when needed
+
+  ## System Ownership
+  Combat Core          → action validity, dodge/parry result, CounterWindow, hit resolution, reveal request context
+  Player Locomotion    → movement truth, dodge expression, facing, restrictions, recovery
+  Enemy Intent         → telegraph, commitment, active/recovery timing, attack tags, punish windows
+  Health / Damage      → health values, damage application, hit reaction classification, defeat consequence
+  Lock-On / Target     → target focus truth, current target, validity, direction/context
+  Combat Camera        → duel framing, readability, target-focus presentation
+  Memory State         → reveal acceptance/rejection, memory response state, cooldown
+  Memory VFX           → visual response after accepted reveal, VFX timing/intensity
+  Encounter Framework  → lifecycle, participant registration, readiness blockers, start/end/reset
+  Debug Overlay        → read-only snapshot display, visibility toggles — NEVER owns gameplay truth
+
+  ## Naming Conventions
+  Private runtime fields:         _camelCase   (e.g. _currentHealth, _isCounterWindowOpen)
+  Serialized / Odin private:      camelCase    (e.g. moveSpeed, animator)
+  Private readonly dependencies:  _camelCase   (e.g. _timeProvider, _targetContext)
+  Constants:                      PascalCase   (e.g. DefaultMoveSpeed)
+  Static readonly:                PascalCase   (e.g. SpeedHash)
+  Properties / Methods:           PascalCase   (e.g. IsDodging, TryRequestDodge)
+  Boolean prefix preference:      Is / Has / Can / Should / Requires
+  Avoid: data, manager, handler, controller, temp, obj, thing (unless responsibility is truly broad)
+
+  File naming: one public type per file, file name matches type.
+  Namespaces: GlassRefrain.Domain.Combat / Application.Combat / Infrastructure.Input / Presentation.Debug
+
+  ## Project Define Symbols
+  GR_M0_PROTOTYPE
+  GR_DEBUG_OVERLAY
+  GR_COMBAT_DEBUG
+  GR_MEMORY_DEBUG
+  (Avoid generic: DEBUG, TEST, ENABLE)
+
+  ## Code Quality Rules
+  - Small classes, one clear responsibility
+  - Small methods with early returns
+  - Request/result objects for gameplay actions that can fail
+  - No exceptions for normal gameplay rejection
+  - No per-frame allocations in hot paths
+  - No heavy LINQ in Update/tick
+  - Use project logger wrapper (never raw Debug.Log)
+  - Debug logs must be removable via define symbol or log level
+  - Prefer explicit state transitions over hidden side effects
+  - Prefer boring, debuggable architecture over clever abstraction during M0
+
+  ## M0 Scope
+  IN scope: input mapping, player locomotion, combat core, health/damage/hit reaction,
+            enemy intent/telegraph, lock-on/target context, lock-on/combat camera,
+            memory state, memory VFX response, encounter framework, debug overlay
+
+  DEFER (do not add unless explicitly requested):
+    full RPG stats, loot, equipment, skill tree, save system, boss framework,
+    multi-enemy combat, full HUD, full narrative framework, district reinterpretation,
+    broad enemy roster, open-world systems, multiplayer/network
+
+  ## Collaboration Protocol
+  - Large/ambiguous tasks: Question → Options → Decision → Draft → Approval
+  - Ask before large, destructive, or multi-file changes
+  - Show draft/summary before writing major design or code files
+  - Multi-file changes require explicit approval for full changeset
+  - No commits without user instruction
+  - No destructive Git commands without explicit approval
+  - Prefer small, reviewable patches
+
+  ## M0 Definition of Done
+  A tester can repeatedly fight one simple enemy and clearly understand:
+    - what the enemy intended
+    - what defensive answer was available
+    - when the counter window appeared
+    - why they succeeded or failed
+    - what changed when the reveal happened
+
+rules:
+  spec:
+    - State intent, player-facing feel, dependencies, debug visibility, and test strategy for every new system.
+    - If the feature does not improve the M0 duel loop, flag it as deferred.
+    - Reference system ownership explicitly — name which system owns what.
+    - Keep specs focused on M0 scope; mark anything outside scope as "Deferred / Post-M0".
+    - Include a "Definition of Done" section aligned with M0 criteria.
+
+  proposal:
+    - Keep proposals concise — problem, proposed solution, alternatives considered, non-goals.
+    - Always include a "Non-goals" section.
+    - Flag impact on M0 loop explicitly.
+    - State which ownership boundary is affected.
+
+  tasks:
+    - Break tasks into chunks completable in one focused session (roughly 1–2 hours).
+    - Each task must state: what file(s) change, why, risk level, and how to verify.
+    - Group by system ownership boundary.
+    - Mark tasks outside M0 scope as [DEFERRED].
+    - No commit tasks without explicit user instruction noted in the task.
+
+  adr:
+    - Use format: Title / Status / Context / Decision / Consequences.
+    - Status options: proposed | accepted | deprecated | superseded.
+    - Reference affected system ownership boundary.
+    - Note M0 impact and whether the decision affects the duel loop.
+    - Keep ADRs immutable after acceptance — create a new ADR to supersede.

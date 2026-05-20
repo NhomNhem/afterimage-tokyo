@@ -1,12 +1,12 @@
 # Story 1-2: [Locomotion] Camera-Relative Movement
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Complete
+> **Status**: Implemented - Needs Verification
 > **Layer**: Core
 > **Type**: Logic/Integration
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-19
 
 ## Context
 
@@ -91,3 +91,9 @@
 - Manual screenshot/video evidence not provided; PlayMode verification reported clean.
 - M0LocomotionSettings remains inline/hardcoded for M0 prototype.
 - CameraMovementBasisProvider cross-scene serialized reference may be unassigned at edit time and is gracefully handled with warning.
+
+## Verification Update — 2026-05-19
+
+**Validated Status**: IMPLEMENTED - NEEDS VERIFICATION
+
+WASD movement remains implemented, but current sprint verification does not yet include a clean manual PlayMode confirmation that player movement and PlayerMesh following are correct.
