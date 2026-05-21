@@ -63,6 +63,9 @@ vcontainer.md
 code-quality.md
 testing.md
 gameplay-scope.md
+debug.md
+combat.md
+openspec-workflow.md
 ```
 
 If a specific rule file conflicts with this root file, the more specific rule file wins.
@@ -93,6 +96,12 @@ Coordination rules:
 
 ```txt
 .claude/docs/coordination-rules.md
+```
+
+Agent coordination map:
+
+```txt
+.claude/docs/agent-coordination-map.md
 ```
 
 Coding standards:
@@ -574,6 +583,16 @@ Do not mark an M0 system complete unless:
 * Do not commit Unity generated folders such as `Library/`, `Temp/`, `Obj/`, or build output.
 
 ---
+
+## Parallel Worktree Protocol
+
+This project uses three agents in parallel worktrees:
+
+- **Codex** — architecture/review (ADRs, GDDs, design docs)
+- **Windsurf** — Unity implementation (scenes, prefabs, C# code)
+- **OpenCode** — terminal/docs/isolated tasks (rules, coordination)
+
+No two agents edit the same ownership area at the same time. Each worktree owns one lane. See `.claude/docs/agent-coordination-map.md` and `.claude/docs/coordination-rules.md` for the full protocol.
 
 ## AI Agent Behavior
 

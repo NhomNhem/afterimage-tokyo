@@ -27,6 +27,16 @@ Avoid in MonoBehaviour:
 - business/gameplay rules
 - hidden singleton access
 
+## DOTween Rule
+
+DOTween must not drive authoritative combat motion or locomotion.
+
+Allowed for:
+- UI animation, camera polish, reveal beats, memory presentation, environmental polish
+
+Forbidden:
+- player/enemy movement, dodge distance, attack range, hit position, overriding movement restrictions, setting gameplay truth
+
 ## Animator Rule
 
 Animator is presentation only.

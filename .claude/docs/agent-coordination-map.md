@@ -241,6 +241,28 @@ art-dir = art-director
 12. live-ops-designer    -- Post-event analysis and learnings
 ```
 
+## Multi-Agent Lane Protocol (Codex / Windsurf / OpenCode)
+
+This project uses three parallel agents in separate worktrees. Each owns a
+specific lane:
+
+| Agent | Lane | Scope |
+|-------|------|-------|
+| **Codex** | Architecture & Review | ADRs, GDDs, design review, architecture review |
+| **Windsurf** | Unity Implementation | Scene objects, prefabs, C# gameplay code, Unity assets |
+| **OpenCode** | Terminal & Docs | Rules maintenance, coordination docs, terminal-only tasks |
+
+### Lane Discipline
+
+- No two agents may edit the same file simultaneously.
+- Each worktree owns its lane — do not cross-edit unless explicitly delegated.
+- If a lane change affects another lane (e.g., a new interface needs Unity wiring),
+  commit the interface in the owning lane first, then the consumer lane picks it up.
+- Rules/docs files (.claude/rules/, .claude/docs/) belong to OpenCode for coordination
+  updates, Codex for architecture decisions.
+- Gameplay code files (.cs, .unity, .prefab) belong to Windsurf.
+- When in doubt, ask the user which agent should handle a given file.
+
 ## Cross-Domain Communication Protocols
 
 ### Design Change Notification

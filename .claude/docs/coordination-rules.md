@@ -63,6 +63,36 @@ Requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` environment variable.
 
 **Current status**: Opt-in via `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`. Document first usage here when adopted.
 
+## Multi-Agent Worktree Protocol (Codex / Windsurf / OpenCode)
+
+This project uses multiple agents in parallel worktrees:
+
+| Agent | Role | Ownership |
+|-------|------|-----------|
+| **Codex** | Architecture, review, design documents, ADRs | Design docs, rules, architecture |
+| **Windsurf** | Unity implementation | Scene objects, prefabs, C# gameplay code |
+| **OpenCode** | Terminal, docs, isolated tasks, rule maintenance | Rules, coordination, terminal-only work |
+
+### Lane Ownership Rule
+
+No two agents may edit the same ownership area at the same time.
+
+- Each worktree owns one lane.
+- If two agents need to touch adjacent areas, they must coordinate via explicit
+  file-level handoff, not simultaneous edit.
+- Rules/docs changes belong to the agent responsible for that lane:
+  - Codex owns architecture ADRs, GDDs, system design.
+  - Windsurf owns code implementation rules.
+  - OpenCode owns coordination, agent workflow, and cross-cutting rule updates.
+
+### Worktree Isolation
+
+Each worktree is a separate `git worktree`:
+- Changes in one worktree are invisible to others until committed.
+- Do not assume another agent's pending changes exist.
+- Write intent clearly: if a rule or interface will be consumed by another lane,
+  flag it explicitly with a comment or checkpoint commit.
+
 ## Parallel Task Protocol
 
 When an orchestration skill spawns multiple independent agents:
