@@ -210,21 +210,30 @@ Allowed in tools/debug/editor code.
 
 Use ZLinq carefully if needed, but do not optimize prematurely.
 
-## Logging Rule
+## Logging Rule — NhemLogger Only
 
-Use project logger wrapper.
+Use `NhemLogger` / `NhemLogging` (project logging wrapper on ZLogger).
 
-Avoid raw logs everywhere:
+Forbidden in all gameplay, application, presentation, and infrastructure code:
 
 ```csharp
 Debug.Log("...");
+Debug.LogWarning("...");
+Debug.LogError("...");
+UnityEngine.Debug.Log("...");
 ```
 
 Prefer:
 
 ```csharp
-_logger.Combat("Counter window opened.");
+NhemLogger.Combat("Counter window opened.");
 ```
+
+Allowed exceptions:
+- Inside the NhemLogger/NhemLogging implementation itself.
+- Temporary local experiments removed before commit.
+- Vendor/package code not owned by this project.
+- Explicitly approved Unity editor diagnostics.
 
 Debug logs must be removable by define symbols or log level.
 

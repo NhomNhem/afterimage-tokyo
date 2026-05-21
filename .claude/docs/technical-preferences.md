@@ -421,7 +421,7 @@ This is planned project or team-authored DI architecture tooling.
 - registering combat truth in the project root scope
 - using `IObjectResolver` as a service locator
 - auto-registering MonoBehaviours, ScriptableObjects, hitboxes, animation event receivers, camera components, or VFX presenters via generated DI
-- using DOTween for authoritative combat motion or locomotion
+- using DOTween for authoritative combat motion, locomotion, or gameplay-affecting position
 - using presentation scenes or assemblies to own gameplay truth
 
 ## Architecture Decisions Log

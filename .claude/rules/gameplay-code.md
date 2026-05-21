@@ -1,31 +1,49 @@
 ---
 paths:
-  - "src/gameplay/**"
+  - "Assets/_Project/Code/Application/**"
+  - "Assets/_Project/Code/Domain/**"
+  - "Assets/_Project/Code/Infrastructure/**"
 ---
 
 # Gameplay Code Rules
 
-- ALL gameplay values MUST come from external config/data files, NEVER hardcoded
-- Use delta time for ALL time-dependent calculations (frame-rate independence)
-- NO direct references to UI code — use events/signals for cross-system communication
-- Every gameplay system must implement a clear interface
-- State machines must have explicit transition tables with documented states
-- Write unit tests for all gameplay logic — separate logic from presentation
-- Document which design doc each feature implements in code comments
-- No static singletons for game state — use dependency injection
+- ALL gameplay values MUST come from external config/data files, NEVER hardcoded.
+- Use delta time for ALL time-dependent calculations (frame-rate independence).
+- NO direct references to UI code — use interfaces, reader contracts, or R3/MessagePipe for cross-system observation.
+- Every gameplay system must implement a clear interface.
+- State machines must have explicit transition tables with documented states.
+- Write unit tests for all gameplay logic (EditMode) — separate logic from presentation.
+- Ownership boundaries must be respected — a system must not modify another system's truth.
+- No static singletons for game state — use VContainer dependency injection.
+- Gameplay truth lives in pure C# state/models, not in Animator, MonoBehaviour fields, or scene objects.
 
 ## Examples
 
-**Correct** (data-driven):
+**Correct** (data-driven, uses DI):
 
-```gdscript
-var damage: float = config.get_value("combat", "base_damage", 10.0)
-var speed: float = stats_resource.movement_speed * delta
+```csharp
+private readonly CombatConfig _config;
+
+public CombatCoreService(CombatConfig config, ITimeProvider timeProvider)
+{
+    _config = config;
+    _timeProvider = timeProvider;
+}
+
+public DamageRequestResult EvaluateDamage()
+{
+    float baseDamage = _config.LightAttackDamage;
+    float applyAfter = baseDamage * _timeProvider.DeltaTime;
+    // ...
+}
 ```
 
-**Incorrect** (hardcoded):
+**Incorrect** (hardcoded, no delta time):
 
-```gdscript
-var damage: float = 25.0   # VIOLATION: hardcoded gameplay value
-var speed: float = 5.0      # VIOLATION: not from config, not using delta
+```csharp
+private void Update()
+{
+    var damage = 25.0;                // VIOLATION: hardcoded
+    transform.position += Vector3.forward * 5.0 * Time.deltaTime; // VIOLATION: hardcoded speed
+}
 ```

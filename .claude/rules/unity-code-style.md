@@ -264,6 +264,28 @@ if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge"))
 
 Animation events may request sync points, but gameplay systems must validate timing.
 
+## DOTween Rule
+
+DOTween must not drive authoritative combat motion or locomotion.
+
+DOTween is allowed for:
+
+- UI animation (menus, HUD transitions)
+- camera polish (subtle shakes, blend smoothing)
+- reveal beats and memory presentation
+- environmental motion (ambient, non-interactive)
+- visual polish that does not decide combat outcomes
+
+DOTween must not:
+
+- move the player character (use Player Locomotion service)
+- move the enemy (use Enemy Intent / Telegraph service)
+- decide dodge distance, attack range, or hit position
+- override movement restrictions
+- set gameplay truth
+
+DOTween animation of camera is allowed for presentation, but must not circumvent the combat camera's framing logic.
+
 ## Root Motion Rule
 
 Root motion is not gameplay authority by default.
