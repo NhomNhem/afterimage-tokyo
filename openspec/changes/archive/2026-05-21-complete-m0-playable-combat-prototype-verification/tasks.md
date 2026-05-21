@@ -3,11 +3,25 @@
 > **Change**: complete-m0-playable-combat-prototype-verification  
 > **Source Context**: archived `create-m0-playable-combat-prototype-scene` left PlayMode verification gaps
 
+## Closure Snapshot (Documentation Hygiene)
+
+- Story-done outcome: **COMPLETE WITH NOTES** (2026-05-21)
+- Blocking status: **No FAIL items / No remaining blockers**
+- Canonical verification result: `production/qa/evidence/complete-m0-playable-combat-prototype-verification-evidence.md`
+- Non-blocking follow-ups remain tracked separately:
+  - Parry visual feedback capture/polish
+  - Counter visual feedback capture/polish
+  - LockOn second-press behavior decision (acquire-only/maintain focus vs toggle acquire/release)
+
+Note:
+- Checklist items below are retained as historical execution checklist for the change.
+- Closure/readiness is determined by the evidence file and story-done record, not by re-opening this checklist.
+
 ---
 
 ## 1) Runtime Camera and Visibility Verification
 
-- [ ] 1.1 Open `Assets/_Project/Content/Scenes/Gameplay/Gameplay_CombatPrototype.unity`
+- [x] 1.1 Open `Assets/_Project/Content/Scenes/Gameplay/Gameplay_CombatPrototype.unity`
 - [ ] 1.2 Enter PlayMode and verify Main Camera renders Game View (no runtime camera error)
 - [ ] 1.3 Verify PlayerMesh is visible in Game View
 - [ ] 1.4 Verify EnemyMesh is visible in Game View
@@ -17,7 +31,7 @@
 
 ## 2) Camera Movement Basis and Movement Visibility
 
-- [ ] 2.1 Verify `CameraMovementBasisProvider` references runtime Main Camera
+- [x] 2.1 Verify `CameraMovementBasisProvider` references runtime Main Camera
 - [ ] 2.2 Verify WASD visibly moves Player in Game View
 - [ ] 2.3 Capture proof logs/screenshots/notes for movement visibility
 
@@ -50,19 +64,19 @@
 
 ## 6) Scope Exclusion Sweep
 
-- [ ] 6.1 Confirm no health/damage/hit-reaction scope added
-- [ ] 6.2 Confirm no memory reveal/VFX scope added
-- [ ] 6.3 Confirm no Animancer/root motion authority added
-- [ ] 6.4 Confirm no KCC/NavMesh scope added
-- [ ] 6.5 Confirm no generated DI and no forbidden API regressions
+- [x] 6.1 Confirm no health/damage/hit-reaction scope added
+- [x] 6.2 Confirm no memory reveal/VFX scope added
+- [x] 6.3 Confirm no Animancer/root motion authority added
+- [x] 6.4 Confirm no KCC/NavMesh scope added
+- [x] 6.5 Confirm no generated DI and no forbidden API regressions
 
 ## 7) Verification Checklist and Evidence Artifact
 
-- [ ] 7.1 Produce a verification checklist artifact under `production/qa/evidence/`
-- [ ] 7.2 Include pass/fail per required check from sections 1-6
-- [ ] 7.3 Include notable logs and any non-blocking tooling noise
-- [ ] 7.4 Include explicit statement: "verification/testability cleanup only; no new gameplay"
-- [ ] 7.5 Include archive-readiness recommendation for this follow-up change
+- [x] 7.1 Produce a verification checklist artifact under `production/qa/evidence/`
+- [x] 7.2 Include pass/fail per required check from sections 1-6
+- [x] 7.3 Include notable logs and any non-blocking tooling noise
+- [x] 7.4 Include explicit statement: "verification/testability cleanup only; no new gameplay"
+- [x] 7.5 Include archive-readiness recommendation for this follow-up change
 
 ---
 
@@ -91,4 +105,3 @@
 - Captured logs proving combat/input/debug overlay transitions
 - Any minimal scene/reference fixes listed with file paths
 - Explicit confirmation that hard exclusions were respected
-

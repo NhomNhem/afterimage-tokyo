@@ -2,7 +2,7 @@
 
 > **Change ID**: complete-m0-playable-combat-prototype-verification  
 > **Schema**: spec-driven  
-> **Status**: Proposed  
+> **Status**: Completed with Notes (2026-05-21 story-done closure; no blockers)  
 > **Date**: 2026-05-21
 
 ## Goal
@@ -42,4 +42,3 @@ This is verification/testability cleanup only, not new gameplay.
 - Updated verification evidence for prototype scene PlayMode checks
 - Reconciled task checklist with explicit pass/fail status
 - Clear archive-readiness statement for prototype verification change
-
