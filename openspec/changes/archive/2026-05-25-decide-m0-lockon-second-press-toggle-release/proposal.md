@@ -1,3 +1,5 @@
+Status: completed-with-notes
+
 ## Why
 
 M0 manual evidence confirms LockOn acquire/focus works, but second-press behavior is currently unresolved as a product decision. In the latest verification pass, pressing Tab once acquires/maintains target, while pressing Tab again keeps LockOn active. This behavior is tracked as follow-up and must be explicitly decided before further targeting polish.
@@ -49,3 +51,9 @@ This change is decision + wiring only. It does not broaden system scope.
 - No input binding changes.
 - No Animancer/root motion/KCC/NavMesh changes.
 - No targeting architecture refactor.
+
+## Completion note
+
+LockOn toggle-release behavior is verified with explicit artifact references for acquire -> release -> acquire logs and Debug Overlay transition `None -> Enemy -> None -> Enemy`.
+
+Task `5.6` remains PARTIAL as an external follow-up because Dodge displacement/lunge movement is not implemented/wired in the M0 locomotion path. This is tracked separately as `m0-dodge-displacement-wiring` and is not considered a LockOn target-context regression.
