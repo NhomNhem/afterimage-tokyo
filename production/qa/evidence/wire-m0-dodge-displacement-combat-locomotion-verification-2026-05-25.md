@@ -2,7 +2,7 @@
 
 ## Change
 
-- `openspec/changes/wire-m0-dodge-displacement-combat-locomotion`
+- `openspec/changes/archive/2026-05-25-wire-m0-dodge-displacement-combat-locomotion`
 
 ## Scope of this pass
 
