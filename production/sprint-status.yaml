@@ -9,7 +9,7 @@ verification_notes:
   - "The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput."
   - "Actual M0 bindings: Move=WASD, LightAttack=Mouse Left, HeavyAttack=Mouse Right, Dodge=Left Shift, Parry=Q, Counter=E, LockOn=Tab, ResetEncounter=R, ToggleDebugOverlay=F3."
   - "Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral."
-  - "Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path remains unverified."
+  - "Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path is now verified (Story 1-10, 2026-05-26)."
   - "LockOn second-press toggle-release evidence was completed and archived on 2026-05-25. LockOn acquire/release/reacquire is verified."
   - "Dodge displacement wiring evidence was completed-with-notes on 2026-05-25: accepted dodge causes visible displacement with transform delta and valid state chain."
   - "Dodge displacement closure used LockOn PASS BY REFERENCE from prior archived LockOn evidence because lock-on scope was unchanged in dodge wiring."
@@ -101,9 +101,11 @@ stories:
     name: "[Memory] Reveal & VFX Placeholder"
     file: "production/epics/m0-first-playable-duel/story-1-10-memory-reveal.md"
     priority: should-have
-    status: backlog
+    status: verified-with-notes
     owner: "vfx-programmer"
     estimate_days: 0.5
+    verified: "2026-05-26"
+    notes: "Implemented, verified, approved-with-notes, and archived at openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder."
   - id: "1-11"
     name: "[Presentation] Animator Observer Adapters"
     file: "production/epics/m0-first-playable-duel/story-1-11-animator-adapters.md"

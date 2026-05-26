@@ -48,7 +48,7 @@ Sprint status is based on verified M0 Combat EditMode and PlayMode evidence, not
 | S1-7 [Consequence] Health & Hit Reactions | VERIFIED | Story complete with evidence; follow-up remains tracked as tech debt. |
 | S1-8 [Encounter] Reset & Duel Lifecycle | VERIFIED WITH NOTES (ARCHIVED) | Implemented, corrected, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-encounter-reset-duel-lifecycle`. |
 | S1-9 [Presentation] Debug Overlay Snapshots | VERIFIED (ARCHIVED) | Evidence closed, /test-evidence-review APPROVED, archived at `openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification`. |
-| S1-10 [Memory] Reveal & VFX Placeholder | BACKLOG | RevealBeat path not verified. |
+| S1-10 [Memory] Reveal & VFX Placeholder | VERIFIED WITH NOTES (ARCHIVED) | Implemented, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder`. |
 | S1-11 [Presentation] Animator Observer Adapters | BACKLOG | No verification evidence. |
 
 ### Verification Corrections
