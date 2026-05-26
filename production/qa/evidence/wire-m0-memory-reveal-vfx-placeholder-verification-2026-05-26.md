@@ -2,7 +2,7 @@
 
 ## Change
 
-- OpenSpec: `openspec/changes/wire-m0-memory-reveal-vfx-placeholder`
+- OpenSpec: `openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder`
 - Scope: Counter -> Reveal request -> Memory respond -> Placeholder VFX observer (read-only presentation)
 
 ## DI Fix Note
