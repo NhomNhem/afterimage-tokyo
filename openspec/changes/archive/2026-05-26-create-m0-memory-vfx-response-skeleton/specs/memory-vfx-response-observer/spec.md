@@ -126,7 +126,7 @@ The snapshot interface SHALL NOT expose internal timing counters, frame numbers,
 - **THEN** returned snapshot contains no event subscriptions, delegates, or callback references
 
 ### Requirement: Snapshot Supports Safe Multi-System Observation
-Multiple systems (Debug Overlay, Editor tooling, telemetry) can observe the same Memory VFX Response via snapshots simultaneously without contention or state corruption. Each system receives its own snapshot copy.
+Multiple systems (Debug Overlay, Editor tooling, telemetry) SHALL be able to observe the same Memory VFX Response via snapshots simultaneously without contention or state corruption. Each system SHALL receive its own snapshot copy.
 
 #### Scenario: Debug Overlay and editor tooling can both read snapshots
 - **WHEN** Debug Overlay and editor tooling both call GetSnapshot() on the same Memory VFX Response

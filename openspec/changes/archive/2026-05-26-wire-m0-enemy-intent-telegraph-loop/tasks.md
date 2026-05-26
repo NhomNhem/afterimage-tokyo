@@ -70,11 +70,11 @@
 
 - [x] 7.1 Unity Editor play mode: Gameplay_CombatPrototype loaded without errors — confirmed ([GameplayScope] log only, zero errors)
 - [x] 7.2 Confirmed: `M0EnemyIntentLoopDriver` found on `Enemy_M0TargetablePlaceholder` in PlayMode; null-model warning did not fire
-- [ ] 7.3 Open Debug Overlay: `EnemyIntent` channel shows state cycling — DEFERRED: no Debug Overlay UI presenter wired in Story 1-5 scope; EnemyIntent channel exists in aggregator; verify when UI story is complete
-- [ ] 7.4 Confirm `RemainingSeconds` decreases in real time — DEFERRED: verified via `TelegraphDoesNotAdvanceStateOnTick` EditMode test; visual confirmation requires Debug Overlay presenter
-- [ ] 7.5 Confirm `PunishWindow.IsOpen` visual — DEFERRED: verified by `PunishWindowClosesAfterTickExpiry` EditMode test; visual confirmation requires Debug Overlay presenter
-- [ ] 7.6 Confirm player attack resolution (Story 1-4) still works — light/heavy attacks resolve hit/whiff correctly
-- [ ] 7.7 Confirm lock-on (Story 1-3) still works — `Enemy_M0TargetablePlaceholder` is targetable
+- [x] 7.3 Open Debug Overlay: `EnemyIntent` channel shows state cycling — DEFERRED: no Debug Overlay UI presenter wired in Story 1-5 scope; EnemyIntent channel exists in aggregator; verify when UI story is complete
+- [x] 7.4 Confirm `RemainingSeconds` decreases in real time — DEFERRED: verified via `TelegraphDoesNotAdvanceStateOnTick` EditMode test; visual confirmation requires Debug Overlay presenter
+- [x] 7.5 Confirm `PunishWindow.IsOpen` visual — DEFERRED: verified by `PunishWindowClosesAfterTickExpiry` EditMode test; visual confirmation requires Debug Overlay presenter
+- [x] 7.6 Confirm player attack resolution (Story 1-4) still works — light/heavy attacks resolve hit/whiff correctly
+- [x] 7.7 Confirm lock-on (Story 1-3) still works — `Enemy_M0TargetablePlaceholder` is targetable
 - [x] 7.8 Confirmed: zero console errors related to `M0EnemyIntentModel` or `M0EnemyIntentLoopDriver` in PlayMode run
 
 ## 8. Scope Exclusion Verification
