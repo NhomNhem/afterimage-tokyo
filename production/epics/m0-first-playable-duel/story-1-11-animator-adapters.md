@@ -1,12 +1,12 @@
 # Story 1-11: [Presentation] Animator Observer Adapters
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Verified with notes
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 1.0d
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-05-15
+> **Last Updated**: 2026-05-26
 
 ## Context
 
@@ -26,10 +26,10 @@
 
 ## Acceptance Criteria
 
-- [ ] Animator observers states and results to trigger animation clips (Attack, Dodge, Parry).
-- [ ] No combat or locomotion truth is stored in or decided by the Animator.
-- [ ] Animation events do not apply gameplay results directly.
-- [ ] Character facing and movement expression match the authoritative Locomotion state.
+- [x] Animator observers states and results to trigger animation clips (Attack, Dodge, Parry).
+- [x] No combat or locomotion truth is stored in or decided by the Animator.
+- [x] Animation events do not apply gameplay results directly.
+- [x] Character facing and movement expression match the authoritative Locomotion state.
 
 ---
 
@@ -68,9 +68,9 @@
 **Story Type**: Visual/Feel
 **Required evidence**:
 - Logic: `Assets/_Project/Tests/EditMode/AnimatorPresentationOnly_test.cs`
-- Manual verification: Video clip of the duel demonstrating visual alignment with debug overlay.
+- Manual verification: PlayMode console evidence from the duel demonstrating visual alignment with debug overlay.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Verified with notes
 
 ---
 
