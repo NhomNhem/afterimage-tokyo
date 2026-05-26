@@ -62,7 +62,7 @@ Rationale: preserves input architecture boundaries and prevents presentation-own
 - `Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs`
 - `Assets/_Project/Tests/EditMode/M0DebugOverlaySnapshotIntegrationTests.cs` (or nearest existing debug overlay tests)
 - `production/qa/evidence/*debug-overlay*`
-- `openspec/changes/harden-m0-debug-overlay-verification/*`
+- `openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification/*`
 
 ## Forbidden Implementation Files
 
