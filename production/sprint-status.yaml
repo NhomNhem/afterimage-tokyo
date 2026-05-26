@@ -4,6 +4,7 @@ start: "2026-05-15"
 end: "2026-05-29"
 generated: "2026-05-15"
 updated: "2026-05-26"
+status: complete-with-notes
 
 verification_notes:
   - "The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput."
@@ -13,6 +14,7 @@ verification_notes:
   - "LockOn second-press toggle-release evidence was completed and archived on 2026-05-25. LockOn acquire/release/reacquire is verified."
   - "Dodge displacement wiring evidence was completed-with-notes on 2026-05-25: accepted dodge causes visible displacement with transform delta and valid state chain."
   - "Dodge displacement closure used LockOn PASS BY REFERENCE from prior archived LockOn evidence because lock-on scope was unchanged in dodge wiring."
+  - "Sprint 1 closed with 11/11 stories verified; status COMPLETE WITH NOTES."
 
 stories:
   - id: "1-1"
@@ -110,6 +112,8 @@ stories:
     name: "[Presentation] Animator Observer Adapters"
     file: "production/epics/m0-first-playable-duel/story-1-11-animator-adapters.md"
     priority: nice-to-have
-    status: backlog
+    status: verified-with-notes
     owner: "lead-programmer"
     estimate_days: 1.0
+    verified: "2026-05-26"
+    notes: "Animator observer adapters verified with notes; scene wiring, snapshot routing, warning-only missing clips, and Animator-disabled movement passed. Full clip visual alignment deferred."

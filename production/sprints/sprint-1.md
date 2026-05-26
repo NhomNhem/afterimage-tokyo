@@ -1,5 +1,8 @@
 # Sprint 1 — 2026-05-15 to 2026-05-29
 
+**Status**: COMPLETE WITH NOTES
+**Stories Verified**: 11/11
+
 ## Sprint Goal
 Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo Street duel loop.
 
@@ -31,7 +34,7 @@ Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo S
 ### Nice to Have
 | ID | Task | Agent/Owner | Est. Days | Dependencies | Acceptance Criteria |
 |----|------|-------------|-----------|-------------|-------------------|
-| S1-11 | [Presentation] Animator Observer Adapters | lead-programmer | 1.0 | S1-4, S1-5 | Animator observes states/resolutions to trigger clips; no authority in Animator. |
+| S1-11 ✅ | [Presentation] Animator Observer Adapters | lead-programmer | 1.0 | S1-4, S1-5 | Animator observes states/resolutions to trigger clips; no authority in Animator. |
 
 ## Current Validated Status — 2026-05-26
 
@@ -49,7 +52,7 @@ Sprint status is based on verified M0 Combat EditMode and PlayMode evidence, not
 | S1-8 [Encounter] Reset & Duel Lifecycle | VERIFIED WITH NOTES (ARCHIVED) | Implemented, corrected, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-encounter-reset-duel-lifecycle`. |
 | S1-9 [Presentation] Debug Overlay Snapshots | VERIFIED (ARCHIVED) | Evidence closed, /test-evidence-review APPROVED, archived at `openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification`. |
 | S1-10 [Memory] Reveal & VFX Placeholder | VERIFIED WITH NOTES (ARCHIVED) | Implemented, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder`. |
-| S1-11 [Presentation] Animator Observer Adapters | BACKLOG | No verification evidence. |
+| S1-11 [Presentation] Animator Observer Adapters | VERIFIED WITH NOTES (ARCHIVED) | Animator observer adapters verified with notes; scene wiring, snapshot routing, warning-only missing clips, and Animator-disabled movement passed. Full clip visual alignment deferred. |
 
 ### Verification Corrections
 
