@@ -104,6 +104,19 @@ Expected clean state was restored:
 - Debug Overlay reflected post-reset state as read-only display.
 - Gameplay remained playable after reset.
 
+### Before/After Reset Artifact Values
+
+Result: PASS
+
+Observed values captured in the reset validation slice:
+
+| Field | Before Reset (Dirty) | After Reset (Clean) |
+| --- | --- | --- |
+| CombatState | `DodgeRecovery` | `Neutral` |
+| PlayerTransform | `(-3.41, 0.00, -1.44)` | `(0.00, 0.00, 0.00)` |
+| EnemyIntent | `Active` | `Idle` |
+| LockOnTarget | `enemy-m0-placeholder` | `None` |
+
 ### Post-reset smoke
 
 Result: PASS
