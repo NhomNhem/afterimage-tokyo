@@ -160,3 +160,46 @@ Classification:
 
 - Reset lifecycle is verified for minimum M0 duel loop needs.
 - Existing animation presentation warnings remain non-blocking for this change.
+
+---
+
+## Corrective Patch Verification — 2026-05-26
+
+Result: PASS WITH NOTES
+
+Corrective patch commits:
+- Submodule: `f308a236 fix: use authored baseline for m0 encounter reset`
+- Parent: `f8f3b57a docs: tighten m0 encounter reset evidence`
+
+Focused EditMode tests:
+- Job: `58ff61bc0547430990ead51c6d4456b9`
+- Result: PASS
+- Total: 48
+- Passed: 48
+- Failed: 0
+
+Special focus:
+- `ResetForEncounter_UsesProvidedAuthoredBaselineEvenWhenNonZero`: PASS
+- `ResetForEncounter_ForcesNeutralAndClearsTransients`: PASS
+- `ResetForEncounter_ReturnsModelToIdleAndClearsTelegraphAndPunishWindow`: PASS
+- `ResetForEncounter_ClearsLockOnState`: PASS
+
+Compile/domain reload:
+- Refresh/compile request completed.
+- Console 0-error gate: NOT CLEAN.
+- Observed external/editor material errors:
+  - `Failed to create MaterialEnum, enum UnityEditor.Rendering.HighDefinition.TransparentCullMode not found`
+  - `Failed to create material drawer Enum with arguments 'UnityEditor.Rendering.HighDefinition.TransparentCullMode'`
+
+Classification:
+- These errors are not from scoped 1-8 reset lifecycle code.
+- No new gameplay reset lifecycle compile/test failure was observed.
+- Focused reset tests passed 48/48.
+- Treat as external rendering/material pipeline issue to track separately.
+
+Story impact:
+- Non-blocking for 1-8 reset lifecycle correctness.
+- Blocking for a strict global 0-console-error gate until tracked/fixed separately.
+
+Verdict:
+APPROVED WITH NOTES for Story 1-8.
