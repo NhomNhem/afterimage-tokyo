@@ -33,20 +33,20 @@ Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo S
 |----|------|-------------|-----------|-------------|-------------------|
 | S1-11 | [Presentation] Animator Observer Adapters | lead-programmer | 1.0 | S1-4, S1-5 | Animator observes states/resolutions to trigger clips; no authority in Animator. |
 
-## Current Validated Status — 2026-05-19
+## Current Validated Status — 2026-05-26
 
 Sprint status is based on verified M0 Combat EditMode and PlayMode evidence, not earlier progress summaries.
 
 | Story / Task | Validated Status | Evidence / Remaining Verification |
 |---|---|---|
 | S1-1 [Foundation] Scene & VContainer Wiring | VERIFIED | Strict manual DI restored; PlayMode startup/composition clean. |
-| S1-2 [Locomotion] Camera-Relative Movement | IMPLEMENTED - NEEDS VERIFICATION | WASD movement still needs clean manual verification. |
-| S1-3 [Targeting] Lock-On Wiring | IMPLEMENTED - NEEDS VERIFICATION | LockOn input route observed; target acquisition/context change not proven. |
+| S1-2 [Locomotion] Camera-Relative Movement | VERIFIED | Latest PlayMode evidence confirms WASD movement and locomotion displacement behavior. |
+| S1-3 [Targeting] Lock-On Wiring | VERIFIED | LockOn acquire/release/reacquire verified in archived LockOn evidence set. |
 | S1-4 [Combat] Player Attack Resolution | VERIFIED | M0CombatCoreTests pass 13/13; LightAttack and HeavyAttack PlayMode cycles verified with Mouse Left and Mouse Right. |
-| S1-5 [Enemy] Intent & Telegraph Loop | IMPLEMENTED - NEEDS VERIFICATION | Enemy cycling previously observed; parry-eligible timing/counter-window path remains unproven. |
-| S1-6 [Combat] Parry & Dodge Integration | IMPLEMENTED - NEEDS COUNTER WINDOW VERIFICATION | Dodge and Parry basic cycles verified; CounterWindow open/accepted counter path remains unverified. |
-| S1-7 [Consequence] Health & Hit Reactions | READY FOR DEV | Do not start implementation from this status update. |
-| S1-8 [Encounter] Reset & Duel Lifecycle | READY FOR DEV | Lifecycle wiring still needs verification before upgrade. |
+| S1-5 [Enemy] Intent & Telegraph Loop | VERIFIED | Enemy intent cycle Telegraph/Commit/Active/Recovery/Idle confirmed in latest smoke evidence. |
+| S1-6 [Combat] Parry & Dodge Integration | VERIFIED WITH NOTES | Dodge displacement wiring verified; closure includes notes with LockOn smoke accepted by prior reference. |
+| S1-7 [Consequence] Health & Hit Reactions | VERIFIED | Story complete with evidence; follow-up remains tracked as tech debt. |
+| S1-8 [Encounter] Reset & Duel Lifecycle | VERIFIED WITH NOTES (ARCHIVED) | Implemented, corrected, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-encounter-reset-duel-lifecycle`. |
 | S1-9 [Presentation] Debug Overlay Snapshots | PARTIAL / IN PROGRESS | Combat/enemy labels update; last input, lock-on, and counter-window visibility still need confirmation. |
 | S1-10 [Memory] Reveal & VFX Placeholder | BACKLOG | RevealBeat path not verified. |
 | S1-11 [Presentation] Animator Observer Adapters | BACKLOG | No verification evidence. |
@@ -59,7 +59,11 @@ Actual M0 bindings: Move=WASD, LightAttack=Mouse Left, HeavyAttack=Mouse Right, 
 
 Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral.
 
-Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path remains unverified.
+Dodge displacement wiring is now verified as PASS WITH NOTES (2026-05-25), including visible displacement and transform delta.
+
+LockOn second-press toggle-release behavior is verified in the archived LockOn change and accepted by reference in the Dodge displacement closure artifact.
+
+Encounter reset lifecycle (Story 1-8) is now archived as completed-with-notes after corrective baseline patch verification and focused reset test pass (48/48).
 
 ## Carryover from Previous Sprint
 | Task | Reason | New Estimate |
