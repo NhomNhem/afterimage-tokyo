@@ -47,7 +47,7 @@ Sprint status is based on verified M0 Combat EditMode and PlayMode evidence, not
 | S1-6 [Combat] Parry & Dodge Integration | VERIFIED WITH NOTES | Dodge displacement wiring verified; closure includes notes with LockOn smoke accepted by prior reference. |
 | S1-7 [Consequence] Health & Hit Reactions | VERIFIED | Story complete with evidence; follow-up remains tracked as tech debt. |
 | S1-8 [Encounter] Reset & Duel Lifecycle | VERIFIED WITH NOTES (ARCHIVED) | Implemented, corrected, verified, approved-with-notes, archived at `openspec/changes/archive/2026-05-26-wire-m0-encounter-reset-duel-lifecycle`. |
-| S1-9 [Presentation] Debug Overlay Snapshots | PARTIAL / IN PROGRESS | Combat/enemy labels update; last input, lock-on, and counter-window visibility still need confirmation. |
+| S1-9 [Presentation] Debug Overlay Snapshots | VERIFIED (ARCHIVED) | Evidence closed, /test-evidence-review APPROVED, archived at `openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification`. |
 | S1-10 [Memory] Reveal & VFX Placeholder | BACKLOG | RevealBeat path not verified. |
 | S1-11 [Presentation] Animator Observer Adapters | BACKLOG | No verification evidence. |
 
@@ -64,6 +64,8 @@ Dodge displacement wiring is now verified as PASS WITH NOTES (2026-05-25), inclu
 LockOn second-press toggle-release behavior is verified in the archived LockOn change and accepted by reference in the Dodge displacement closure artifact.
 
 Encounter reset lifecycle (Story 1-8) is now archived as completed-with-notes after corrective baseline patch verification and focused reset test pass (48/48).
+
+Debug Overlay verification hardening (Story 1-9) is now evidence-closed and archived after focused verification (39/39 EditMode pass) and manual PlayMode overlay field confirmation.
 
 ## Carryover from Previous Sprint
 | Task | Reason | New Estimate |

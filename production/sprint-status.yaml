@@ -92,10 +92,11 @@ stories:
     name: "[Presentation] Debug Overlay Snapshots"
     file: "production/epics/m0-first-playable-duel/story-1-9-debug-overlay.md"
     priority: should-have
-    status: partial-in-progress
+    status: verified
     owner: "lead-programmer"
     estimate_days: 0.5
-    notes: "Combat/enemy labels update; last input, lock-on, and counter-window visibility still need confirmation."
+    verified: "2026-05-26"
+    notes: "Evidence closed, test-evidence-review approved, archived at openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification."
   - id: "1-10"
     name: "[Memory] Reveal & VFX Placeholder"
     file: "production/epics/m0-first-playable-duel/story-1-10-memory-reveal.md"
