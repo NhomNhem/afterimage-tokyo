@@ -16,7 +16,7 @@ This is the last remaining story in Sprint 1 (10/11 verified). Closing it comple
 
 ### New Capabilities
 
-- `m0-animator-observer-adapters`: Wire Animancer-based animation observer adapters into the M0 scene so Player and Enemy presentation can observe CombatCore, Locomotion, and EnemyIntent snapshots without owning gameplay truth.
+- `m0-animator-observer-adapters`: Wire Animancer-based animation observer adapters into the M0 scene so Player and Enemy presentation SHALL observe CombatCore, Locomotion, and EnemyIntent snapshots without owning gameplay truth.
 
 ### Modified Capabilities
 
@@ -29,4 +29,4 @@ None. No existing spec-level behavior changes.
 - **Tick Handler**: No changes — routing already complete
 - **Tests**: New `AnimatorPresentationOnly_test.cs` EditMode test file
 - **Evidence**: New PlayMode evidence file
-- **Ownership boundary**: Presentation only — no gameplay truth affected
+- **Ownership boundary**: Presentation only — SHALL not affect gameplay truth

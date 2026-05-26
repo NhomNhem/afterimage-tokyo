@@ -2,7 +2,12 @@
 
 ### Requirement: Animator Observer Adapters Are Presentation-Only
 
-The M0 animation observer adapter stack shall observe CombatCore, Locomotion, and EnemyIntent snapshots and route them to animation drivers without owning, modifying, or deciding any gameplay truth.
+Animator observer adapters SHALL remain presentation-only observers of gameplay snapshots. They SHALL NOT store, decide, or mutate gameplay truth for CombatCore, PlayerLocomotion, EnemyIntent, TargetContext, MemoryState, Camera, Debug Overlay, or Encounter lifecycle. Animancer/Animator playback SHALL NOT define combat timing windows, hit results, movement truth, target truth, reveal truth, or encounter lifecycle state.
+
+#### Scenario: Animation observes gameplay snapshots without owning gameplay truth
+- **WHEN** CombatCore, PlayerLocomotion, or EnemyIntent emits a gameplay snapshot
+- **THEN** the animation presentation adapter SHALL route the snapshot to the appropriate animation driver
+- **AND** the animation driver SHALL NOT modify gameplay state, timing windows, hit results, movement truth, target truth, memory reveal truth, camera truth, debug overlay truth, or encounter lifecycle truth
 
 #### Scenario: Player animation driver plays on combat state change
 - **WHEN** `M0CombatCore` emits a `SnapshotChanged` event with a new `CombatCoreState`
@@ -24,15 +29,15 @@ The M0 animation observer adapter stack shall observe CombatCore, Locomotion, an
 
 #### Scenario: Missing animation clips do not break gameplay
 - **WHEN** `M0PlayerAnimationSet` or `M0EnemyAnimationSet` has null clip references
-- **THEN** the animation driver logs a warning via `INhemLogger`
-- **AND** gameplay continues without interruption (no NullReferenceException, no state corruption)
+- **THEN** the animation driver SHALL report the missing clip as a warning-level presentation issue via `INhemLogger`
+- **AND** gameplay SHALL continue without interruption (no VContainerException, no NullReferenceException, no state corruption)
 - **AND** the combat loop (read → evade/parry → counter → reveal) remains functional
 
 #### Scenario: Root motion does not control movement
 - **WHEN** an animation clip with root motion data is played
-- **THEN** `Animator.applyRootMotion` is set to `false` before playback
-- **AND** character position is determined solely by `M0PlayerLocomotion` position truth
-- **AND** disabling the Animator component does not prevent character movement
+- **THEN** `Animator.applyRootMotion` SHALL remain `false` before playback
+- **AND** character position SHALL be determined solely by `M0PlayerLocomotion` position truth
+- **AND** disabling the Animator component SHALL NOT prevent character movement
 
 #### Scenario: Duplicate state observations are skipped
 - **WHEN** `M0AnimationPresentationAdapter` receives a snapshot with the same state as the previous observation
