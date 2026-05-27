@@ -4,15 +4,15 @@
 Wire the M0 technical skeletons into a functional one-player / one-enemy duel loop within the Tokyo Street blockout.
 
 ## Success Criteria
-- [ ] Additive scene composition loads successfully from Bootstrap.
-- [ ] VContainer wiring connects Input → Core → Presentation.
-- [ ] Player can move using camera-relative basis.
-- [ ] Player can lock-on to enemy.
-- [ ] Combat loop (Attack/Dodge/Parry) resolves in Pure C#.
-- [ ] Enemy cycles through Intent (Telegraph/Active/Recovery).
-- [ ] Health and Hit Reactions trigger from combat results.
-- [ ] Reveal trigger activates Memory response on success.
-- [ ] Debug Overlay displays system snapshots for verification.
+- [x] Additive scene composition loads successfully from Bootstrap.
+- [x] VContainer wiring connects Input → Core → Presentation.
+- [x] Player can move using camera-relative basis.
+- [x] Player can lock-on to enemy.
+- [x] Combat loop (Attack/Dodge/Parry) resolves in Pure C#.
+- [x] Enemy cycles through Intent (Telegraph/Active/Recovery).
+- [x] Health and Hit Reactions trigger from combat results.
+- [x] Reveal trigger activates Memory response on success.
+- [x] Debug Overlay displays system snapshots for verification.
 
 ## Stories
 | # | Story | Type | Status | ADR |
