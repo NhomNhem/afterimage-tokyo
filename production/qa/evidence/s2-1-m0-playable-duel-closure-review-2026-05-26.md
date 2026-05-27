@@ -1,7 +1,7 @@
 # S2-1 Evidence Review — M0 Sprint 1 Playable Duel Closure
 
-**Date**: 2026-05-26  
-**Story**: S2-1 `[Review] M0 Sprint 1 Playable Duel Closure Review`  
+**Date**: 2026-05-26
+**Story**: S2-1 `[Review] M0 Sprint 1 Playable Duel Closure Review`
 **Scope**: Documentation and QA evidence only (no gameplay code changes)
 
 ## Source Artifacts Reviewed
@@ -51,28 +51,28 @@
 
 ## Prioritized Sprint 2 Recommendations
 
-1. **S2-2 Combat Feel (Must Have)**  
-   Priority: P0  
+1. **S2-2 Combat Feel (Must Have)**
+   Priority: P0
    Why: Highest impact on readable loop quality.
 
-2. **S2-3 Enemy Telegraph (Must Have)**  
-   Priority: P0  
+2. **S2-3 Enemy Telegraph (Must Have)**
+   Priority: P0
    Why: Directly affects read -> respond confidence.
 
-3. **S2-4 Camera Readability (Must Have)**  
-   Priority: P0  
+3. **S2-4 Camera Readability (Must Have)**
+   Priority: P0
    Why: Duel readability collapses if framing is weak.
 
-4. **S2-5 Smoke Checklist (Must Have)**  
-   Priority: P0  
+4. **S2-5 Smoke Checklist (Must Have)**
+   Priority: P0
    Why: Locks a repeatable verification baseline after each tuning pass.
 
-5. **S2-6/S2-7/S2-8 (Should Have)**  
-   Priority: P1  
+5. **S2-6/S2-7/S2-8 (Should Have)**
+   Priority: P1
    Why: Lift readability quality once core feel/readability passes are stable.
 
-6. **S2-9/S2-10 (Could Have)**  
-   Priority: P2  
+6. **S2-9/S2-10 (Could Have)**
+   Priority: P2
    Why: Good cleanup and visibility improvements, but not core duel blockers.
 
 ## OpenSpec Requirement Markers
@@ -90,6 +90,6 @@
 
 ## Conclusion
 
-**Verdict**: PASS (Review Complete)  
-Sprint 1 closure is sufficiently evidenced to begin Sprint 2 stabilization.  
+**Verdict**: PASS (Review Complete)
+Sprint 1 closure is sufficiently evidenced to begin Sprint 2 stabilization.
 Current duel is playable but readability remains PARTIAL in several key presentation/feel axes, matching Sprint 2 priorities.

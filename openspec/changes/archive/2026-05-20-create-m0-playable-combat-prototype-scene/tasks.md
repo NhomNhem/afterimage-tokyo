@@ -1,7 +1,7 @@
 # Tasks Reconciliation: Create M0 Playable Combat Prototype Scene
 
-> **Change**: create-m0-playable-combat-prototype-scene  
-> **Archived at**: openspec/changes/archive/2026-05-20-create-m0-playable-combat-prototype-scene  
+> **Change**: create-m0-playable-combat-prototype-scene
+> **Archived at**: openspec/changes/archive/2026-05-20-create-m0-playable-combat-prototype-scene
 > **Status note**: This archive reflects a **partial, evidence-driven defensive-loop visible slice**, not strict completion of every originally planned task.
 
 ---
@@ -70,6 +70,5 @@
 
 ## Follow-up Change Candidate
 
-- [ ] **complete-m0-playable-combat-prototype-verification**  
+- [ ] **complete-m0-playable-combat-prototype-verification**
       Verification/testability cleanup follow-up to finish deferred PlayMode checks and minimal scene/reference fixes only.
-

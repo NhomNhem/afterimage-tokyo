@@ -37,16 +37,16 @@ M0 currently demonstrates Dodge as an input + combat-state timeline (`DodgeStart
 
 ## Risks / Trade-offs
 
-- **[Risk] Double-application of displacement during repeated snapshots**  
+- **[Risk] Double-application of displacement during repeated snapshots**
   → Mitigation: edge-trigger on state transition or one-shot latch per dodge cycle.
 
-- **[Risk] Direction ambiguity (input, facing, camera basis) causes inconsistent feel**  
+- **[Risk] Direction ambiguity (input, facing, camera basis) causes inconsistent feel**
   → Mitigation: define single direction policy for M0 and document it in specs/tests.
 
-- **[Risk] Regression to existing movement/recovery restrictions**  
+- **[Risk] Regression to existing movement/recovery restrictions**
   → Mitigation: add focused smoke scenarios for dodge during neutral vs recovery and verify rejection/acceptance behavior remains correct.
 
-- **[Risk] Over-noisy logs in PlayMode**  
+- **[Risk] Over-noisy logs in PlayMode**
   → Mitigation: keep transition-level logging only; gate verbose diagnostics with project defines.
 
 ## Migration Plan

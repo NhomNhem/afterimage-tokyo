@@ -106,4 +106,3 @@ The `M0DebugOverlaySnapshotAggregator.Capture()` call in the gameplay tick path 
 
 - **WHEN** `M0DebugOverlaySnapshotAggregator.Capture(enemyIntentSnapshot: model.Snapshot, ...)` is called
 - **THEN** the aggregator reads the snapshot as a value copy; the model's internal state is unchanged
-

@@ -44,7 +44,7 @@ None. Retrospectives are team self-reflection documents; no gates are invoked.
 
 **Expected behavior:**
 1. Skill reads sprint-005 and session logs
-2. Skill compiles three retrospective categories: went well (4 stories shipped), 
+2. Skill compiles three retrospective categories: went well (4 stories shipped),
    didn't (1 blocked, 1 deferred), and action items (address blocker root cause)
 3. Skill presents retrospective draft to user
 4. Skill asks "May I write to `production/retrospectives/retro-sprint-005.md`?"

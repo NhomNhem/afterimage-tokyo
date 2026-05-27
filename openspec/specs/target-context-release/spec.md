@@ -25,4 +25,3 @@ The Target Context system SHALL release (clear) the active target when a `LockOn
 - **WHEN** second `LockOn` intent
 - **THEN** target is released (Active = false)
 - **AND** the cycle can repeat
-

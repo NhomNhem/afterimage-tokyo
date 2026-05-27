@@ -34,4 +34,3 @@ The Target Context system SHALL expose a read-only `TargetContextSnapshot` conta
 - **WHEN** Debug requests snapshot
 - **THEN** snapshot includes `LastAcquireReason`, `LastReleaseReason`, `LastInvalidationReason`
 - **AND** reasons are human-readable for debugging
-

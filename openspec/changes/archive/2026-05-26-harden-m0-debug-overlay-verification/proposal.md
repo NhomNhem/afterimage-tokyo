@@ -1,6 +1,6 @@
 ## Why
 
-Story 1-9 is currently partial, and Sprint 1 verification needs a reliable, repeatable way to prove duel-loop state visibility in PlayMode without relying on ambiguous logs alone.  
+Story 1-9 is currently partial, and Sprint 1 verification needs a reliable, repeatable way to prove duel-loop state visibility in PlayMode without relying on ambiguous logs alone.
 We need a narrow hardening pass so Debug Overlay evidence can be trusted while preserving ownership boundaries.
 
 ## What Changes

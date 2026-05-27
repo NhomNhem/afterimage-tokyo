@@ -1,17 +1,17 @@
 # Glass Refrain — Accessibility Requirements
 
-> **Status**: Foundation (UX Review Approved)  
-> **Author**: ux-designer + accessibility-specialist (via team-ui skill)  
-> **Last Updated**: 2026-05-14  
-> **Version**: 1.0  
-> **Engine**: Unity 6000.3.x  
+> **Status**: Foundation (UX Review Approved)
+> **Author**: ux-designer + accessibility-specialist (via team-ui skill)
+> **Last Updated**: 2026-05-14
+> **Version**: 1.0
+> **Engine**: Unity 6000.3.x
 > **Committed Tier**: Enhanced (Basic + Standard + Extended Support)
 
 ---
 
 ## Purpose
 
-This document defines Glass Refrain's **accessibility baseline and enhanced targets** for all player-facing UI, gameplay systems, and content.  
+This document defines Glass Refrain's **accessibility baseline and enhanced targets** for all player-facing UI, gameplay systems, and content.
 It ensures that the widest possible audience can engage with the game's emotional core, duel mechanics, and mystery narrative. Accessibility is a **design-first commitment**, not a post-ship fix.
 
 ---

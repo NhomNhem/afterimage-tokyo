@@ -52,4 +52,3 @@ Animator observer adapters SHALL remain presentation-only observers of gameplay 
 - **THEN** no `VContainerException` is thrown
 - **AND** `M0GameplayTickHandler` receives non-null animation adapter reference
 - **AND** runtime starts without DI errors
-

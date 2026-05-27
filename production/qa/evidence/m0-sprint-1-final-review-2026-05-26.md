@@ -2,11 +2,11 @@
 
 ## Status
 
-Sprint: Sprint 1  
-Epic: M0 First Playable Duel  
-Date: 2026-05-26  
-Verdict: COMPLETE WITH NOTES  
-Stories Verified: 11/11  
+Sprint: Sprint 1
+Epic: M0 First Playable Duel
+Date: 2026-05-26
+Verdict: COMPLETE WITH NOTES
+Stories Verified: 11/11
 Latest Sprint Tracking Commit: d40b34b2
 
 ## Executive Summary
@@ -74,7 +74,7 @@ Overall verdict: COMPLETE WITH NOTES.
 ## Known Notes / Deferred Work
 
 ### Animation
-Animator/Animancer observer adapters are wired and verified, but real Attack/Dodge/Parry visual clip alignment is deferred.  
+Animator/Animancer observer adapters are wired and verified, but real Attack/Dodge/Parry visual clip alignment is deferred.
 Suggested follow-up:
 
 ```text
@@ -82,7 +82,7 @@ wire-m0-placeholder-animation-clips
 ```
 
 ### Combat Feel
-Core logic is verified, but feel tuning is still early.  
+Core logic is verified, but feel tuning is still early.
 Suggested follow-up:
 
 ```text
@@ -90,7 +90,7 @@ stabilize-m0-combat-feel-and-readability
 ```
 
 ### Memory Reveal
-Memory reveal placeholder works, but readability and presentation are still minimal.  
+Memory reveal placeholder works, but readability and presentation are still minimal.
 Suggested follow-up:
 
 ```text
@@ -98,7 +98,7 @@ polish-m0-memory-reveal-readability
 ```
 
 ### Enemy Telegraph
-Enemy intent loop is verified, but player-readable telegraph presentation needs improvement.  
+Enemy intent loop is verified, but player-readable telegraph presentation needs improvement.
 Suggested follow-up:
 
 ```text

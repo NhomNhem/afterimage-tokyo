@@ -1,6 +1,6 @@
 # Sprint 2 — 2026-05-30 to 2026-06-12
 
-**Status**: Planned
+**Status**: In Progress (S2-1 done, S2-2 in review)
 **Review Mode**: lean
 **QA Plan**: `production/qa/qa-plan-sprint-2-2026-05-26.md`
 **Producer Gate**: skipped — Lean mode
@@ -113,3 +113,9 @@ It de-risks Sprint 2 by turning verified-with-notes work into a concrete gap lis
 
 - No new OpenSpec change is required to start Sprint 2.
 - If the closure review exposes a gap in camera, readability, or asset classification ownership, open a small follow-up change rather than widening Sprint 2.
+
+## Current Progress (2026-05-27)
+
+- S2-1: done (closure review completed and evidence recorded)
+- S2-2: in review (focused tests rerun PASS 42/42 with verification notes)
+- Remaining stories: backlog

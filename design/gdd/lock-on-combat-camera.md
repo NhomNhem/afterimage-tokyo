@@ -3082,13 +3082,13 @@ The purpose of this section is to identify the specific M0 risks that could caus
 
 ### 19.1 Telegraph Visibility Risk
 
-**Risk:**  
+**Risk:**
 The camera may hide or weaken the enemy telegraph.
 
-**Why it matters:**  
+**Why it matters:**
 If the player cannot see windup, posture, weapon motion, commitment, or active threat timing, the combat loop will feel unfair even if the underlying combat rules are correct.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - enemy windup is off-screen
 - weapon or body is hidden by camera angle
@@ -3097,7 +3097,7 @@ If the player cannot see windup, posture, weapon motion, commitment, or active t
 - camera distance is too close or too far
 - `VFX`, shake, or zoom obscure the read
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - prioritize telegraph visibility over style
 - keep the camera stable during `EnemyTelegraph`
@@ -3106,13 +3106,13 @@ If the player cannot see windup, posture, weapon motion, commitment, or active t
 
 ### 19.2 Camera Fighting Player Control Risk
 
-**Risk:**  
+**Risk:**
 The camera or lock-on may feel like it is fighting player movement or intention.
 
-**Why it matters:**  
+**Why it matters:**
 The player must feel in control during a precise katana duel. If the camera feels like a second controller, the duel becomes frustrating instead of elegant.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - hard lock is too rigid
 - target-relative movement feels restrictive
@@ -3120,7 +3120,7 @@ The player must feel in control during a precise katana duel. If the camera feel
 - recentering happens at the wrong time
 - camera rotates during dodge, parry, or counter
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - start with soft target focus if possible
 - keep hard lock optional until readability clearly requires it
@@ -3129,13 +3129,13 @@ The player must feel in control during a precise katana duel. If the camera feel
 
 ### 19.3 Spacing Readability Risk
 
-**Risk:**  
+**Risk:**
 The player may not understand distance, range, or dodge displacement.
 
-**Why it matters:**  
+**Why it matters:**
 Spacing is needed for dodge, whiff punish, counter opportunity, and fair failure. If spacing is visually unclear, the player loses trust in both success and failure.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - camera is too close
 - camera is too zoomed
@@ -3144,7 +3144,7 @@ Spacing is needed for dodge, whiff punish, counter opportunity, and fair failure
 - lock-on framing over-focuses one actor
 - effects hide the gap between player and enemy
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - tune distance, height, and angle for spacing readability
 - keep both player and enemy visible whenever possible
@@ -3153,13 +3153,13 @@ Spacing is needed for dodge, whiff punish, counter opportunity, and fair failure
 
 ### 19.4 Lock-On Rigidity Risk
 
-**Risk:**  
+**Risk:**
 Hard lock-on may make combat feel stiff or over-controlled.
 
-**Why it matters:**  
+**Why it matters:**
 `Glass Refrain` should feel elegant and controlled, not mechanically trapped. If lock-on becomes too forceful, the camera solves readability by reducing player comfort.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - target focus always forces camera orientation
 - the player cannot comfortably reposition
@@ -3167,7 +3167,7 @@ Hard lock-on may make combat feel stiff or over-controlled.
 - camera ignores player intention
 - lock-on is required for every action
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - start with soft focus or lightweight lock-on
 - do not require lock-on for all combat actions unless later approved
@@ -3176,20 +3176,20 @@ Hard lock-on may make combat feel stiff or over-controlled.
 
 ### 19.5 Soft Focus Drift Risk
 
-**Risk:**  
+**Risk:**
 Soft target focus may fail to keep the enemy readable.
 
-**Why it matters:**  
+**Why it matters:**
 If the enemy drifts out of view during telegraph, the duel fails its basic fairness goal even if the control feel is lighter.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - focus strength is too weak
 - enemy approach or telegraph is not prioritized
 - player movement pulls the camera away
 - no stronger anchoring exists during critical states
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - allow stronger focus during `EnemyTelegraph`
 - use `TelegraphFraming` priority
@@ -3198,13 +3198,13 @@ If the enemy drifts out of view during telegraph, the duel fails its basic fairn
 
 ### 19.6 Response Feedback Timing Risk
 
-**Risk:**  
+**Risk:**
 Camera feedback may trigger too early, too late, or from invalid context.
 
-**Why it matters:**  
+**Why it matters:**
 Feedback should clarify success or failure, not lie to the player. If the camera implies a result before the systems confirm it, the duel becomes untrustworthy.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - camera shake occurs before `Combat Core` confirms result
 - `VFX` or `Audio` trigger camera feedback directly
@@ -3212,7 +3212,7 @@ Feedback should clarify success or failure, not lie to the player. If the camera
 - feedback implies success when action failed
 - delayed feedback makes impact unclear
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - allow feedback only after confirmed result
 - trace feedback source in debug
@@ -3221,13 +3221,13 @@ Feedback should clarify success or failure, not lie to the player. If the camera
 
 ### 19.7 Punish Window Visibility Risk
 
-**Risk:**  
+**Risk:**
 The camera may hide enemy recovery or punish opportunity.
 
-**Why it matters:**  
+**Why it matters:**
 The reward side of the duel loop depends on the player seeing the opening. If enemy vulnerability is hidden, counter learning collapses.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - camera resets too early
 - result feedback hides recovery
@@ -3235,7 +3235,7 @@ The reward side of the duel loop depends on the player seeing the opening. If en
 - enemy exposed posture is off-screen
 - zoom or shake hides spacing during punish
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - prioritize `PunishReadability` after whiff, parry, or stagger
 - do not reset until punish or recovery is visible
@@ -3244,13 +3244,13 @@ The reward side of the duel loop depends on the player seeing the opening. If en
 
 ### 19.8 Reveal Over-Cinematic Risk
 
-**Risk:**  
+**Risk:**
 Reveal support may become too cinematic and interrupt combat readability.
 
-**Why it matters:**  
+**Why it matters:**
 Reveal should support the project’s mystery tone without breaking duel rhythm. If reveal takes over the camera, the combat loop loses continuity.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - reveal camera behaves like a cutscene
 - the camera steals control too long
@@ -3258,7 +3258,7 @@ Reveal should support the project’s mystery tone without breaking duel rhythm.
 - reveal triggers without valid `Memory` or `Combat` context
 - reveal zoom or shake becomes excessive
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - keep reveal short, restrained, and optional in M0
 - require valid reveal context
@@ -3267,13 +3267,13 @@ Reveal should support the project’s mystery tone without breaking duel rhythm.
 
 ### 19.9 Boundary Blur Risk
 
-**Risk:**  
+**Risk:**
 The camera may accidentally own combat, target, or reveal truth.
 
-**Why it matters:**  
+**Why it matters:**
 `Combat Core`, `Enemy Intent & Telegraph`, and `Memory State` must remain authoritative. If the camera becomes a hidden authority, the whole system becomes harder to debug and trust.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - lock-on decides hit or counter validity
 - a target marker decides target validity
@@ -3281,7 +3281,7 @@ The camera may accidentally own combat, target, or reveal truth.
 - the camera triggers reveal
 - camera state changes player movement or combat rules invisibly
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - keep the camera on read-only or confirmed context
 - let `Combat Core` own action and result validity
@@ -3291,13 +3291,13 @@ The camera may accidentally own combat, target, or reveal truth.
 
 ### 19.10 Debug Insufficiency Risk
 
-**Risk:**  
+**Risk:**
 The team may not be able to explain camera readability failures.
 
-**Why it matters:**  
+**Why it matters:**
 Without debug, camera tuning becomes subjective, slower, and less trustworthy. The duel camera is too timing-sensitive to tune only by feel.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - no current camera state display
 - no target-focus debug
@@ -3306,7 +3306,7 @@ Without debug, camera tuning becomes subjective, slower, and less trustworthy. T
 - no visibility checks
 - stale or duplicated debug data
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - implement high-signal debug early
 - use GDD state names in debug
@@ -3315,13 +3315,13 @@ Without debug, camera tuning becomes subjective, slower, and less trustworthy. T
 
 ### 19.11 Scope Creep Risk
 
-**Risk:**  
+**Risk:**
 The camera system may expand into boss, cinematic, multi-target, or production-camera scope too early.
 
-**Why it matters:**  
+**Why it matters:**
 M0 only needs to prove one readable duel. If the system expands too early, effort is spent on future complexity instead of first-duel fairness.
 
-**What could go wrong:**  
+**What could go wrong:**
 
 - building boss camera architecture
 - adding multi-target cycling
@@ -3330,7 +3330,7 @@ M0 only needs to prove one readable duel. If the system expands too early, effor
 - implementing complex occlusion systems
 - building a full camera preset framework
 
-**Mitigation direction:**  
+**Mitigation direction:**
 
 - stay with one player, one enemy, and one duel space
 - defer boss, multi-target, and cinematic systems

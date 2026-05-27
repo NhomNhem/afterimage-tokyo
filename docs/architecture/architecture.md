@@ -64,10 +64,10 @@ Authoritative systems expose read-only snapshots, request/result contracts, or n
 
 Preferred direction:
 
-`Foundation`  
-↑  
-`Core gameplay systems`  
-↑  
+`Foundation`
+↑
+`Core gameplay systems`
+↑
 `Presentation / debug systems`
 
 Forbidden direction:

@@ -1,7 +1,7 @@
 # M0 Enemy Intent Loop Debugging Report
 
-**Date:** 2026-05-19  
-**Task:** Fix M0 Enemy Intent Loop regression  
+**Date:** 2026-05-19
+**Task:** Fix M0 Enemy Intent Loop regression
 **Status:** BLOCKED - Requires manual Unity Editor investigation
 
 ---
@@ -94,7 +94,7 @@ GameplayLifetimeScope.Configure()
   → RegisterComponent<M0EnemyIntentLoopDriver>()
   → Register<M0EnemyIntentModel>()
   → Register<INhemLogger>()
-  
+
 GameplayLifetimeScope.BuildCallback()
   → Resolve<INhemLogger>()
   → FindObjectOfType<M0EnemyIntentLoopDriver>() (fallback)

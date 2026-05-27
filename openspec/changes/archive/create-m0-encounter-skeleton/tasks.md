@@ -43,4 +43,3 @@
 - [x] 6.5 Test snapshot readability and immutability
 - [x] 6.6 Test observed reveal/defeat context stays read-only
 - [x] 6.7 Test elapsed time tracking and reset behavior
-

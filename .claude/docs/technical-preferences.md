@@ -226,12 +226,12 @@ Do not create asmdefs speculatively. Start small, then split only when compile b
 
 Preferred high-level shape:
 
-`Core`  
-↑  
-`Combat / Memory / District / Interaction / AI / Gameplay`  
-↑  
-`Camera / UI / VFX` presentation adapters  
-↑  
+`Core`
+↑
+`Combat / Memory / District / Interaction / AI / Gameplay`
+↑
+`Camera / UI / VFX` presentation adapters
+↑
 `Bootstrap / scene composition` where needed
 
 Prefer interfaces and read models over direct coupling. Presentation assemblies may observe gameplay state, but must not own gameplay truth.

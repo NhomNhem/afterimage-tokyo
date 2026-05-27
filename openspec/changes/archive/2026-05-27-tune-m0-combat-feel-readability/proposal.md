@@ -1,6 +1,6 @@
 ## Why
 
-Sprint 1 proved M0 duel wiring and ownership boundaries, but S2-1 closure review shows readability remains partial for Attack, Dodge, and Parry beats.  
+Sprint 1 proved M0 duel wiring and ownership boundaries, but S2-1 closure review shows readability remains partial for Attack, Dodge, and Parry beats.
 Sprint 2 needs a constrained tuning plan that improves readability/feel without moving gameplay truth out of CombatCore and PlayerLocomotion.
 
 ## What Changes

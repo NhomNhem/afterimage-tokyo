@@ -106,8 +106,8 @@ Boundary note: Health/Hit Reaction observes resolved combat outcomes and applies
 ---
 
 ## Completion Notes
-**Completed**: 2026-05-21  
-**Criteria**: 4/4 passing  
-**Deviations**: None blocking. Follow-up recorded: `harden-m0-health-combat-confirmation-contract` (replace string-based resolved-combat gating with typed resolved-combat outcome contract).  
-**Test Evidence**: Logic + integration evidence at `production/qa/evidence/story-1-7-health-consequence-evidence.md` (Unity MCP EditMode PASS 6/6).  
+**Completed**: 2026-05-21
+**Criteria**: 4/4 passing
+**Deviations**: None blocking. Follow-up recorded: `harden-m0-health-combat-confirmation-contract` (replace string-based resolved-combat gating with typed resolved-combat outcome contract).
+**Test Evidence**: Logic + integration evidence at `production/qa/evidence/story-1-7-health-consequence-evidence.md` (Unity MCP EditMode PASS 6/6).
 **Code Review**: Complete — APPROVED WITH SUGGESTIONS.

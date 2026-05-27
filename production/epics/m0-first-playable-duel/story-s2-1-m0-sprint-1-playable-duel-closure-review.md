@@ -10,7 +10,7 @@
 
 ## Context
 
-Sprint 1 is closed as **COMPLETE WITH NOTES**. Sprint 2 starts with M0 feel/readability stabilization.  
+Sprint 1 is closed as **COMPLETE WITH NOTES**. Sprint 2 starts with M0 feel/readability stabilization.
 This story performs an evidence-first closure review of current M0 playable duel quality before any tuning implementation begins.
 
 **Hard Scope Boundary**:
@@ -42,9 +42,9 @@ This story performs an evidence-first closure review of current M0 playable duel
 
 ## Deliverables
 
-1. Story file (this file):  
+1. Story file (this file):
    `production/epics/m0-first-playable-duel/story-s2-1-m0-sprint-1-playable-duel-closure-review.md`
-2. Evidence file:  
+2. Evidence file:
    `production/qa/evidence/s2-1-m0-playable-duel-closure-review-2026-05-26.md`
 3. PASS/PARTIAL/FAIL review table.
 4. Prioritized Sprint 2 follow-up recommendations:
@@ -89,5 +89,5 @@ Evidence-first review of existing Sprint 1 closure artifacts and latest verifica
 
 ## Notes
 
-This story is a review gate for Sprint 2 execution order.  
+This story is a review gate for Sprint 2 execution order.
 Implementation starts only after review findings are accepted.

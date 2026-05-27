@@ -24,4 +24,3 @@ The Target Context system SHALL acquire the single registered M0 enemy as the ac
 - **WHEN** target acquisition succeeds
 - **THEN** the acquire reason is recorded (e.g., "PlayerRequest", "EncounterSeed")
 - **AND** the reason is available in the read-only snapshot for debug visibility
-

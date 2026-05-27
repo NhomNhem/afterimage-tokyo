@@ -1,8 +1,8 @@
 # Story 1-11: Animator Observer Adapters Verification
 
-**Date**: 2026-05-26  
-**Artifact**: wire-m0-animator-observer-adapters (OpenSpec change)  
-**Verifier**: Copilot Agent  
+**Date**: 2026-05-26
+**Artifact**: wire-m0-animator-observer-adapters (OpenSpec change)
+**Verifier**: Copilot Agent
 **Status**: ✅ PASS WITH NOTES
 
 ---
@@ -137,7 +137,7 @@ Assets\_Project\Content\Scenes\Gameplay\Gameplay_CombatPrototype.unity:489:
 ```
 *This is expected and safe — gameplay continues.*
 
-**Evidence**: 
+**Evidence**:
 - Build succeeds with no compilation errors
 - Type hierarchy confirmed via EditMode tests
 - DI registration defensive (null-checks prevent exceptions)

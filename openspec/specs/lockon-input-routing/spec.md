@@ -21,4 +21,3 @@ The Input Mapping system SHALL emit a raw `LockOn` intent when the New Input Sys
 - **WHEN** input is processed
 - **THEN** the system SHALL NOT use `Keyboard.current`, `Mouse.current`, `Gamepad.current`, or direct device polling
 - **AND** all gameplay input SHALL be read through `InputActionAsset` / `M0InputActions` action maps only
-

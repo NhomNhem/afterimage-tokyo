@@ -149,4 +149,3 @@ The attack tag set attached to `EnemyAttackIntentContext` SHALL communicate whic
 
 - **WHEN** the M0 prototype loop driver constructs its `EnemyAttackIntentContext`
 - **THEN** the tag set includes at minimum: `"DodgePunishable"`, `"ParryEligible"`, `"CounterOnWhiff"`
-

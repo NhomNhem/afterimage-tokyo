@@ -1,6 +1,6 @@
 # Tasks: Complete M0 Playable Combat Prototype Verification
 
-> **Change**: complete-m0-playable-combat-prototype-verification  
+> **Change**: complete-m0-playable-combat-prototype-verification
 > **Source Context**: archived `create-m0-playable-combat-prototype-scene` left PlayMode verification gaps
 
 ## Closure Snapshot (Documentation Hygiene)

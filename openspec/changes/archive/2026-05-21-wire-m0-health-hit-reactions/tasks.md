@@ -1,8 +1,8 @@
 # Tasks Reconciliation: Wire M0 Health & Hit Reactions
 
-> **Story**: production/epics/m0-first-playable-duel/story-1-7-health-consequence.md  
-> **Change**: wire-m0-health-hit-reactions  
-> **Design**: openspec/changes/wire-m0-health-hit-reactions/design.md  
+> **Story**: production/epics/m0-first-playable-duel/story-1-7-health-consequence.md
+> **Change**: wire-m0-health-hit-reactions
+> **Design**: openspec/changes/wire-m0-health-hit-reactions/design.md
 > **Evidence**: production/qa/evidence/story-1-7-health-consequence-evidence.md
 
 ---
@@ -62,7 +62,7 @@
 
 ## Follow-Up Candidates
 
-- [ ] harden-m0-health-combat-confirmation-contract  
+- [ ] harden-m0-health-combat-confirmation-contract
   Reason: `M0HealthDamageReactionModel` currently gates resolved combat outcome via string `ContextLabel` parsing.
 - [ ] add-playmode-health-consequence-verification
 - [ ] wire-health-debug-overlay-labels

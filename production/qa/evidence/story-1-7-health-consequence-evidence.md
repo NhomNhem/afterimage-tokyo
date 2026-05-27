@@ -1,8 +1,8 @@
 # Story 1-7 Health Consequence — Evidence
 
-> Date: 2026-05-20  
-> Scope: story-1-7-health-consequence  
-> Story: production/epics/m0-first-playable-duel/story-1-7-health-consequence.md  
+> Date: 2026-05-20
+> Scope: story-1-7-health-consequence
+> Story: production/epics/m0-first-playable-duel/story-1-7-health-consequence.md
 > Current verdict: ADEQUATE (AC1-AC4 explicitly traced)
 
 ## Unity Test Runner Result
@@ -24,7 +24,7 @@ Passed test names:
 ## Acceptance Criteria Trace
 
 ### AC1
-Damage is applied to Health only after a confirmed resolved combat outcome.  
+Damage is applied to Health only after a confirmed resolved combat outcome.
 Status: **PASS**
 
 Evidence:
@@ -32,14 +32,14 @@ Evidence:
 - `InvalidOrRejectedCombatOutcome_DoesNotReduceHealth`
 
 ### AC2
-Hit Reaction state triggers suppression intent after accepted damage consequence.  
+Hit Reaction state triggers suppression intent after accepted damage consequence.
 Status: **PASS**
 
 Evidence:
 - `HitReaction_IsEmitted_AfterAcceptedDamageConsequence`
 
 ### AC3
-Hit-reaction intent placeholder is emitted after valid player hit/counter consequence.  
+Hit-reaction intent placeholder is emitted after valid player hit/counter consequence.
 Status: **PASS**
 
 Note:
@@ -49,7 +49,7 @@ Note:
 - Full enemy stagger behavior is explicitly out of scope for Story 1-7 and remains pending in later story scope.
 
 ### AC4
-Health snapshot/state change is observable for debug integration.  
+Health snapshot/state change is observable for debug integration.
 Status: **PASS**
 
 Note:

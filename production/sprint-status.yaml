@@ -1,119 +1,108 @@
-sprint: 1
-goal: "Wire the M0 technical skeletons into a functional one-player / one-enemy Tokyo Street duel loop."
-start: "2026-05-15"
-end: "2026-05-29"
-generated: "2026-05-15"
-updated: "2026-05-26"
-status: complete-with-notes
-
-verification_notes:
-  - "The previous K/J/Space/L/C manual-test sequence was invalid. Manual PlayMode verification now uses actual bindings from M0InputActions.inputactions and M0DirectPlayerInput."
-  - "Actual M0 bindings: Move=WASD, LightAttack=Mouse Left, HeavyAttack=Mouse Right, Dodge=Left Shift, Parry=Q, Counter=E, LockOn=Tab, ResetEncounter=R, ToggleDebugOverlay=F3."
-  - "Player Attack Resolution is VERIFIED. LightAttack and HeavyAttack were manually verified in PlayMode using actual bindings Mouse Left and Mouse Right. Both actions were accepted from Neutral and progressed through AttackStartup -> AttackActive -> AttackRecovery -> Neutral."
-  - "Dodge and Parry basic defensive action cycles are verified. CounterWindow open/accepted counter path is now verified (Story 1-10, 2026-05-26)."
-  - "LockOn second-press toggle-release evidence was completed and archived on 2026-05-25. LockOn acquire/release/reacquire is verified."
-  - "Dodge displacement wiring evidence was completed-with-notes on 2026-05-25: accepted dodge causes visible displacement with transform delta and valid state chain."
-  - "Dodge displacement closure used LockOn PASS BY REFERENCE from prior archived LockOn evidence because lock-on scope was unchanged in dodge wiring."
-  - "Sprint 1 closed with 11/11 stories verified; status COMPLETE WITH NOTES."
+sprint: 2
+goal: "Stabilize M0 duel feel and readability for Attack/Dodge/Parry, enemy telegraph, and lock-on camera without changing gameplay ownership boundaries."
+start: "2026-05-30"
+end: "2026-06-12"
+generated: "2026-05-26"
+updated: "2026-05-27"
+status: in-progress
 
 stories:
-  - id: "1-1"
-    name: "[Foundation] Scene & VContainer Wiring"
-    file: "production/epics/m0-first-playable-duel/story-1-1-foundation-wiring.md"
-    priority: must-have
-    status: verified
-    owner: "lead-programmer"
-    estimate_days: 1.0
-    completed: "2026-05-15"
-    verified: "2026-05-19"
-    notes: "Strict manual DI restored; PlayMode startup/composition clean."
-  - id: "1-2"
-    name: "[Locomotion] Camera-Relative Movement"
-    file: "production/epics/m0-first-playable-duel/story-1-2-camera-locomotion.md"
-    priority: must-have
-    status: verified
-    owner: "gameplay-programmer"
-    estimate_days: 1.0
-    verified: "2026-05-25"
-    notes: "WASD movement and locomotion displacement now verified via latest PlayMode evidence."
-  - id: "1-3"
-    name: "[Targeting] Lock-On Wiring"
-    file: "production/epics/m0-first-playable-duel/story-1-3-targeting-wiring.md"
-    priority: must-have
-    status: verified
-    owner: "gameplay-programmer"
-    estimate_days: 0.5
-    verified: "2026-05-25"
-    notes: "LockOn acquire/release/reacquire verified in archived LockOn evidence set (2026-05-25 archive)."
-  - id: "1-4"
-    name: "[Combat] Player Attack Resolution"
-    file: "production/epics/m0-first-playable-duel/story-1-4-combat-resolution.md"
-    priority: must-have
-    status: verified
-    owner: "gameplay-programmer"
-    estimate_days: 1.0
-    verified: "2026-05-19"
-    notes: "M0CombatCoreTests pass 13/13; LightAttack and HeavyAttack PlayMode cycles verified with Mouse Left/Mouse Right."
-  - id: "1-5"
-    name: "[Enemy] Intent & Telegraph Loop"
-    file: "production/epics/m0-first-playable-duel/story-1-5-enemy-intent.md"
-    priority: must-have
-    status: verified
-    owner: "ai-programmer"
-    estimate_days: 1.0
-    verified: "2026-05-25"
-    notes: "Enemy intent cycle (Telegraph/Commit/Active/Recovery/Idle) verified in current smoke evidence."
-  - id: "1-6"
-    name: "[Combat] Parry & Dodge Integration"
-    file: "production/epics/m0-first-playable-duel/story-1-6-defensive-wiring.md"
-    priority: must-have
-    status: verified-with-notes
-    owner: "gameplay-programmer"
-    estimate_days: 1.0
-    verified: "2026-05-25"
-    notes: "Defensive flow verified with dodge displacement now proven. Completion is with notes; lock-on smoke accepted by reference for dodge lane."
-  - id: "1-7"
-    name: "[Consequence] Health & Hit Reactions"
-    file: "production/epics/m0-first-playable-duel/story-1-7-health-consequence.md"
+  - id: "S2-1"
+    name: "[Review] M0 Sprint 1 Playable Duel Closure Review"
+    file: "production/epics/m0-first-playable-duel/story-s2-1-m0-sprint-1-playable-duel-closure-review.md"
     priority: must-have
     status: done
-    owner: "gameplay-programmer"
-    estimate_days: 1.0
-    completed: "2026-05-21"
-    notes: "Story complete. AC1-AC4 PASS. Evidence: production/qa/evidence/story-1-7-health-consequence-evidence.md. Follow-up: harden-m0-health-combat-confirmation-contract."
-  - id: "1-8"
-    name: "[Encounter] Reset & Duel Lifecycle"
-    file: "production/epics/m0-first-playable-duel/story-1-8-encounter-lifecycle.md"
+    owner: "qa-lead"
+    estimate_days: 0.5
+    completed: "2026-05-26"
+    notes: "Review and evidence created/pushed; Sprint 2 follow-up priorities confirmed."
+
+  - id: "S2-2"
+    name: "[Combat Feel] Attack / Dodge / Parry Readability Tuning"
+    file: "openspec/changes/tune-m0-combat-feel-readability"
     priority: must-have
-    status: verified-with-notes
+    status: review
+    owner: "gameplay-programmer"
+    estimate_days: 1.5
+    blocker: ""
+    notes: "Implementation and verification complete with notes; focused rerun PASS 42/42 (job 91577cfb807d40feb1c8f7e860146f95). Pending scoped staging/commit."
+
+  - id: "S2-3"
+    name: "[Enemy] Telegraph Readability Pass"
+    file: ""
+    priority: must-have
+    status: backlog
+    owner: "ai-programmer"
+    estimate_days: 1.0
+    blocker: ""
+    completed: ""
+
+  - id: "S2-4"
+    name: "[Camera] Lock-On Combat Camera Readability Pass"
+    file: ""
+    priority: must-have
+    status: backlog
     owner: "lead-programmer"
+    estimate_days: 1.0
+    blocker: ""
+    completed: ""
+
+  - id: "S2-5"
+    name: "[QA] M0 Playable Duel Smoke Test Checklist"
+    file: ""
+    priority: must-have
+    status: backlog
+    owner: "qa-lead"
     estimate_days: 0.5
-    verified: "2026-05-26"
-    notes: "Implemented, corrected, verified, approved-with-notes, and archived at openspec/changes/archive/2026-05-26-wire-m0-encounter-reset-duel-lifecycle."
-  - id: "1-9"
-    name: "[Presentation] Debug Overlay Snapshots"
-    file: "production/epics/m0-first-playable-duel/story-1-9-debug-overlay.md"
+    blocker: ""
+    completed: ""
+
+  - id: "S2-6"
+    name: "[Animation] Placeholder Clip Assignment and Timing Readability"
+    file: ""
     priority: should-have
-    status: verified
-    owner: "lead-programmer"
+    status: backlog
+    owner: "art-director"
     estimate_days: 0.5
-    verified: "2026-05-26"
-    notes: "Evidence closed, test-evidence-review approved, archived at openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification."
-  - id: "1-10"
-    name: "[Memory] Reveal & VFX Placeholder"
-    file: "production/epics/m0-first-playable-duel/story-1-10-memory-reveal.md"
+    blocker: ""
+    completed: ""
+
+  - id: "S2-7"
+    name: "[Memory] Reveal VFX Readability Pass"
+    file: ""
     priority: should-have
-    status: verified-with-notes
+    status: backlog
     owner: "vfx-programmer"
     estimate_days: 0.5
-    verified: "2026-05-26"
-    notes: "Implemented, verified, approved-with-notes, and archived at openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder."
-  - id: "1-11"
-    name: "[Presentation] Animator Observer Adapters"
-    file: "production/epics/m0-first-playable-duel/story-1-11-animator-adapters.md"
+    blocker: ""
+    completed: ""
+
+  - id: "S2-8"
+    name: "[Audio/VFX] Combat Feedback Placeholder Pass"
+    file: ""
+    priority: should-have
+    status: backlog
+    owner: "sound-designer"
+    estimate_days: 0.5
+    blocker: ""
+    completed: ""
+
+  - id: "S2-9"
+    name: "[Tech Debt] External Material/HDRP Enum Error Classification or Fix"
+    file: ""
     priority: nice-to-have
-    status: verified-with-notes
-    owner: "lead-programmer"
-    estimate_days: 1.0
-    verified: "2026-05-26"
-    notes: "Animator observer adapters verified with notes; scene wiring, snapshot routing, warning-only missing clips, and Animator-disabled movement passed. Full clip visual alignment deferred."
+    status: backlog
+    owner: "technical-artist"
+    estimate_days: 0.5
+    blocker: ""
+    completed: ""
+
+  - id: "S2-10"
+    name: "[Presentation] Debug Overlay Polish"
+    file: ""
+    priority: nice-to-have
+    status: backlog
+    owner: "ui-programmer"
+    estimate_days: 0.5
+    blocker: ""
+    completed: ""

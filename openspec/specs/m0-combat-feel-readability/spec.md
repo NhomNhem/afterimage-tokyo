@@ -84,4 +84,3 @@ The system SHALL use clear PASS/PARTIAL/FAIL criteria to determine closure of S2
 #### Scenario: FAIL closure
 - **WHEN** tuning introduces ownership boundary violations, gameplay regressions, or unreadable core beats
 - **THEN** S2-2 SHALL be classified FAIL and SHALL NOT be closed
-

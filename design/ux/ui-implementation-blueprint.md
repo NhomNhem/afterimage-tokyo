@@ -1,18 +1,18 @@
 # Glass Refrain — UI Implementation Blueprint
 
-> **Status**: Blueprint (UX Review Approved, Pre-Code)  
-> **Author**: ux-designer + unity-ui-specialist (via team-ui skill)  
-> **Last Updated**: 2026-05-14  
-> **Version**: 1.0  
-> **Engine**: Unity 6000.3.x  
-> **UI Framework**: UI Toolkit  
+> **Status**: Blueprint (UX Review Approved, Pre-Code)
+> **Author**: ux-designer + unity-ui-specialist (via team-ui skill)
+> **Last Updated**: 2026-05-14
+> **Version**: 1.0
+> **Engine**: Unity 6000.3.x
+> **UI Framework**: UI Toolkit
 > **Execution Model**: Sequential work packages (WP1..WP8), not all-at-once
 
 ---
 
 ## Purpose
 
-This document outlines the **implementation roadmap and architecture contracts** for Glass Refrain's foundational UI identity in Unity.  
+This document outlines the **implementation roadmap and architecture contracts** for Glass Refrain's foundational UI identity in Unity.
 It defines the sequenced work, component responsibilities, data contracts, risks, and definition-of-done for Phase 3 (Implementation) so that code work remains aligned to approved UX and visual design.
 
 ---
@@ -414,38 +414,38 @@ IAccessibilitySettings {
 
 ### Risk 1: Focus Edge Cases During Rapid Transitions
 
-**Description**: Opening/closing overlays rapidly may leave focus in invalid state.  
-**Mitigation**: Explicit focus validation logic; unit tests for open/close sequences.  
+**Description**: Opening/closing overlays rapidly may leave focus in invalid state.
+**Mitigation**: Explicit focus validation logic; unit tests for open/close sequences.
 **Owned By**: FocusManager implementation + QA.
 
 ### Risk 2: Theme Variant Drift
 
-**Description**: High-contrast/colorblind/reduced-motion variants may diverge from baseline.  
-**Mitigation**: Token snapshot tests; visual checklist per variant; automated contrast validation.  
+**Description**: High-contrast/colorblind/reduced-motion variants may diverge from baseline.
+**Mitigation**: Token snapshot tests; visual checklist per variant; automated contrast validation.
 **Owned By**: Visual design review + theme validation tests.
 
 ### Risk 3: Subtitle Timing Jitter Under Load
 
-**Description**: Subtitle appear/dismiss timing may drift during stress.  
-**Mitigation**: Timestamp-driven presenter logic (not frame-based); idle frame budget.  
+**Description**: Subtitle appear/dismiss timing may drift during stress.
+**Mitigation**: Timestamp-driven presenter logic (not frame-based); idle frame budget.
 **Owned By**: SubtitlePresenter implementation + perf profiling.
 
 ### Risk 4: Input Buffering Edge Cases
 
-**Description**: Input buffers may retain stale commands during device switching or rapid state changes.  
-**Mitigation**: Buffer expiration + early consumption; input trace logging for debugging.  
+**Description**: Input buffers may retain stale commands during device switching or rapid state changes.
+**Mitigation**: Buffer expiration + early consumption; input trace logging for debugging.
 **Owned By**: Input system integration review + stress tests.
 
 ### Risk 5: UI Accidentally Depends on Gameplay Internals
 
-**Description**: Presenter may directly reference gameplay implementation instead of read models.  
-**Mitigation**: Code review gate on UI → domain dependencies; interface-only contracts.  
+**Description**: Presenter may directly reference gameplay implementation instead of read models.
+**Mitigation**: Code review gate on UI → domain dependencies; interface-only contracts.
 **Owned By**: Architecture review + code review checklist.
 
 ### Risk 6: Unity 6000.3.x API Behavior Differences
 
-**Description**: UI Toolkit APIs may behave differently than assumed.  
-**Mitigation**: Validate all runtime APIs against pinned engine docs before final integration.  
+**Description**: UI Toolkit APIs may behave differently than assumed.
+**Mitigation**: Validate all runtime APIs against pinned engine docs before final integration.
 **Owned By**: unity-ui-specialist verification before WP8.
 
 ---

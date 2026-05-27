@@ -29,4 +29,3 @@ The Target Context system SHALL invalidate and clear the active target when the 
 - **GIVEN** target validation is checked
 - **THEN** the system SHALL NOT apply range scoring, visibility scoring, or target priority scoring
 - **AND** validity is determined solely by existence, registration, and targetable state
-

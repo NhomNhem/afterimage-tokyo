@@ -28,4 +28,3 @@ The Target Context system SHALL be registered in `GameplayScope` through manual 
 - **WHEN** it is resolved
 - **THEN** it receives injected `ITargetContext` dependency
 - **AND** it routes `LockOnIntent` to the context
-

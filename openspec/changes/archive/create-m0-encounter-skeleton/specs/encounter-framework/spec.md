@@ -100,4 +100,3 @@ The system SHALL surface debug-visible reasons for prepare, ready, start, comple
 #### Scenario: Encounter does not own target truth
 - **WHEN** the encounter is active
 - **THEN** runtime target truth remains owned by Lock-On / Target Context
-

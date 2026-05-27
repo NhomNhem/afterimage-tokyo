@@ -1,18 +1,18 @@
 # Glass Refrain — Interaction Pattern Library
 
-> **Status**: Foundation (UX Review Approved)  
-> **Author**: ux-designer (via team-ui skill)  
-> **Last Updated**: 2026-05-14  
-> **Version**: 1.0  
-> **Engine**: Unity 6000.3.x  
-> **UI Framework**: UI Toolkit  
+> **Status**: Foundation (UX Review Approved)
+> **Author**: ux-designer (via team-ui skill)
+> **Last Updated**: 2026-05-14
+> **Version**: 1.0
+> **Engine**: Unity 6000.3.x
+> **UI Framework**: UI Toolkit
 > **Primary Input**: Gamepad-first, keyboard/mouse parity required
 
 ---
 
 ## Purpose
 
-This library defines baseline **interaction patterns and behavioral contracts** for Glass Refrain player-facing UI.  
+This library defines baseline **interaction patterns and behavioral contracts** for Glass Refrain player-facing UI.
 It standardizes input behavior, readability floors, disclosure rules, stress-state handling, and QA acceptance gates so interactions remain intuitive, accessible, and tonally coherent across all screens.
 
 ---

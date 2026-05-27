@@ -1,8 +1,8 @@
 # Complete M0 Playable Combat Prototype Verification — Evidence
 
-Date: 2026-05-21 (final manual PlayMode capture update)  
-Change: `complete-m0-playable-combat-prototype-verification`  
-Scene: `Assets/_Project/Content/Scenes/Gameplay/Gameplay_CombatPrototype.unity`  
+Date: 2026-05-21 (final manual PlayMode capture update)
+Change: `complete-m0-playable-combat-prototype-verification`
+Scene: `Assets/_Project/Content/Scenes/Gameplay/Gameplay_CombatPrototype.unity`
 Verdict: PASS for story-done blockers (visual polish follow-ups remain PARTIAL)
 
 ## Scope Statement

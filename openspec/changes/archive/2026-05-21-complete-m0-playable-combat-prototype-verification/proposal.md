@@ -1,13 +1,13 @@
 # Proposal: Complete M0 Playable Combat Prototype Verification
 
-> **Change ID**: complete-m0-playable-combat-prototype-verification  
-> **Schema**: spec-driven  
-> **Status**: Completed with Notes (2026-05-21 story-done closure; no blockers)  
+> **Change ID**: complete-m0-playable-combat-prototype-verification
+> **Schema**: spec-driven
+> **Status**: Completed with Notes (2026-05-21 story-done closure; no blockers)
 > **Date**: 2026-05-21
 
 ## Goal
 
-Finish missing PlayMode verification and minimal scene/reference fixes for the archived `create-m0-playable-combat-prototype-scene` change.  
+Finish missing PlayMode verification and minimal scene/reference fixes for the archived `create-m0-playable-combat-prototype-scene` change.
 This is verification/testability cleanup only, not new gameplay.
 
 ## Scope

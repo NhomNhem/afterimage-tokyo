@@ -188,4 +188,3 @@ Memory VFX Response SHALL provide an OnReset() method that clears all state, set
 #### Scenario: Reset clears source context
 - **WHEN** OnReset() is called after OnAcceptedReveal
 - **THEN** source context is cleared; snapshot has no accepted context reference
-

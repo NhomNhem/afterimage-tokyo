@@ -1,18 +1,18 @@
 # Glass Refrain — UI Identity Foundation
 
-> **Status**: Foundation (UX Review Approved)  
-> **Author**: ux-designer (via team-ui skill)  
-> **Last Updated**: 2026-05-14  
-> **Version**: 1.0  
-> **Engine**: Unity 6000.3.x  
-> **UI Framework**: UI Toolkit  
+> **Status**: Foundation (UX Review Approved)
+> **Author**: ux-designer (via team-ui skill)
+> **Last Updated**: 2026-05-14
+> **Version**: 1.0
+> **Engine**: Unity 6000.3.x
+> **UI Framework**: UI Toolkit
 > **Primary Input**: Gamepad-first, keyboard/mouse parity required
 
 ---
 
 ## Purpose
 
-This document establishes the **emotional and behavioral foundation** for all Glass Refrain player-facing UI.  
+This document establishes the **emotional and behavioral foundation** for all Glass Refrain player-facing UI.
 It defines the core pillars, emotional direction, interaction philosophy, and constraints that all future screens and systems must honor. This is not a final HUD spec or complete menu design — it is the identity contract that prevents UI from becoming generic, cluttered, or tonally inconsistent.
 
 ---
@@ -43,28 +43,28 @@ It defines the core pillars, emotional direction, interaction philosophy, and co
 ## Core Identity Pillars
 
 ### 1. Emotional Minimalism
-**Rule**: Show only what is needed for the current decision.  
-**Spirit**: Each UI element should feel intentional and necessary, never decorative.  
+**Rule**: Show only what is needed for the current decision.
+**Spirit**: Each UI element should feel intentional and necessary, never decorative.
 **Avoid**: persistent dense HUD blocks, decorative noise, status spam.
 
 ### 2. Elegant Restraint
-**Rule**: Precision over abundance; fewer elements with stronger intent.  
-**Spirit**: Beauty held in tension with sadness; controlled power.  
+**Rule**: Precision over abundance; fewer elements with stronger intent.
+**Spirit**: Beauty held in tension with sadness; controlled power.
 **Avoid**: flashy micro-animations, exaggerated callouts, novelty interactions.
 
 ### 3. Psychological Overlays
-**Rule**: Distortion overlays may influence mood, never critical readability.  
-**Spirit**: Memory interference visualized but never at cost of control.  
+**Rule**: Distortion overlays may influence mood, never critical readability.
+**Spirit**: Memory interference visualized but never at cost of control.
 **Avoid**: obscuring health, prompts, subtitles, or focus state.
 
 ### 4. Quiet Domestic Atmosphere
-**Rule**: Menus and pauses feel intimate and human-scale.  
-**Spirit**: Like remembering in a quiet room, not commanding a system dashboard.  
+**Rule**: Menus and pauses feel intimate and human-scale.
+**Spirit**: Like remembering in a quiet room, not commanding a system dashboard.
 **Avoid**: sterile control-panel layouts, aggressive gamification framing.
 
 ### 5. Grounded Cinematic UX
-**Rule**: UI behaves like part of the scene rhythm, not detached app UI.  
-**Spirit**: In-world and composed; never arcade or snappy.  
+**Rule**: UI behaves like part of the scene rhythm, not detached app UI.
+**Spirit**: In-world and composed; never arcade or snappy.
 **Avoid**: mobile-style snap/bounce, instant stack explosions, hyperactive HUD clutter.
 
 ---
@@ -162,7 +162,7 @@ Motion communicates **state change and emotional rhythm**, not excitement.
 ## Audio Feedback Philosophy
 
 ### Audio UX Intent
-Audio cues confirm intent and outcome with low intrusiveness.  
+Audio cues confirm intent and outcome with low intrusiveness.
 Silence is part of the identity; use cues sparingly.
 
 ### Cue Taxonomy

@@ -30,7 +30,7 @@ OpenSpec
 → AgentMemory update
 ```
 
-Repo `Claude-Code-Game-Studios` có sẵn nhóm skills cho Stories & Sprints như `/create-epics`, `/create-stories`, `/dev-story`, `/sprint-plan`, `/sprint-status`, `/story-readiness`, `/story-done`, và nhóm review/QA như `/code-review`, `/gate-check`, `/smoke-check`, `/test-evidence-review`. 
+Repo `Claude-Code-Game-Studios` có sẵn nhóm skills cho Stories & Sprints như `/create-epics`, `/create-stories`, `/dev-story`, `/sprint-plan`, `/sprint-status`, `/story-readiness`, `/story-done`, và nhóm review/QA như `/code-review`, `/gate-check`, `/smoke-check`, `/test-evidence-review`.
 
 ---
 
@@ -76,7 +76,7 @@ Dùng cho:
 - tech debt
 ```
 
-Repo này được thiết kế theo mô hình collaborative, không autonomous: agent hỏi, đưa option, user quyết định, draft, rồi mới approve. 
+Repo này được thiết kế theo mô hình collaborative, không autonomous: agent hỏi, đưa option, user quyết định, draft, rồi mới approve.
 
 ---
 
@@ -337,7 +337,7 @@ Output:
 - confirm no forbidden fallback was added
 ```
 
-Lý do hiện tại chưa nên nhảy Story 1-7: validation report trước đó khuyến nghị hoàn tất PlayMode verification cho `create-m0-playable-combat-prototype-scene`, code review, archive change này rồi mới tới `wire-m0-health-hit-reactions`. 
+Lý do hiện tại chưa nên nhảy Story 1-7: validation report trước đó khuyến nghị hoàn tất PlayMode verification cho `create-m0-playable-combat-prototype-scene`, code review, archive change này rồi mới tới `wire-m0-health-hit-reactions`.
 
 ---
 
@@ -381,7 +381,7 @@ Also list:
 - required reruns
 ```
 
-The current visible prototype exit criteria is that the player can be controlled and observed in Game View without relying only on console logs. 
+The current visible prototype exit criteria is that the player can be controlled and observed in Game View without relying only on console logs.
 
 ---
 
@@ -426,7 +426,7 @@ Include:
 - whether ready for gate-check
 ```
 
-Presentation systems must observe gameplay state and must not own gameplay truth; M0’s priority list also treats Combat Core, Enemy Intent, Memory State, and Encounter Framework as bottleneck systems that many others depend on. 
+Presentation systems must observe gameplay state and must not own gameplay truth; M0’s priority list also treats Combat Core, Enemy Intent, Memory State, and Encounter Framework as bottleneck systems that many others depend on.
 
 ---
 
@@ -534,7 +534,7 @@ Return:
 - next action
 ```
 
-Sprint validation đã phát hiện nhiều mismatch: sprint YAML stale, active playable prototype còn nhiều task chưa check, và chưa có fresh PlayMode run. 
+Sprint validation đã phát hiện nhiều mismatch: sprint YAML stale, active playable prototype còn nhiều task chưa check, và chưa có fresh PlayMode run.
 
 ---
 
@@ -631,7 +631,7 @@ Acceptance:
 - Disabling animation does not break gameplay state.
 ```
 
-Animancer brief đã chốt rõ: Animancer Pro là playback layer ưu tiên, nhưng gameplay không phụ thuộc trực tiếp vào Animancer; intent đi qua project-owned animation service/driver. 
+Animancer brief đã chốt rõ: Animancer Pro là playback layer ưu tiên, nhưng gameplay không phụ thuộc trực tiếp vào Animancer; intent đi qua project-owned animation service/driver.
 
 ---
 
@@ -654,7 +654,7 @@ Tại thời điểm hiện tại:
 12. Then validate Story 1-7 or Story 1-11-lite depending on visible needs.
 ```
 
-Strict next-sequence docs also say: finish PlayMode verification for `create-m0-playable-combat-prototype-scene`, code review, complete/archive, then validate/apply Story 1-7. 
+Strict next-sequence docs also say: finish PlayMode verification for `create-m0-playable-combat-prototype-scene`, code review, complete/archive, then validate/apply Story 1-7.
 
 ---
 

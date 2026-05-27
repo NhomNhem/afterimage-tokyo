@@ -1,7 +1,7 @@
 ## Context
 
-Sprint 2 Story S2-2 targets readability and feel stabilization for Attack/Dodge/Parry in the M0 duel loop.  
-S2-1 review confirms current behavior is playable but partially readable under pressure.  
+Sprint 2 Story S2-2 targets readability and feel stabilization for Attack/Dodge/Parry in the M0 duel loop.
+S2-1 review confirms current behavior is playable but partially readable under pressure.
 This design defines implementation constraints so tuning can happen safely without breaking gameplay ownership boundaries.
 
 ## Goals / Non-Goals
@@ -26,10 +26,10 @@ This design defines implementation constraints so tuning can happen safely witho
 
 Readability for Attack/Dodge/Parry is measured by whether testers can reliably identify windup/active/recovery and success/failure outcomes in real time.
 
-**Rationale:**  
+**Rationale:**
 S2 is stabilization, not feature expansion.
 
-**Alternative considered:** adding new combat mechanics to improve feel.  
+**Alternative considered:** adding new combat mechanics to improve feel.
 **Rejected because:** it changes scope and masks baseline readability issues.
 
 ### Decision 2: Safe tuning surface is constrained to existing ownership boundaries
@@ -44,10 +44,10 @@ Forbidden future tuning surface:
 - VFX/camera deciding combat validity.
 - Input polling shortcuts that bypass existing input routing.
 
-**Rationale:**  
+**Rationale:**
 Preserves the proven M0 architecture and keeps regressions debuggable.
 
-**Alternative considered:** temporary mixed authority between core and presentation for faster feel iteration.  
+**Alternative considered:** temporary mixed authority between core and presentation for faster feel iteration.
 **Rejected because:** it creates hidden truth and unstable behavior.
 
 ### Decision 3: Evidence-first gate is mandatory for each tuning increment
@@ -59,24 +59,24 @@ Any implementation increment for S2-2 must produce:
 - explicit scope creep status,
 - focused tests only when timing/logic contract changes.
 
-**Rationale:**  
+**Rationale:**
 Prevents subjective “feels better” changes without reproducible proof.
 
-**Alternative considered:** rely on ad-hoc playtest feedback only.  
+**Alternative considered:** rely on ad-hoc playtest feedback only.
 **Rejected because:** cannot reliably close acceptance criteria.
 
 ## Risks / Trade-offs
 
-- **[Risk] Readability tuning drifts into gameplay behavior changes**  
+- **[Risk] Readability tuning drifts into gameplay behavior changes**
   → **Mitigation:** require ownership checklist and forbidden-change audit in each evidence report.
 
-- **[Risk] Tuning becomes purely visual and misses core timing clarity**  
+- **[Risk] Tuning becomes purely visual and misses core timing clarity**
   → **Mitigation:** require logs/snapshots for combat phase transitions plus manual readability notes.
 
-- **[Risk] Overfitting to one tester’s perception**  
+- **[Risk] Overfitting to one tester’s perception**
   → **Mitigation:** use repeatable checklist with PASS/PARTIAL/FAIL per axis and sign-off roles from Sprint 2 QA plan.
 
-- **[Risk] Regressions in counter/reveal loop while tuning parry/dodge timing**  
+- **[Risk] Regressions in counter/reveal loop while tuning parry/dodge timing**
   → **Mitigation:** rerun focused core tests and smoke path checks whenever timing logic changes.
 
 ## Migration Plan

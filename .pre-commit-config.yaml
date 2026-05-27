@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-json
+      - id: trailing-whitespace
+        exclude: ^(afterimage-tokyo/|tools/nhem-tooling/|docs-site/)
+      - id: end-of-file-fixer
+        exclude: ^(afterimage-tokyo/|tools/nhem-tooling/|docs-site/)
+
+  - repo: local
+    hooks:
+      - id: check-submodules-clean
+        name: check submodules are clean
+        entry: python scripts/precommit/check_submodules_clean.py
+        language: system
+        pass_filenames: false
+
+      - id: check-submodule-commits-pushed
+        name: check submodule commits are pushed
+        entry: python scripts/precommit/check_submodule_commits_pushed.py
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+
+      - id: require-public-vcontainer-inject
+        name: require public VContainer [Inject] methods
+        entry: python scripts/precommit/require_public_inject.py
+        language: system
+        pass_filenames: true
+        files: \.cs$

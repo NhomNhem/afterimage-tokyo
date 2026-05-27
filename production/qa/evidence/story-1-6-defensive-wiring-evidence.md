@@ -1,8 +1,8 @@
 # Story 1-6 Defensive Wiring — Evidence
 
-> Date: 2026-05-20  
-> Scope: create-m0-playable-combat-prototype-scene  
-> Story: story-1-6-defensive-wiring.md  
+> Date: 2026-05-20
+> Scope: create-m0-playable-combat-prototype-scene
+> Story: story-1-6-defensive-wiring.md
 > Verdict: PASS
 
 ## Automated Test Evidence
@@ -75,7 +75,7 @@ Confirmed:
 
 ## Sign-off
 
-Developer: PASS  
-Designer: PASS  
-QA: PASS  
+Developer: PASS
+Designer: PASS
+QA: PASS
 Archive recommendation: PASS after gate re-run

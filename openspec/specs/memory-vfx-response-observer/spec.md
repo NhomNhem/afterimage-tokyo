@@ -157,4 +157,3 @@ The snapshot interface structure SHALL be designed to make common diagnostic que
 #### Scenario: Cooldown progress is normalized for intuitive display
 - **WHEN** snapshot.CooldownProgress is used in a progress bar UI
 - **THEN** a value of 0.5 clearly represents 50% complete; no formula or conversion is needed
-
