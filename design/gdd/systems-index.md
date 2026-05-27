@@ -373,3 +373,11 @@ These systems carry elevated risk because many others depend on them:
 - M0 GDD ownership is intentionally split between `Lock-On / Target Context` as target-truth ownership and `Lock-On & Combat Camera` as framing/readability ownership. Architecture may later split implementation modules further, but GDD ownership should remain explicit.
 - For M0 gate purposes, only the systems under `M0 Standalone System GDDs` should be expected as `design/gdd/*.md` files. `Core Runtime Foundation` and `Scene Composition` belong to architecture/technical setup, and `Level Blockout / prototype level content` is a prototype content requirement rather than a standalone system GDD.
 - `Debug Overlay` is the canonical M0 visibility system. Older labels such as `Gameplay State Visibility` or `Combat State Visibility` should be treated as superseded naming unless the project later reintroduces them as separate systems by explicit decision.
+
+## GDD Review Notes / Hygiene Follow-Ups
+
+- Cross-GDD review (2026-05-28) verdict: `CONCERNS` (no blocking ownership contradictions found across M0-active GDDs).
+- Multiple GDDs need status metadata synchronization to match actual Sprint 1/Sprint 2 progress.
+- `design/registry/entities.yaml` population is a follow-up item; keep registry update as a dedicated pass against existing source-of-truth docs.
+- Reflect S2-2 and S2-3 progress in systems-level status tracking after their archive/tracking closure is fully reflected in project docs.
+- Non-goals for this hygiene pass: no gameplay code changes, no Unity submodule changes, no runtime behavior changes, no system redesign, no new RPG/map/inventory/lore scope.
