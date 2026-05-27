@@ -26,6 +26,8 @@
 - Tech debt logged: 1 item (`harden-m0-health-combat-confirmation-contract`)
 - Next recommended: production/epics/m0-first-playable-duel/story-1-8-encounter-lifecycle.md
 
+<!-- QA-PLAN: 2026-05-26 | System: Sprint 2 | Plan written: production/qa/qa-plan-sprint-2-2026-05-26.md -->
+
 ## Session Extract — /story-done 2026-05-21
 - Verdict: COMPLETE WITH NOTES
 - Story: openspec/changes/archive/2026-05-21-complete-m0-playable-combat-prototype-verification — M0 playable combat prototype evidence-hardening pass
