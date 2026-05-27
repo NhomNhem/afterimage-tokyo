@@ -3,7 +3,7 @@ goal: "Stabilize M0 duel feel and readability for Attack/Dodge/Parry, enemy tele
 start: "2026-05-30"
 end: "2026-06-12"
 generated: "2026-05-26"
-updated: "2026-05-27"
+updated: "2026-05-28"
 status: in-progress
 
 stories:
@@ -29,23 +29,25 @@ stories:
 
   - id: "S2-3"
     name: "[Enemy] Telegraph Readability Pass"
-    file: ""
+    file: "openspec/changes/archive/2026-05-27-tune-m0-enemy-telegraph-readability"
     priority: must-have
-    status: backlog
+    status: done
     owner: "ai-programmer"
     estimate_days: 1.0
     blocker: ""
-    completed: ""
+    completed: "2026-05-27"
+    notes: "Implemented, focused verification PASS, evidence approved, archived, and pushed."
 
   - id: "S2-4"
     name: "[Camera] Lock-On Combat Camera Readability Pass"
-    file: ""
+    file: "openspec/changes/tune-m0-lockon-camera-readability"
     priority: must-have
-    status: backlog
+    status: ready-for-dev
     owner: "lead-programmer"
     estimate_days: 1.0
     blocker: ""
     completed: ""
+    notes: "OpenSpec planning updated and active change restored from accidental archive."
 
   - id: "S2-5"
     name: "[QA] M0 Playable Duel Smoke Test Checklist"

@@ -1,6 +1,6 @@
 # Sprint 2 — 2026-05-30 to 2026-06-12
 
-**Status**: In Progress (S2-1 done, S2-2 in review)
+**Status**: In Progress (S2-1 done, S2-3 done, S2-4 ready-for-dev)
 **Review Mode**: lean
 **QA Plan**: `production/qa/qa-plan-sprint-2-2026-05-26.md`
 **Producer Gate**: skipped — Lean mode
@@ -118,4 +118,6 @@ It de-risks Sprint 2 by turning verified-with-notes work into a concrete gap lis
 
 - S2-1: done (closure review completed and evidence recorded)
 - S2-2: in review (focused tests rerun PASS 42/42 with verification notes)
+- S2-3: done (enemy telegraph readability implemented, evidenced, archived, and pushed on 2026-05-27)
+- S2-4: ready-for-dev (OpenSpec plan active; implementation not started)
 - Remaining stories: backlog
