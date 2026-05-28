@@ -18,6 +18,6 @@
 
 ## 4. Manual Verification & Smoke Check
 
-- [ ] 4.1 Perform a manual hierarchy check in Play Mode starting from the `Bootstrap` scene.
-- [ ] 4.2 Verify VContainer scope resolution using a minimal debug log or inspector diagnostic.
-- [ ] 4.3 Confirm no circular dependency errors appear in the Unity Console during scope initialization.
+- [x] 4.1 Perform a manual hierarchy check in Play Mode starting from the `Bootstrap` scene.
+- [x] 4.2 Verify VContainer scope resolution using a minimal debug log or inspector diagnostic.
+- [x] 4.3 Confirm no circular dependency errors appear in the Unity Console during scope initialization.
