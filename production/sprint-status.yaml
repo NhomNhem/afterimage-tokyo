@@ -40,14 +40,14 @@ stories:
 
   - id: "S2-4"
     name: "[Camera] Lock-On Combat Camera Readability Pass"
-    file: "openspec/changes/tune-m0-lockon-camera-readability"
+    file: "openspec/changes/archive/2026-05-28-implement-m0-lockon-camera-readability"
     priority: must-have
-    status: ready-for-dev
+    status: done
     owner: "lead-programmer"
     estimate_days: 1.0
     blocker: ""
-    completed: ""
-    notes: "OpenSpec planning updated and active change restored from accidental archive."
+    completed: "2026-05-28"
+    notes: "Implemented, focused verification PASS WITH NOTES, archived, and pushed."
 
   - id: "S2-5"
     name: "[QA] M0 Playable Duel Smoke Test Checklist"
