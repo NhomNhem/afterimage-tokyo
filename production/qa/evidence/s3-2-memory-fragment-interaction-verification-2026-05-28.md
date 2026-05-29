@@ -2,7 +2,7 @@
 
 ## Status
 
-PASS WITH NOTES
+IN PROGRESS
 
 ## Scope
 
@@ -46,12 +46,32 @@ Added:
   - `Tick_DuplicateInteraction_IsIgnoredSafely`
 
 Run status:
-- Not executed in this patch pass (Unity runner execution pending).
+- Unity MCP EditMode focused run completed (2026-05-29):
+  - Job `e4ed31cafccc43a6814ccde61f435f27`
+  - total=3, passed=3, failed=0, skipped=0
+  - Targeted tests:
+    - `MemoryInteractionServiceTests.Tick_WithEligibleFragmentAndInteract_AcceptsThroughMemoryState`
+    - `MemoryInteractionServiceTests.Tick_WithoutEligibleFragmentAndInteract_IsSafe`
+    - `MemoryInteractionServiceTests.Tick_DuplicateInteraction_IsIgnoredSafely`
+- Unity MCP MemoryState accept/reject path run completed:
+  - Job `25b923982db44e6abde625fc031462e0`
+  - total=7, passed=7, failed=0, skipped=0
+- Unity MCP DI/manual wiring guardrail run completed:
+  - Job `e2694e453ef141ea9785ffeef27da88c`
+  - total=1, passed=1, failed=0, skipped=0
+  - Test: `M0MemoryStateTests.VContainerScopeRemainsManualWiring`
 
 ## Console / Domain Classification
 
-Pending manual verification run.
+Unity MCP console snapshot (Error/Warning) after focused runs:
+- Warning: Unity Test Framework `IPrebuildSetup` and `IPostBuildCleanup` logs (non-blocking test infrastructure warnings).
+- Exception log entry: `Saving results to ... TestResults.xml` (test framework reporting output, non-S3-2 blocker in this context).
+- Error (external/non-scope): HDRP material enum drawer mismatch:
+  - `Failed to create MaterialEnum, enum UnityEditor.Rendering.HighDefinition.TransparentCullMode not found`
+  - `Failed to create material drawer Enum with arguments 'UnityEditor.Rendering.HighDefinition.TransparentCullMode'`
+  - Classified as known external render/material tooling issue, not introduced by S3-2 Memory Fragment interaction code.
 
+No new S3-2-scope compile/runtime exception was observed in the focused test runs.
 No new direct `UnityEngine.Debug.*` calls were introduced by this patch.
 
 ## Manual PlayMode Checklist
@@ -62,6 +82,30 @@ Pending:
 - Press Interact and verify accepted flow.
 - Press Interact again and verify duplicate-safe behavior.
 - Classify console warnings/errors as S3-2 scope vs external warnings.
+- Tooling limitation (2026-05-29): Unity MCP `execute_code` failed in this session with `mono.exe: The filename or extension is too long`, so automated/manual-assist PlayMode capture could not be completed from MCP.
+
+### Manual PlayMode Evidence Snapshot — 2026-05-29
+
+Verdict: `IN PROGRESS`
+
+What this capture proves:
+- Runtime/bootstrap stability is present.
+- Gameplay input map includes `Interact`.
+- Core M0 loop still runs.
+- No S3-2-scope crash/error was observed in the captured logs.
+
+What this capture does not yet prove:
+- Nearby/eligible `MemoryFragment` state.
+- `Interact` pressed while fragment is eligible.
+- `MemoryInteractionService` request/result log.
+- `MemoryState` accept/reject result tied to fragment interaction.
+- Duplicate second-interact handling (`already collected` / safe ignore / reject).
+
+Second focused capture attempt status:
+- Attempted to run another focused manual-assist capture via Unity MCP on 2026-05-29.
+- MCP `execute_code` is currently blocked in this environment with:
+  - `Error running ... mono.exe: The filename or extension is too long.`
+- Because of this tooling blocker, end-to-end fragment interaction evidence could not be captured directly by MCP in this run.
 
 ## Architecture Boundary Check
 
@@ -80,3 +124,31 @@ Pending:
 
 - If manual PlayMode confirms the route and no S3-2 errors: keep `PASS WITH NOTES` or upgrade to `PASS`.
 - If interaction fails in-scene due to wiring/placement: downgrade to `PARTIAL` and open focused fix story.
+
+---
+
+## Pre-Commit Re-Review Snapshot — 2026-05-29
+
+Verdict: `APPROVED WITH NOTES (NOT READY TO COMMIT)`
+
+Pre-commit scope/boundary review results:
+- PASS: S3-2 runtime scope remains Memory Fragment interaction only.
+- PASS: `MemoryState` remains reveal/collect truth owner.
+- PASS: `MemoryInteractionService` remains use-case orchestration owner.
+- PASS: no `FindObjectOfType`, `Resources.Load`, or service locator introduced in S3-2 files.
+- PASS: no direct `UnityEngine.Debug.Log/Warning/Error` introduced in S3-2 files.
+- PASS: `MemoryFragmentDefinition` remains static data/config only.
+- PASS: no CombatCore timing/result logic changes.
+- PASS: no EnemyIntent lifecycle changes.
+- PASS: no TargetContext/camera ownership rewrite.
+
+Outstanding blockers before commit:
+1. Manual PlayMode checklist remains pending.
+2. Working tree currently contains unrelated dirty files in submodule:
+   - `Packages/manifest.json`
+   - `Packages/packages-lock.json`
+   - `qodana.yaml` (untracked/staged in submodule at review time)
+   These must be excluded from S3-2 staging.
+
+Commit readiness:
+- Not ready until focused tests run + manual checklist classification is recorded + staging is scope-clean.
