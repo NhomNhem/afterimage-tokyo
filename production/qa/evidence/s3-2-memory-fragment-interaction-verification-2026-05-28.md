@@ -152,3 +152,30 @@ Outstanding blockers before commit:
 
 Commit readiness:
 - Not ready until focused tests run + manual checklist classification is recorded + staging is scope-clean.
+
+## Manual PlayMode Interaction Capture — 2026-05-29
+
+### Verdict
+
+`PASS WITH NOTES`
+
+This capture proves the core S3-2 interaction path for the first interaction attempt.
+
+| Item | Result | Evidence / Notes |
+|---|---:|---|
+| Memory DI wiring | PASS | `[M0Bootstrap] Memory DI injected: probe=True fragments=1` confirms the runtime memory dependencies were injected and one fragment was registered. |
+| Interact input path | PASS | `F` / Interact triggered the memory interaction flow during PlayMode. |
+| MemoryInteractionService request/result | PASS | `MemoryInteractionService` logged `outcome=Accepted reason=Reveal accepted by MemoryState`. |
+| MemoryState acceptance | PASS | The accepted outcome confirms the interaction request was accepted by MemoryState. |
+| No VContainerException crash | PASS | Runtime continued without DI crash. |
+| M0 gameplay loop regression | PASS | Movement/combat/enemy intent continued running during the capture. |
+| MemoryRaycastProProbe debug raycast | PARTIAL / FOLLOW-UP | Probe repeatedly logged `hitName=None`; classified as debug-probe mismatch because gameplay interaction succeeds through MemoryInteractionService fragment registry/distance criteria. |
+| Duplicate interaction handling | PENDING / PARTIAL | Needs explicit second-interact capture showing rejected/ignored/already-collected behavior, unless captured in a later log. |
+
+### Classification
+
+The core S3-2 gameplay path is functional:
+
+`Interact → MemoryInteractionService → MemoryState accepted`
+
+`MemoryRaycastProProbe` is not treated as gameplay truth and is not a blocker for S3-2. It should be aligned in a follow-up so debug evidence uses the same eligibility criteria as `MemoryInteractionService`.
