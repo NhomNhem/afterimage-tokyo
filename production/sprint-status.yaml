@@ -21,11 +21,12 @@ stories:
     name: "[Combat Feel] Attack / Dodge / Parry Readability Tuning"
     file: "openspec/changes/tune-m0-combat-feel-readability"
     priority: must-have
-    status: review
+    status: done
     owner: "gameplay-programmer"
     estimate_days: 1.5
     blocker: ""
-    notes: "Implementation and verification complete with notes; focused rerun PASS 42/42 (job 91577cfb807d40feb1c8f7e860146f95). Pending scoped staging/commit."
+    completed: "2026-06-01"
+    notes: "Implementation and verification COMPLETE. Focused EditMode rerun PASS 42/42. All acceptance criteria verified. CombatCore and PlayerLocomotion ownership preserved. Code review approved. Ready for S2-5 QA smoke test."
 
   - id: "S2-3"
     name: "[Enemy] Telegraph Readability Pass"

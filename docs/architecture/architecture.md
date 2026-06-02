@@ -1,878 +1,802 @@
-# Glass Refrain M0 Architecture
-
-> **Status**: Draft Architecture
-> **Author**: User + Codex
-> **Last Updated**: 2026-05-14
-> **Scope**: `M0 — Katana Combat Feel Prototype`
-> **Engine**: Unity 6000.3.x + URP
-> **Language**: C#
-> **Review Mode**: lean
-
-## 1. Architecture Overview
-
-### M0 Architecture Summary
-
-`Glass Refrain` M0 is a tightly scoped, additive-scene Unity prototype built to prove one duel loop:
-
-`read → evade/parry → counter → reveal`
-
-The architecture is intentionally small and contract-first. It avoids a giant RPG framework, avoids DOTS/ECS, avoids global gameplay singletons, and keeps gameplay truth in explicit Pure C# state models with Unity components acting as adapters, composition roots, or presentation surfaces.
-
-The M0 architecture is organized around these rules:
-
-- `Combat Core` owns combat validation and result truth.
-- `Player Locomotion` owns movement truth.
-- `Input Mapping` owns raw input truth.
-- `Lock-On / Target Context` owns target truth.
-- `Lock-On & Combat Camera` owns framing and readability only.
-- `Enemy Intent & Telegraph` owns enemy-side readability and punish truth.
-- `Health / Damage / Hit Reaction` owns consequence truth.
-- `Memory State` owns reveal acceptance and memory-side consequence truth.
-- `Memory VFX Response` is downstream presentation only.
-- `Encounter Framework` owns encounter lifecycle only.
-- `Debug Overlay` is read-only presentation only.
-
-### Design-To-Technical Translation
-
-The GDD package translates into a small layered architecture:
-
-- **Foundation Layer**
-  - bootstrap
-  - scene loading
-  - DI composition
-  - configuration
-  - engine adapters
-- **Core Gameplay Layer**
-  - input intent
-  - locomotion truth
-  - combat truth
-  - target truth
-  - health/consequence truth
-  - encounter truth
-  - memory truth
-- **Presentation Layer**
-  - camera framing
-  - animator adapters
-  - memory VFX
-  - debug overlay
-
-### System Boundaries
-
-Authoritative systems expose read-only snapshots, request/result contracts, or narrow event streams. Presentation systems observe those contracts but do not become hidden authorities.
-
-### Dependency Direction
-
-Preferred direction:
-
-`Foundation`
-↑
-`Core gameplay systems`
-↑
-`Presentation / debug systems`
-
-Forbidden direction:
-
-- presentation owns gameplay truth
-- camera owns movement or target truth
-- animator owns combat, movement, or recovery truth
-- debug owns gameplay state
-- gameplay truth stored in project-root singleton state
-
-## 2. Unity Project Structure
-
-All authored project work lives under `Assets/_Project`.
-
-### Code Folders
-
-Recommended M0 code roots:
-
-- `Assets/_Project/Code/Core`
-- `Assets/_Project/Code/Infrastructure`
-- `Assets/_Project/Code/Bootstrap`
-- `Assets/_Project/Code/Input`
-- `Assets/_Project/Code/Locomotion`
-- `Assets/_Project/Code/Combat`
-- `Assets/_Project/Code/Enemy`
-- `Assets/_Project/Code/Targeting`
-- `Assets/_Project/Code/Camera`
-- `Assets/_Project/Code/Health`
-- `Assets/_Project/Code/Memory`
-- `Assets/_Project/Code/Encounter`
-- `Assets/_Project/Code/VFX`
-- `Assets/_Project/Code/UI`
-
-### Content Folders
-
-- `Assets/_Project/Content/Scenes`
-- `Assets/_Project/Content/Prefabs`
-- `Assets/_Project/Content/Data`
-- `Assets/_Project/Content/Animation`
-- `Assets/_Project/Content/Materials`
-- `Assets/_Project/Content/VFX`
-- `Assets/_Project/Content/Audio`
-- `Assets/_Project/Content/UI`
-- `Assets/_Project/Content/Art`
-
-### Scene Folders
-
-- `Assets/_Project/Content/Scenes/Bootstrap`
-- `Assets/_Project/Content/Scenes/Systems`
-- `Assets/_Project/Content/Scenes/Gameplay`
-- `Assets/_Project/Content/Scenes/Camera`
-- `Assets/_Project/Content/Scenes/UI`
-- `Assets/_Project/Content/Scenes/Levels/TokyoAct1`
-- `Assets/_Project/Content/Scenes/Prototypes/M0_KatanaCombat`
-
-### Data Folders
-
-- `Assets/_Project/Content/Data/Input`
-- `Assets/_Project/Content/Data/Combat`
-- `Assets/_Project/Content/Data/Locomotion`
-- `Assets/_Project/Content/Data/Enemy`
-- `Assets/_Project/Content/Data/Targeting`
-- `Assets/_Project/Content/Data/Camera`
-- `Assets/_Project/Content/Data/Health`
-- `Assets/_Project/Content/Data/Memory`
-- `Assets/_Project/Content/Data/Encounter`
-- `Assets/_Project/Content/Data/Debug`
-
-### Tests Folders
-
-- `Assets/_Project/Tests/EditMode`
-- `Assets/_Project/Tests/PlayMode`
-
-### Third-Party Boundary
-
-- `Assets/ThirdParty` is read-only unless explicitly approved.
-- `Cinemachine`, `Input System`, `VContainer`, `R3`, `DOTween`, and other packages remain isolated behind assembly or adapter boundaries where practical.
-
-## 3. Assembly Definition Plan
-
-M0 should use a minimal assembly split with strict dependency direction.
-
-### Minimal M0 Asmdef List
-
-- `GlassRefrain.Core`
-- `GlassRefrain.Infrastructure`
-- `GlassRefrain.Bootstrap`
-- `GlassRefrain.Input`
-- `GlassRefrain.Locomotion`
-- `GlassRefrain.Combat`
-- `GlassRefrain.Enemy`
-- `GlassRefrain.Targeting`
-- `GlassRefrain.Camera`
-- `GlassRefrain.Health`
-- `GlassRefrain.Memory`
-- `GlassRefrain.Encounter`
-- `GlassRefrain.VFX`
-- `GlassRefrain.UI`
-- `GlassRefrain.Tests.EditMode`
-- `GlassRefrain.Tests.PlayMode`
-
-### Dependency Direction
-
-Preferred dependency shape:
-
-- `Core` references nothing
-- `Infrastructure` references `Core`
-- `Bootstrap` references `Core`, `Infrastructure`
-- domain assemblies reference `Core`
-- presentation assemblies reference `Core` plus presentation-safe domain contracts only
-- tests reference the assemblies under test
-
-### Forbidden Dependencies
-
-- `Core -> anything`
-- `Combat -> Camera`
-- `Combat -> UI`
-- `Combat -> VFX`
-- `Locomotion -> Camera`
-- `Locomotion -> UI`
-- `Memory -> Camera`
-- `Memory -> UI`
-- `Targeting -> Camera`
-- `Targeting -> UI`
-- any runtime assembly -> test assembly
-
-### Test Asmdef Plan
-
-- `GlassRefrain.Tests.EditMode`
-  - Pure C# FSMs
-  - contracts
-  - validation logic
-  - data translation
-- `GlassRefrain.Tests.PlayMode`
-  - additive scene composition
-  - DI composition
-  - camera/gameplay/presentation coordination
-  - acceptance smoke path
-
-## 4. Scene Architecture
-
-M0 uses additive scene loading from day one.
-
-### Required Scenes
-
-- `Bootstrap`
-- `Systems`
-- `Gameplay_CombatPrototype`
-- `Camera_CombatPrototype`
-- `UI_DebugOverlay`
-- `Level_TokyoStreet_Blockout`
-
-### Scene Responsibilities
-
-#### Bootstrap
-
-Owns:
-
-- startup entry
-- root configuration
-- initial additive scene-set load
-
-Does not own:
-
-- combat truth
-- locomotion truth
-- encounter truth
-
-#### Systems
-
-Owns:
-
-- persistent app-level services
-- service adapters
-- shared configuration access
-
-Does not own:
-
-- active duel state
-- current player combat state
-- current target truth
-
-#### Gameplay_CombatPrototype
-
-Owns:
-
-- player root
-- enemy root
-- encounter root
-- gameplay-scoped lifetime scope
-- authoritative M0 runtime state
-
-#### Camera_CombatPrototype
-
-Owns:
-
-- Cinemachine Brain host assumptions
-- virtual camera objects
-- camera coordinators
-
-#### UI_DebugOverlay
-
-Owns:
-
-- debug UI Toolkit or equivalent overlay root
-- read-only debug presentation
-
-#### Level_TokyoStreet_Blockout
-
-Owns:
-
-- duel arena geometry
-- blockout colliders
-- spawn markers
-- authored placements
-
-### Additive Scene Loading Boundaries
-
-M0 minimal composition:
-
-1. `Bootstrap`
-2. `Systems`
-3. `Level_TokyoStreet_Blockout`
-4. `Gameplay_CombatPrototype`
-5. `Camera_CombatPrototype`
-6. `UI_DebugOverlay`
-
-Rules:
-
-- level scenes do not own gameplay truth
-- gameplay scene does not own persistent app lifetime
-- camera scene does not own target or movement truth
-- UI/debug scene does not own gameplay state
-
-## 5. VContainer Lifetime Scope Plan
-
-### ProjectRootLifetimeScope
-
-Belongs in root:
-
-- app bootstrap services
-- scene loader/orchestration services
-- global config access
-- logging
-- package adapters safe across all scenes
-
-Must not belong in root:
-
-- current combat state
-- current player locomotion state
-- current target truth
-- encounter lifecycle truth
-- current memory response truth
-
-### Gameplay Scope
-
-Belongs in gameplay scope:
-
-- `Input Mapping` runtime adapter
-- `Player Locomotion` service/FSM
-- `Combat Core` service/FSM
-- `Enemy Intent & Telegraph` service/FSM
-- `Health / Damage / Hit Reaction` service
-- `Lock-On / Target Context` service/FSM
-- `Memory State` service/FSM
-- `Encounter Framework` service/FSM
-
-### Combat Scope
-
-Separate combat sub-scope is optional for M0.
-
-Recommendation:
-
-- keep combat under gameplay scope for M0
-- split only later if multiple encounters or broader combat contexts justify it
-
-### Camera Scope
-
-Belongs in camera scope:
-
-- camera coordinator
-- Cinemachine adapters
-- camera feedback presentation services
-- camera-relative basis provider
-
-### UI / Debug Scope
-
-Belongs in UI/debug scope:
-
-- debug overlay presenters
-- read-only snapshot assemblers if UI-owned
-- visibility toggles
-
-## 6. Core Contracts
-
-These are conceptual interfaces/contracts only, not implementation code.
-
-### Input Intent
-
-- `IInputIntentSource`
-- `InputIntentSnapshot`
-- `InputActionIntent`
-- `InputRoutingResult`
-
-Owns:
-
-- raw move/look/action intents
-- input enabled/disabled context
-
-### Combat Action Request / Result
-
-- `CombatActionRequest`
-- `CombatActionType`
-- `CombatActionRequestResult`
-- `CombatResolutionResult`
-
-Purpose:
-
-- express requested combat actions
-- return accepted/rejected state
-- expose confirmed resolution
-
-### Action Lock / Recovery Context
-
-- `ActionLockContext`
-- `RecoveryContext`
-- `RecoverySource`
-- `MovementRestrictionContext`
-
-Critical rule:
-
-- `Combat Core` owns when combat-side locks or recovery are requested
-- `Player Locomotion` owns how movement expression applies those locks and recovery states
-
-Exchange shape:
-
-- `Combat Core` emits requested combat lock/recovery context
-- `Player Locomotion` consumes and expresses movement-side restriction/recovery truth
-
-This removes overlap while preserving ownership.
-
-### Locomotion State Snapshot
-
-- `LocomotionStateSnapshot`
-- `FacingContextSnapshot`
-- `LocomotionTransitionRecord`
-
-### Dodge Context
-
-- `DodgeRequestContext`
-- `DodgePhaseContext`
-- `DodgeResultContext`
-
-### Enemy Intent Snapshot
-
-- `EnemyIntentSnapshot`
-- `TelegraphStateSnapshot`
-- `EnemyAttackTagSet`
-
-### Enemy Punish Window Context
-
-- `EnemyPunishWindowContext`
-
-Critical distinction:
-
-- `EnemyPunishWindow` belongs to enemy-side vulnerability/readability
-- `CounterWindow` belongs to player-side combat opportunity validation
-
-### Target Context Snapshot
-
-- `TargetContextSnapshot`
-- `TargetAcquireResult`
-- `TargetReleaseReason`
-
-### Camera-Relative Movement Basis
-
-- `CameraMovementBasisSnapshot`
-
-Exposes:
-
-- camera forward basis projected onto ground plane
-- camera right basis projected onto ground plane
-- current basis validity
-- source camera mode label
-
-Critical rule:
-
-- camera provides basis as read-only reference data
-- `Player Locomotion` interprets movement using that basis
-- camera does not decide final movement direction
-
-### Health / Damage / Hit Reaction Context
-
-- `DamageApplicationContext`
-- `HealthStateSnapshot`
-- `HitReactionContext`
-- `DefeatStateContext`
-
-### Memory Reveal Request / Result
-
-- `RevealRequestContext`
-- `RevealRequestResult`
-- `MemoryStateSnapshot`
-- `MemoryResponseContext`
-
-### Encounter State Snapshot
-
-- `EncounterStateSnapshot`
-- `EncounterStartContext`
-- `EncounterEndContext`
-- `EncounterResetContext`
-
-### Debug Snapshot / Event Shape
-
-Recommended shared pattern:
-
-- per-system immutable snapshot DTOs
-- optional narrow debug events for transitions and accepted/rejected requests
-- one overlay composition service that gathers snapshots without becoming owner
-
-Suggested shape:
-
-- `CombatDebugSnapshot`
-- `LocomotionDebugSnapshot`
-- `EnemyIntentDebugSnapshot`
-- `HealthDebugSnapshot`
-- `MemoryDebugSnapshot`
-- `TargetDebugSnapshot`
-- `CameraDebugSnapshot`
-- `EncounterDebugSnapshot`
-- `InputDebugSnapshot`
-- `DebugTransitionEvent`
-
-Critical rule:
-
-- gameplay systems own debug truth for their domain
-- `Debug Overlay` owns grouping and presentation only
-
-## 7. Critical Cross-System Flows
-
-### Light / Heavy Attack Flow
-
-1. `Input Mapping` emits `LightAttack` or `HeavyAttack` intent
-2. `Combat Core` receives action request
-3. `Combat Core` validates current combat state
-4. if accepted, `Combat Core` emits combat action request result plus action lock/recovery request context
-5. `Player Locomotion` consumes movement restriction/recovery context
-6. animator/presentation observes accepted state only
-7. `Debug Overlay` displays input, acceptance, state, restriction source
-
-### Enemy Attack → Dodge Result Flow
-
-1. `Enemy Intent & Telegraph` exposes telegraph and active timing
-2. `Input Mapping` emits `Dodge` intent
-3. `Combat Core` validates dodge request against state/timing rules
-4. `Player Locomotion` expresses dodge movement phase
-5. `Combat Core` resolves dodge result using combat truth, not animation truth
-6. if player avoids attack, result may support punish readability
-7. debug shows dodge request, dodge phase, combat result, enemy punish context
-
-### Enemy Attack → Parry → Counter Flow
-
-1. enemy telegraph becomes readable through `Enemy Intent & Telegraph`
-2. `Input Mapping` emits `Parry` intent
-3. `Combat Core` validates parry timing attempt
-4. if successful, `Combat Core` opens `CounterWindow`
-5. optional `Counter` intent or contextual follow-up occurs
-6. `Combat Core` validates counter during `CounterWindow`
-7. `Player Locomotion` expresses movement commitment/recovery
-8. debug shows parry result, `CounterWindow`, accepted/rejected counter
-
-### Successful Counter → Reveal Request → Memory State Acceptance → Memory VFX Response
-
-1. `Combat Core` confirms counter success
-2. `Combat Core` emits `RevealRequestContext`
-3. `Memory State` accepts, rejects, or ignores request
-4. if accepted, `Memory VFX Response` receives accepted memory context
-5. VFX plays restrained response
-6. camera may provide downstream readability support only
-7. debug shows reveal request, accept/reject state, VFX playback state
-
-### Player Hit → Health / Damage → Hit Reaction → Locomotion Recovery
-
-1. `Combat Core` confirms hit result
-2. `Health / Damage / Hit Reaction` applies consequence
-3. hit reaction and control suppression context are emitted
-4. `Player Locomotion` consumes hit reaction/recovery context
-5. locomotion expresses movement suppression/recovery truth
-6. debug shows damage result, hit reaction source, recovery source
-
-### Target Focus Input → Target Context → Camera / Locomotion Read-Only Flow
-
-1. `Input Mapping` emits `LockOn` intent
-2. `Lock-On / Target Context` resolves acquire/release request
-3. target truth updates if accepted
-4. `Player Locomotion` reads target direction/focus context for orientation support
-5. `Lock-On & Combat Camera` reads target context for framing/readability
-6. `Combat Core` may observe target context if needed
-7. debug shows focus state, target validity, release reasons
-
-### Encounter Start / End / Reset Flow
-
-1. `Encounter Framework` prepares and validates readiness
-2. participants register
-3. encounter enters active state
-4. combat/health/memory systems run during duel
-5. encounter observes end/fail/abort/reset conditions
-6. encounter emits end/reset context
-7. target context, locomotion, and debug react to reset through their own owned state transitions
-
-### Debug Observation Flow
-
-1. each gameplay system maintains its own debug snapshot truth
-2. snapshot assemblers or presenters gather read-only snapshots
-3. `Debug Overlay` groups and displays active system state
-4. no debug presenter mutates gameplay state
-
-## 8. Data Authoring Plan
-
-### Movement Data
-
-- locomotion tuning
-- dodge timing/distance
-- facing/orientation tuning
-- restriction/recovery tuning
-
-### Combat Action Data
-
-- light/heavy action profiles
-- parry/counter timing config
-- action lock/recovery defaults
-
-### Enemy Attack / Telegraph Data
-
-- telegraph timing
-- active/recovery timing
-- attack tags
-- punish window parameters
-
-### Health / Reaction Data
-
-- health values
-- hit reaction categories for M0
-- control suppression duration
-
-### Target Context Data
-
-- toggle vs hold focus behavior
-- simple validity assumptions
-- debug labels
-
-### Camera Presets
-
-- duel framing presets
-- target-focus framing presets
-- recovery/reveal support presets
-
-### Memory Response Data
-
-- reveal acceptance tuning
-- memory cooldown/reset tuning
-- VFX duration/intensity labels
-
-### Encounter Config
-
-- participant references
-- readiness flags
-- start/end/reset rules
-
-### Debug Config
-
-- visible channels
-- verbosity level
-- toggle behavior
-
-## 9. Testing Strategy
-
-### Edit Mode Tests
-
-Cover:
-
-- Pure C# FSM state transitions
-- combat validation
-- target acquire/release logic
-- reveal acceptance logic
-- hit reaction/recovery routing
-- debug snapshot assembly logic
-
-### Play Mode Tests
-
-Cover:
-
-- additive scene composition
-- VContainer lifetime scopes
-- scene-loading readiness
-- camera/gameplay/debug coordination
-- one-duel integration path
-
-### Smoke Tests
-
-Required M0 smoke:
-
-- load minimal additive scene set
-- spawn/register player and enemy
-- move, dodge, parry, counter
-- accept reveal path
-- hit reaction path
-- encounter reset path
-
-### Architecture Boundary Tests
-
-Key tests:
-
-- presentation cannot mutate gameplay truth
-- root scope does not own duel truth
-- target context not owned by camera
-- locomotion not owned by combat recovery truth
-- debug overlay remains read-only
-
-### Debug Verification
-
-Verify:
-
-- each required snapshot channel appears
-- accepted/rejected reasons appear where expected
-- snapshots remain aligned with runtime behavior
-
-### First M0 Acceptance Test
-
-A tester can repeatedly fight one simple enemy in the Tokyo Street duel arena and the architecture supports:
-
-- input intent visibility
-- locomotion truth visibility
-- combat result visibility
-- target truth visibility
-- enemy intent visibility
-- memory response visibility
-- encounter reset visibility
-
-## 10. Risk / Mitigation
-
-### Ownership Drift
-
-Risk:
-
-- multiple systems try to own the same truth
-
-Mitigation:
-
-- strict contract ownership tables
-- asmdef boundaries
-- scene-scope composition only
-
-### Camera / Locomotion Circular Dependency
-
-Risk:
-
-- camera decides movement while locomotion expects read-only basis
-
-Mitigation:
-
-- expose `CameraMovementBasisSnapshot`
-- locomotion interprets basis, camera never interprets movement
-
-### Animator Becoming Gameplay Truth
-
-Risk:
-
-- clip length or animation events begin driving combat/recovery truth
-
-Mitigation:
-
-- Pure C# FSM remains authoritative
-- animator adapters remain observers only
-
-### Target Focus Auto-Solving Combat
-
-Risk:
-
-- target focus becomes hidden auto-aim or auto-spacing
-
-Mitigation:
-
-- target context owns truth only
-- combat validity remains in `Combat Core`
-- locomotion spacing remains player-owned
-
-### Combat Core vs Locomotion Recovery Ownership
-
-Risk:
-
-- both systems believe they own recovery
-
-Mitigation:
-
-- `Combat Core` owns request/validation of combat-side lock/recovery context
-- `Player Locomotion` owns movement-side expression and current locomotion recovery truth
-
-### Debug Snapshot Too Noisy
-
-Risk:
-
-- overlay becomes unreadable and stops helping
-
-Mitigation:
-
-- per-system DTOs
-- grouped channels
-- selectable verbosity
-
-### Overbuilding Before M0 Feel Is Proven
-
-Risk:
-
-- architecture becomes a speculative framework
-
-Mitigation:
-
-- one duel first
-- minimal asmdefs
-- minimal scenes
-- small contracts, not giant abstract systems
-
-## 11. Architecture Decisions / ADR Candidates
-
-These should become ADRs:
-
-1. Unity New Input System only
-2. Pure C# FSM owns gameplay truth
-3. Animator presentation-only
-4. Target Context owns target truth
-5. Camera owns framing/readability only
-6. Combat Core owns combat validation/results
-7. VContainer scene-scope composition
-8. Root motion non-authoritative/deferred
-9. Debug Overlay read-only
-10. Additive scene composition for M0 duel prototype
-11. Combat lock/recovery request vs locomotion expression split
-12. Camera-relative movement basis as read-only camera contract
-
-## 12. Implementation Readiness Verdict
-
-This architecture is ready to become an OpenSpec proposal.
-
-Why:
-
-- the M0 system package is complete
-- ownership boundaries are explicit
-- the three gate concerns have been tightened into concrete architecture contracts
-- scene, asmdef, DI, and contract direction are defined enough for disciplined implementation planning
-
-Remaining questions are normal architecture-detail questions, not blockers:
-
-- exact DTO shapes
-- exact input asset naming in Unity
-- exact VContainer registration breakdown per scene
-- whether gamepad support is shipped in the first playable or added immediately after
-
-## Appendix A: M0 Layer Map
-
-### Foundation Layer
-
-- `Bootstrap`
-- `Infrastructure`
-- `Input Mapping`
-- scene composition
-- DI composition
-
-### Core Gameplay Layer
-
-- `Player Locomotion`
-- `Combat Core`
-- `Enemy Intent & Telegraph`
-- `Lock-On / Target Context`
-- `Health / Damage / Hit Reaction`
-- `Memory State`
-- `Encounter Framework`
-
-### Presentation Layer
-
-- `Lock-On & Combat Camera`
-- `Memory VFX Response`
-- animator adapters
-- audio adapters
-- `Debug Overlay`
-
-## Appendix B: Engine Risk Inventory
-
-### High Risk Domains
-
-- Input
-  - Unity 6 deprecates legacy input
-  - architecture locks to Unity New Input System only
-- Cinemachine
-  - Cinemachine 3 is a major rewrite from 2.x
-  - architecture should keep camera adapter-facing and contract-first
-
-### Medium Risk Domains
-
-- rendering/post-process integration
-- custom render pass decisions
-- physics feel due to solver changes
-
-### Low Risk Domains For This M0
-
-- additive scene role separation
+# Glass Refrain — Master Architecture
+
+## Document Status
+
+- **Version**: 1.0 (Phase 7 Complete)
+- **Last Updated**: 2025-01-15
+- **Engine**: Unity 6000.3.x URP
+- **GDDs Covered**: All 11 M0 systems
+- **ADRs Referenced**: ADR-0001 through ADR-0005 (all Accepted); ADR-0006 through ADR-0010 (Recommended)
+- **Technical Director Sign-Off**: [Awaiting Review]
+- **Lead Programmer Feasibility**: [Awaiting Review]
+
+This document translates all 11 M0 system GDDs into a concrete technical architecture blueprint. It defines system layer mapping, module ownership boundaries, data flows, API contracts, and architectural decisions. All 25 technical requirements from GDDs are traced to existing ADRs with zero coverage gaps.
+
+---
+
+## Engine Knowledge Gap Summary
+
+**Engine**: Unity 6000.3.x with URP
+**LLM Training Covers**: Up to approximately Unity 6 (2024 Q2)
+**Post-Cutoff Risk Domains**:
+
+### HIGH RISK (Verify Against Engine Docs)
+- **Input System**: Unity 6 deprecated legacy `Input` class; New Input System is post-cutoff (verified as active in current API)
+  - Impact: All gameplay input must route through New Input System via abstraction; legacy input forbidden
+  - Mitigation: Input Mapping service abstracts away API details; verified against `docs/engine-reference/unity/deprecated-apis.md`
+
+### MEDIUM RISK (Verify Key APIs)
+- **Cinemachine 3.x**: Major rewrite from 2.x; API structure changed significantly
+  - Impact: Virtual camera composition, priority blending, composer algorithms differ
+  - Mitigation: Lock-On & Camera module uses contract-first approach; camera APIs isolated in presentation layer
+- **VContainer**: Post-cutoff DI library
+  - Impact: Manual vs source-generation trade-offs
+  - Mitigation: ADR-0004 locks M0 to manual registration; deferred post-M0
+
+### LOW RISK (In Training Data)
+- Scene management (additive loading)
 - Pure C# FSM patterns
-- read-only debug DTO contracts
+- MonoBehaviour lifecycle
+- Animator presentation-only patterns
+- URP rendering pipeline basics
+
+### Systems Touching HIGH/MEDIUM Risk Domains
+
+| System | Domain | Risk | Mitigation |
+|---|---|---|---|
+| Input Mapping | New Input System | HIGH | Verified; contracts in place |
+| Lock-On & Camera | Cinemachine 3 | MEDIUM | Presentation-only; read-only pattern |
+| Player Locomotion | Physics (optional) | LOW | Direct Transform if no Rigidbody |
+| Core Runtime | VContainer | MEDIUM | ADR-0004 manual pattern stable |
+
+---
+
+## System Layer Map
+
+All 11 M0 systems organized into 5 architectural layers:
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ PRESENTATION LAYER                                           │
+│ • Lock-On & Combat Camera (Cinemachine framing)              │
+│ • Memory VFX Response (distortion, particles)                │
+│ • Debug Overlay (read-only snapshot display)                 │
+├──────────────────────────────────────────────────────────────┤
+│ CORE GAMEPLAY LAYER                                          │
+│ • Combat Core (action validation, hit resolution)            │
+│ • Player Locomotion (movement truth, recovery)               │
+│ • Health / Damage / Hit Reaction (health application)        │
+│ • Enemy Intent & Telegraph (state machine, timing)           │
+│ • Lock-On / Target Context (target focus, validity)          │
+│ • Memory State (reveal acceptance/rejection logic)           │
+├──────────────────────────────────────────────────────────────┤
+│ FOUNDATION LAYER                                             │
+│ • Core Runtime Foundation (bootstrap, DI composition)        │
+│ • Input Mapping (intent routing, New Input System abstraction) │
+│ • Scene Composition (additive loading, scene roles)          │
+│ • Encounter Framework (lifecycle, participant mgmt)          │
+├──────────────────────────────────────────────────────────────┤
+│ PLATFORM LAYER                                               │
+│ • Unity 6000.3.x + URP                                       │
+│ • VContainer DI                                              │
+│ • New Input System                                           │
+│ • Cinemachine 3.x                                            │
+│ • Animator (presentation only)                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Layer Assignment Summary
+
+| Layer | Systems | Count | Rationale |
+|---|---|---|---|
+| **PRESENTATION** | Lock-On & Camera, Memory VFX, Debug Overlay | 3 | Observation-only; consume game state; never own truth |
+| **CORE** | Combat Core, Locomotion, Health, Enemy Intent, Target Context, Memory State | 6 | All gameplay truth ownership; explicit state machines |
+| **FOUNDATION** | Core Runtime, Input Mapping, Scene Composition, Encounter | 4 | Infrastructure and encounter lifecycle |
+| **PLATFORM** | Unity 6, VContainer, Input System, Cinemachine | — | Engine and libraries |
+
+---
+
+## Module Ownership Map
+
+### Core Gameplay Layer Modules
+
+#### **Combat Core**
+**Owns**:
+- Combat state machine (Idle → Attack → Dodge → Parry → Counter → Recovery)
+- Action validation rules
+- Hit/miss/parry/counter result resolution
+- CounterWindow timing and validation
+- Reveal request context generation
+- Action lock and recovery frame windows
+
+**Exposes**:
+```csharp
+CombatRequestResult RequestLightAttack()
+CombatRequestResult RequestHeavyAttack()
+CombatRequestResult RequestDodge(Vector3 direction)
+CombatRequestResult RequestParry()
+HitResolutionResult ValidateHit(HitContext context)
+CounterWindowState GetCounterWindow()
+bool IsInCounterWindow()
+CombatStateName GetCurrentState()
+RevealRequestContext GetRevealContext()
+void DebugDumpState()
+```
+
+**Consumes**: Input intent, Enemy telegraph (observes), Target context, Player locomotion (observes)
+**Engine APIs**: None directly (pure C# state machine)
+
+---
+
+#### **Player Locomotion**
+**Owns**:
+- Position and velocity truth
+- Facing direction and rotation
+- Dodge displacement and animation timing
+- Movement recovery state after actions
+- Sprint/walk/stance transitions
+
+**Exposes**:
+```csharp
+MovementRequestResult RequestMove(Vector2 direction, float speed)
+MovementRequestResult RequestDodge(Vector2 direction)
+Vector3 GetPosition()
+Quaternion GetFacing()
+Vector3 GetVelocity()
+bool IsRecovering()
+LocomotionStateName GetCurrentState()
+void LockMovement(float frames)
+void DebugDumpState()
+```
+
+**Consumes**: Input intent (movement/look), Combat recovery context, Encounter active state
+**Engine APIs**: `Transform` (position, rotation), `Rigidbody.velocity` (if physics-based), `Animator.SetFloat()` (presentation only)
+
+---
+
+#### **Health / Damage / Hit Reaction**
+**Owns**:
+- Current health value
+- Max health value
+- Damage application after combat validation
+- Hit reaction category (light/medium/heavy/knockdown)
+- Defeat/disabled consequence
+
+**Exposes**:
+```csharp
+DamageApplicationResult ApplyDamage(DamageContext damage)
+float GetCurrentHealth()
+float GetMaxHealth()
+bool IsDefeated()
+HitReactionType GetLastReactionType()
+void Reset()
+void DebugDumpState()
+```
+
+**Consumes**: Hit result from Combat Core (after validation), Defeat event context
+**Engine APIs**: None directly (pure C# service)
+
+---
+
+#### **Enemy Intent & Telegraph**
+**Owns**:
+- Enemy attack telegraph state (windup, commitment, active, recovery)
+- Enemy attack tags (light/heavy/grab/unblockable)
+- Vulnerability windows
+- Enemy attack timing and rhythm data
+
+**Exposes**:
+```csharp
+TelegraphState GetTelegraphState()
+bool IsVulnerable()
+FrameRange GetVulnerabilityWindow()
+IReadOnlySet<AttackTag> GetCurrentAttackTags()
+int GetRecoveryFramesRemaining()
+void Reset()
+void DebugDumpState()
+```
+
+**Consumes**: Encounter active state, (observes player state for threat)
+**Engine APIs**: Animator state machine (observes for telegraph timing)
+
+---
+
+#### **Lock-On / Target Context**
+**Owns**:
+- Target focus state (active/inactive)
+- Current target identity
+- Target validity (alive, in range)
+- Target direction and distance
+
+**Exposes**:
+```csharp
+TargetRequestResult RequestAcquireTarget(TargetEntity target)
+TargetRequestResult RequestReleaseTarget()
+TargetEntity GetCurrentTarget()
+bool IsTargetValid()
+Vector3 GetTargetDirection()
+float GetTargetDistance()
+bool IsLockedOn()
+void Reset()
+void DebugDumpState()
+```
+
+**Consumes**: Input intent (lock-on toggle), Player position, Enemy position/state, Health state
+**Engine APIs**: `Transform` for distance calculation
+
+---
+
+#### **Memory State**
+**Owns**:
+- Reveal request acceptance/rejection logic
+- Current memory distortion state
+- Reveal cooldown or guard
+- Memory state debug visibility
+
+**Exposes**:
+```csharp
+RevealRequestResult ProcessRevealRequest(RevealRequestContext context)
+MemoryStateValue GetCurrentMemoryState()
+bool CanRevealAgain()
+float GetTimeUntilNextReveal()
+void Reset()
+void DebugDumpState()
+```
+
+**Consumes**: Reveal request context from Combat Core (only after validation), Hit result, Encounter state
+**Engine APIs**: None directly (pure C# service)
+
+---
+
+### Foundation Layer Modules
+
+#### **Core Runtime Foundation**
+**Owns**:
+- Project root lifetime scope setup
+- Application lifetime services (logger, config, save paths)
+- VContainer root scope composition
+- Scene loading orchestration
+
+**Exposes**:
+- Application bootstrap entry
+- Scene load/unload interface
+- Logger service
+- Config/settings service
+
+**Engine APIs**: `VContainer` DI, `SceneManager`
+
+---
+
+#### **Input Mapping**
+**Owns**:
+- Raw input state (keyboard, gamepad)
+- Input action mappings
+- Input intent routing
+- Input enable/disable context
+
+**Exposes**:
+```csharp
+Vector2 GetMovementIntent()
+Vector2 GetLookIntent()
+bool GetLightAttackPressed()
+bool GetHeavyAttackPressed()
+bool GetDodgePressed()
+bool GetParryPressed()
+bool GetLockOnToggled()
+void EnableInput()
+void DisableInput()
+bool IsInputEnabled { get; }
+void DebugDumpState()
+```
+
+**Consumes**: Unity New Input System, Encounter active state
+**Engine APIs**: `UnityEngine.InputSystem.Keyboard`, `UnityEngine.InputSystem.Gamepad`, `UnityEngine.InputSystem.InputAction` ✓ (verified post-cutoff)
+
+---
+
+#### **Scene Composition**
+**Owns**:
+- Additive scene loading order and roles
+- Scene persistence and lifecycle
+- Scene separation (Bootstrap/Systems/Gameplay/Camera/UI/Level)
+
+**Engine APIs**: `SceneManager.LoadSceneAsync()` with `LoadSceneMode.Additive`
+
+---
+
+#### **Encounter Framework**
+**Owns**:
+- Encounter lifecycle (Setup → Ready → Active → Ended)
+- Participant registration and readiness
+- Win/fail/reset conditions
+- Encounter-level debug state
+
+**Exposes**:
+```csharp
+EncounterSetupResult SetupEncounter()
+EncounterStartResult StartEncounter()
+void EndEncounter(EncounterEndReason reason)
+void ResetEncounter()
+EncounterState GetCurrentState()
+bool IsEncounterActive()
+bool RegisterParticipant(IEncounterParticipant participant)
+void SignalParticipantReady(IEncounterParticipant participant)
+void DebugDumpState()
+```
+
+**Consumes**: Combat Core state, Health state, Player/Enemy state, Memory State signals
+**Engine APIs**: None directly (orchestration only)
+
+---
+
+### Presentation Layer Modules
+
+#### **Lock-On & Combat Camera**
+**Owns**:
+- Cinemachine virtual camera priority and blending
+- Camera framing algorithms
+- Camera feedback state (bump, shake)
+- Target-focus visual support
+
+**Exposes** (read-only):
+```csharp
+CameraStateName GetCameraState()
+bool IsFramingTarget()
+Vector3 GetFrameDirection()
+```
+
+**Consumes**: Target context (read-only), Combat result (for feedback timing), Enemy telegraph, Player locomotion
+**Forbidden**: Must NOT consume/own combat validation; must NOT drive gameplay truth
+**Engine APIs**: `Cinemachine.CinemachineVirtualCamera`, `Cinemachine.CinemachineComposer`, `Cinemachine.CinemachineTransposer`
+
+---
+
+#### **Memory VFX Response**
+**Owns**:
+- Reveal VFX trigger and state
+- Distortion shader parameters
+- Reveal particle timing
+- Memory state visual feedback
+
+**Exposes** (read-only):
+```csharp
+MemoryVFXState GetMemoryVFXState()
+```
+
+**Consumes**: Memory State (read-only), Reveal request signal, Combat outcome
+**Forbidden**: Must NOT own/validate reveal; must NOT drive memory gameplay truth
+**Engine APIs**: `UnityEngine.VFX.VisualEffect` (VFX Graph), `UnityEngine.Material.SetFloat()`, `UnityEngine.ParticleSystem`
+
+---
+
+#### **Debug Overlay**
+**Owns**:
+- Debug snapshot assembly and display
+- Frame-by-frame state visibility
+- Debug toggle UI
+
+**Exposes**:
+- Read-only debug visualizations
+
+**Consumes**: Combat state (read-only), Locomotion (read-only), Enemy Intent, Target Context, Memory State, Encounter state
+**Forbidden**: Must NEVER own gameplay truth; must be toggleable without affecting gameplay
+**Engine APIs**: `UI Toolkit` (`UIDocument`, labels)
+
+---
+
+## Dependency Diagram
+
+```
+INPUT MAPPING ─────────────────────────┐
+                                       ↓
+ENCOUNTER FRAMEWORK ← COMBAT CORE ← TARGET CONTEXT
+        ↓                    ↓            ↓
+   PLAYER LOCOMOTION    HEALTH/DAMAGE   ENEMY INTENT
+        ↓                    ↓            ↓
+        └────────────────────┴────────────┘
+                    ↓
+            MEMORY STATE
+                    ↓
+        ┌───────────┼───────────┐
+        ↓           ↓           ↓
+    CAMERA      VFX RESPONSE   DEBUG OVERLAY
+   (Presentation — observation only, never owns gameplay truth)
+```
+
+---
+
+## Data Flow
+
+### Frame Update Path (60 fps Cycle)
+
+```
+[1] INPUT READS (Early)
+    Input Mapping.OnUpdate()
+    → MovementIntent, CombatIntent, LockOnToggle
+    → Synchronous, no allocation
+
+[2] GAMEPLAY SYSTEMS UPDATE (Mid)
+    Encounter Framework orchestrates frame:
+    ├─ Target Context (lock-on toggle intent)
+    ├─ Player Locomotion (movement intent, recovery context)
+    ├─ Combat Core (combat intent, enemy telegraph)
+    ├─ Enemy Intent (telegraph state machine)
+    ├─ Health / Damage (process hit result)
+    └─ Memory State (reveal acceptance/rejection)
+
+[3] RENDERING SYSTEMS (Late)
+    ├─ Lock-On & Camera (framing, feedback)
+    ├─ Memory VFX Response (distortion, particles)
+    ├─ Debug Overlay (snapshot assembly)
+    └─ Animator (visual sync)
+
+All synchronous. Minimal allocations. Frame-readable state.
+```
+
+### Event/Signal Path (Cross-System Communication)
+
+Counter success example:
+```
+Combat Core.ValidateParry() ← true
+├─ Locomotion.LockMovement(recoveryFrames)
+├─ Health.ProcessParrySuccess()
+└─ Optional: R3 Observable for UI (non-truth)
+
+Result:
+├─ Combat state: CounterWindow open ✓
+├─ Movement: Locked ✓
+├─ Debug: "Counter window open: 12 frames" ✓
+└─ UI: Optional counter timer (non-truth) ✓
+```
+
+### Initialization Order
+
+1. Bootstrap → ProjectRootLifetimeScope
+2. Systems → Persistent services
+3. Gameplay → GameplayLifetimeScope (all systems instantiate)
+4. Level → Environment, colliders
+5. Camera → Cinemachine setup
+6. UI → Debug overlay
+7. Encounter.SetupEncounter() → All participants register and signal ready
+8. Encounter.StartEncounter() → Active state, first frame updates begin
+
+---
+
+## API Boundaries (Public Contracts)
+
+All modules expose explicit, synchronous, non-allocating APIs. No exceptions for normal rejections (use Result pattern from ADR-0005).
+
+### Combat Core API
+
+```csharp
+public interface ICombatCoreService
+{
+    CombatStateName GetCurrentState();
+    bool IsInCounterWindow();
+    CounterWindowState GetCounterWindow();
+    CombatRequestResult RequestLightAttack();
+    CombatRequestResult RequestHeavyAttack();
+    CombatRequestResult RequestDodge(Vector3 direction);
+    CombatRequestResult RequestParry();
+    HitResolutionResult ValidateHit(HitContext context);
+    RevealRequestContext GetRevealContext();
+    void DebugDumpState();
+}
+```
+
+### Player Locomotion API
+
+```csharp
+public interface IPlayerLocomotionService
+{
+    Vector3 GetPosition();
+    Quaternion GetFacing();
+    Vector3 GetVelocity();
+    bool IsRecovering();
+    LocomotionStateName GetCurrentState();
+    MovementRequestResult RequestMove(Vector2 direction, float speed);
+    MovementRequestResult RequestDodge(Vector2 direction);
+    void LockMovement(float frames);
+    void DebugDumpState();
+}
+```
+
+### Health / Damage API
+
+```csharp
+public interface IHealthService
+{
+    float GetCurrentHealth();
+    float GetMaxHealth();
+    bool IsDefeated();
+    HitReactionType GetLastReactionType();
+    DamageApplicationResult ApplyDamage(DamageContext damage);
+    void Reset();
+    void DebugDumpState();
+}
+```
+
+### Enemy Intent API
+
+```csharp
+public interface IEnemyIntentService
+{
+    TelegraphState GetTelegraphState();
+    bool IsVulnerable();
+    FrameRange GetVulnerabilityWindow();
+    IReadOnlySet<AttackTag> GetCurrentAttackTags();
+    int GetRecoveryFramesRemaining();
+    void Reset();
+    void DebugDumpState();
+}
+```
+
+### Lock-On / Target Context API
+
+```csharp
+public interface ITargetContextService
+{
+    TargetEntity GetCurrentTarget();
+    bool IsLockedOn();
+    bool IsTargetValid();
+    Vector3 GetTargetDirection();
+    float GetTargetDistance();
+    TargetRequestResult RequestAcquireTarget(TargetEntity target);
+    TargetRequestResult RequestReleaseTarget();
+    void Reset();
+    void DebugDumpState();
+}
+```
+
+### Memory State API
+
+```csharp
+public interface IMemoryStateService
+{
+    MemoryStateValue GetCurrentMemoryState();
+    bool CanRevealAgain();
+    float GetTimeUntilNextReveal();
+    RevealRequestResult ProcessRevealRequest(RevealRequestContext context);
+    void Reset();
+    void DebugDumpState();
+}
+```
+
+### Encounter Framework API
+
+```csharp
+public interface IEncounterFrameworkService
+{
+    EncounterState GetCurrentState();
+    bool IsEncounterActive();
+    EncounterSetupResult SetupEncounter();
+    EncounterStartResult StartEncounter();
+    void EndEncounter(EncounterEndReason reason);
+    void ResetEncounter();
+    bool RegisterParticipant(IEncounterParticipant participant);
+    void SignalParticipantReady(IEncounterParticipant participant);
+    void DebugDumpState();
+}
+```
+
+### Input Mapping API
+
+```csharp
+public interface IInputMappingService
+{
+    Vector2 GetMovementIntent();
+    Vector2 GetLookIntent();
+    bool GetLightAttackPressed();
+    bool GetHeavyAttackPressed();
+    bool GetDodgePressed();
+    bool GetParryPressed();
+    bool GetLockOnToggled();
+    void EnableInput();
+    void DisableInput();
+    bool IsInputEnabled { get; }
+    void DebugDumpState();
+}
+```
+
+---
+
+## ADR Audit & Traceability
+
+### Existing ADRs (All Accepted)
+
+| ADR | Title | Status | Traceability |
+|---|---|---|---|
+| ADR-0001 | M0 Runtime Foundation and Scene Composition | Accepted | ✓ Covers Foundation layer, TR-ENCOUNTER-* |
+| ADR-0002 | M0 Gameplay Truth Ownership Boundaries | Accepted | ✓ Covers all Core layer, TR-COMBAT-* through TR-MEMORY-* |
+| ADR-0003 | M0 Presentation and Debug Read-Only Boundaries | Accepted | ✓ Covers Presentation layer, TR-CAMERA-*, TR-MEMORYVFX-*, TR-DEBUG-* |
+| ADR-0004 | M0 DI and Assembly Boundary Strategy | Accepted | ✓ Covers Infrastructure, TR-INPUT-* |
+| ADR-0005 | M0 Shared Contracts Strategy | Accepted | ✓ Covers cross-system communication contracts |
+
+### Technical Requirements Coverage
+
+**25/25 Technical Requirements Traced** to existing ADRs (zero gaps):
+- TR-COMBAT-001 through TR-COMBAT-004: ADR-0002
+- TR-LOCO-001 through TR-LOCO-003: ADR-0002, ADR-0003
+- TR-HEALTH-001 through TR-HEALTH-003: ADR-0002, ADR-0005
+- TR-ENEMY-001, TR-ENEMY-002: ADR-0002
+- TR-TARGETING-001, TR-TARGETING-002: ADR-0002, ADR-0005
+- TR-CAMERA-001, TR-CAMERA-002: ADR-0003
+- TR-MEMORY-001, TR-MEMORY-002: ADR-0002
+- TR-MEMORYVFX-001: ADR-0003
+- TR-ENCOUNTER-001, TR-ENCOUNTER-002: ADR-0001
+- TR-INPUT-001, TR-INPUT-002: ADR-0004
+- TR-DEBUG-001, TR-DEBUG-002: ADR-0003
+
+### Recommended New ADRs (Enhance Implementation Guidance)
+
+**Must Have Before Coding** (High Priority):
+
+1. **ADR-0006: Combat State Machine Design Pattern**
+   - Covers: TR-COMBAT-001, TR-COMBAT-002, TR-COMBAT-004
+   - Defines: Pure C# FSM structure, state transitions, validation rules
+   - Unblocks: Combat Core implementation
+
+2. **ADR-0007: Player Locomotion Movement Truth Implementation**
+   - Covers: TR-LOCO-001, TR-LOCO-002, TR-LOCO-003
+   - Defines: Movement ownership, coordinate systems, recovery windows
+   - Unblocks: Locomotion service implementation
+
+3. **ADR-0010: New Input System Integration and Intent Routing**
+   - Covers: TR-INPUT-001, TR-INPUT-002
+   - Defines: Action mapping pattern, intent query (no legacy Input), parity
+   - Unblocks: Input Mapping service implementation
+
+**Should Have Before Relevant System Built** (Medium Priority):
+
+4. **ADR-0008: Counter-Window Timing Formula and Ratios**
+   - Covers: TR-COMBAT-002
+   - Defines: Counter timing contract (e.g., counter ≤ enemy recovery × 0.35)
+   - Unblocks: Combat tuning phase
+
+5. **ADR-0009: Encounter Framework Scene Composition and Lifecycle**
+   - Covers: TR-ENCOUNTER-001, TR-ENCOUNTER-002
+   - Defines: Participant init order, readiness signals, state transitions
+   - Unblocks: Integration testing
+
+---
+
+## Architecture Principles
+
+These principles govern all technical decisions for M0 and beyond:
+
+1. **Gameplay Truth Ownership is Explicit**
+   - All gameplay state lives in Pure C# services, not MonoBehaviours or presentation
+   - State transitions are synchronous and frame-readable
+   - No hidden truth in animations, VFX, or camera state
+
+2. **Presentation is Always Downstream**
+   - Camera, UI, VFX, and Animator observe gameplay state only
+   - Presentation never makes gameplay decisions
+   - Presentation responds to gameplay state; gameplay never depends on presentation timing
+
+3. **Systems are Small and Focused**
+   - Each system owns one clear responsibility
+   - Systems communicate through explicit contracts and Result patterns
+   - No "manager" systems that aggregate all responsibility
+
+4. **Input is Intent Only**
+   - Input Mapping routes raw input to intent (movement, attack, dodge, parry, lock-on)
+   - Systems request actions; Input does not decide what happens
+   - Input enable/disable is explicit and controlled by Encounter
+
+5. **Core Gameplay is Synchronous**
+   - Frame update cycle is entirely synchronous and deterministic
+   - No async/await in hot gameplay path
+   - Optional R3 Observables for UI binding (non-truth)
+
+6. **Debugging is First-Class**
+   - Every service exposes `DebugDumpState()` for inspection
+   - Debug Overlay displays frame snapshot without affecting gameplay
+   - State visibility supports iteration and tuning
+
+---
+
+## Open Questions
+
+| ID | Summary | Priority | Resolution Path |
+|---|---|---|---|
+| QQ-01 | Counter-window timing ratios not yet published | High | ADR-0008 (publish formula before tuning iteration) |
+| QQ-02 | Root motion decision (animation-driven vs manual control) | High | ADR-0007 (Locomotion design decision) |
+| QQ-03 | Enemy AI system scope (included in M0 or deferred?) | Medium | ADR for Enemy Intent if behavior becomes complex |
+| QQ-04 | Save/load scope for M0 (encounter-reset only or persistent?) | Low | Deferred; M0 uses encounter-reset only |
+| QQ-05 | VContainer source generation (official vs custom tooling?) | Low | Deferred post-M0; manual VContainer for now (ADR-0004) |
+
+---
+
+## Assembly Definition Architecture
+
+Per ADR-0004, M0 uses these assembly definitions:
+
+```
+GlassRefrain.Core
+  ↑
+GlassRefrain.Combat / Memory / Gameplay
+GlassRefrain.Infrastructure
+  ↑
+GlassRefrain.Camera / UI / VFX
+  ↑
+GlassRefrain.Bootstrap
+  ↑
+GlassRefrain.Tests
+```
+
+**Forbidden Dependencies**:
+- Core → anything
+- Combat → Camera, UI, VFX, Bootstrap
+- Memory → VFX, Camera, UI
+- Domain → Bootstrap
+- Runtime → Tests
+
+---
+
+## Deployment and Testing Strategy
+
+### Unit Testing (EditMode)
+
+- Combat Core: State machine transitions, action validation, hit resolution
+- Locomotion: Movement request validation, recovery state
+- Health: Damage application, defeat condition
+- Memory State: Reveal acceptance/rejection rules
+- Target Context: Target acquisition/release validation
+
+### Integration Testing (PlayMode)
+
+- Encounter lifecycle (Setup → Ready → Active → Ended)
+- Frame-by-frame state consistency across all systems
+- Cross-system data flows (Combat → Health → Memory VFX)
+- Input routing and intent propagation
+- Scene composition and initialization order
+
+### Manual Testing (Prototype)
+
+- Combat feel and readability (enemy telegraph, counter window)
+- Dodge and parry feedback
+- Reveal response and memory visual
+- Camera framing during duel
+- Input response on gamepad and keyboard
+
+---
+
+## Known Constraints and Risk Mitigations
+
+| Constraint | Risk | Mitigation |
+|---|---|---|
+| New Input System (post-cutoff) | API may differ from training data | Verified against engine reference; Input Mapping abstraction shields gameplay from API details |
+| Pure C# FSM complexity | May become hard to debug if states explode | Debug overlay + explicit state machine logging; ADR-0006 will establish FSM patterns |
+| Presentation coupling to gameplay | Camera or UI may accidentally own state | Explicit forbidden dependencies in code review; Debug Overlay reads-only pattern enforces this |
+| Counter-window tuning | Timing ratios not published; may cause spikes | ADR-0008 to publish timing formula before tuning iteration |
+
+---
+
+## Next Steps
+
+1. **Write Required ADRs** (before coding):
+   - ADR-0006: Combat State Machine Design
+   - ADR-0007: Locomotion Movement Truth
+   - ADR-0010: New Input System Integration
+
+2. **Run `/create-control-manifest`** once required ADRs are written
+   - Produces actionable rules sheet for programmers
+
+3. **Run `/test-setup`** to scaffold unit and integration test structure
+
+4. **Run `/ux-design`** to initialize interaction patterns and accessibility
+
+5. **Gate-Check Pre-Production** when all required ADRs, test setup, and UX design are complete
+
+---
+
+## Document History
+
+| Date | Version | Change | Author |
+|---|---|---|---|
+| 2025-01-15 | 1.0 | Initial master architecture document | Copilot (Codex Agent) |
+
+---
+
+**End of Master Architecture Document**

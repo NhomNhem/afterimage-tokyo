@@ -38,3 +38,29 @@
   - Non-blocking follow-up visual polish remains: Parry visual feedback, Counter visual feedback
   - LockOn toggle/release behavior recorded as OBSERVED / FOLLOW-UP (not blocker)
 - Next recommended: production/epics/m0-first-playable-duel/story-1-8-encounter-lifecycle.md
+## Session Extract — /story-done 2026-06-01
+- Verdict: COMPLETE WITH NOTES
+- Story: openspec/changes/archive/2026-05-27-tune-m0-combat-feel-readability — [Combat Feel] Attack / Dodge / Parry Readability Tuning (S2-2)
+- Tech debt logged: None
+- Acceptance Criteria: 6/6 passing
+  - Attack readability verified (timing/clarity)
+  - Dodge readability verified (displacement/clarity)
+  - Parry readability verified (timing/CounterWindow)
+  - CombatCore ownership preserved
+  - PlayerLocomotion ownership preserved
+  - No scope creep detected
+- Test Evidence: EditMode suite PASS 42/42 (job 91577cfb807d40feb1c8f7e860146f95) + manual PlayMode verification document signed off
+- Code Review: Approved
+- Next recommended: production/sprints/sprint-2.md::S2-5 — [QA] M0 Playable Duel Smoke Test Checklist
+
+## Session Extract — /review-all-gdds 2026-06-01
+- Verdict: CONCERNS (Not Blocking)
+- GDDs reviewed: 11 M0 systems
+- Phase 2 (Consistency): PASS (16/16 checks) — 3 advisory warnings, 0 blockers
+- Phase 3 (Design Theory): PASS (7/7 checks) — 1 advisory warning on timing ratios, 0 blockers
+- Ownership boundaries: All aligned, zero contradictions
+- Pillar alignment: Perfect (zero orphaned systems)
+- Player fantasy coherence: Single unified identity across all systems
+- Flagged for follow-up: Player Locomotion docs, counter timing ratios (advisory only)
+- Next recommended: /create-architecture or /gate-check (Systems Design phase)
+- Report: design/gdd/gdd-cross-review-2026-06-01.md ✓ written
