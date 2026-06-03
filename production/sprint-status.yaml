@@ -3,8 +3,8 @@ goal: "Stabilize M0 duel feel and readability for Attack/Dodge/Parry, enemy tele
 start: "2026-05-30"
 end: "2026-06-12"
 generated: "2026-05-26"
-updated: "2026-05-28"
-status: in-progress
+updated: "2026-06-04"
+status: complete-with-notes
 
 stories:
   - id: "S2-1"
@@ -19,18 +19,18 @@ stories:
 
   - id: "S2-2"
     name: "[Combat Feel] Attack / Dodge / Parry Readability Tuning"
-    file: "openspec/changes/tune-m0-combat-feel-readability"
+    file: "openspec/changes/archive/2026-05-27-tune-m0-combat-feel-readability"
     priority: must-have
     status: done
     owner: "gameplay-programmer"
     estimate_days: 1.5
     blocker: ""
     completed: "2026-06-01"
-    notes: "Implementation and verification COMPLETE. Focused EditMode rerun PASS 42/42. All acceptance criteria verified. CombatCore and PlayerLocomotion ownership preserved. Code review approved. Ready for S2-5 QA smoke test."
+    notes: "Implementation and verification COMPLETE. Focused EditMode rerun PASS 42/42. All acceptance criteria verified. CombatCore and PlayerLocomotion ownership preserved. Code review approved and OpenSpec archived."
 
   - id: "S2-3"
     name: "[Enemy] Telegraph Readability Pass"
-    file: "openspec/changes/archive/2026-05-27-tune-m0-enemy-telegraph-readability"
+    file: "openspec/changes/archive/tune-m0-enemy-telegraph-readability"
     priority: must-have
     status: done
     owner: "ai-programmer"
@@ -52,60 +52,66 @@ stories:
 
   - id: "S2-5"
     name: "[QA] M0 Playable Duel Smoke Test Checklist"
-    file: ""
+    file: "production/epics/m0-first-playable-duel/story-s2-5-m0-playable-duel-smoke-test-checklist.md"
     priority: must-have
-    status: backlog
+    status: done
     owner: "qa-lead"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "Smoke checklist and fresh smoke report complete. PASS: EditMode 197/197, PlayMode 2/2, manual smoke PASS all. Evidence: production/qa/smoke-2026-06-04.md."
 
   - id: "S2-6"
     name: "[Animation] Placeholder Clip Assignment and Timing Readability"
-    file: ""
+    file: "openspec/changes/archive/2026-05-26-wire-m0-animator-observer-adapters"
     priority: should-have
-    status: backlog
+    status: closed-with-notes
     owner: "art-director"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "Covered by archived animator observer adapter OpenSpec and evidence. Missing clips are warning-only and gameplay continues; final authored clip alignment remains future presentation polish."
 
   - id: "S2-7"
     name: "[Memory] Reveal VFX Readability Pass"
-    file: ""
+    file: "openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder"
     priority: should-have
-    status: backlog
+    status: closed-with-notes
     owner: "vfx-programmer"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "Covered by archived memory reveal VFX placeholder OpenSpec and evidence. Placeholder reveal route verified; full VFX lifecycle capture remains follow-up evidence."
 
   - id: "S2-8"
     name: "[Audio/VFX] Combat Feedback Placeholder Pass"
-    file: ""
+    file: "production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md"
     priority: should-have
-    status: backlog
+    status: deferred
     owner: "sound-designer"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "No dedicated Sprint 2 OpenSpec implementation slice found. Feedback placeholder polish is deferred; S2-2 and S2-5 smoke evidence confirm no blocker for must-have closure."
 
   - id: "S2-9"
     name: "[Tech Debt] External Material/HDRP Enum Error Classification or Fix"
-    file: ""
+    file: "production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md"
     priority: nice-to-have
-    status: backlog
+    status: classified-deferred
     owner: "technical-artist"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "Classified as external/non-scope unless it blocks gameplay execution. No Sprint 2 gameplay blocker remained after smoke PASS."
 
   - id: "S2-10"
     name: "[Presentation] Debug Overlay Polish"
-    file: ""
+    file: "openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification"
     priority: nice-to-have
-    status: backlog
+    status: closed-with-notes
     owner: "ui-programmer"
     estimate_days: 0.5
     blocker: ""
-    completed: ""
+    completed: "2026-06-04"
+    notes: "Covered by archived debug overlay verification hardening OpenSpec and evidence. Overlay remains read-only; additional UI polish is optional."

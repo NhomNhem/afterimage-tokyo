@@ -1,12 +1,12 @@
 # Story S2-1: [Review] M0 Sprint 1 Playable Duel Closure Review
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Planned
+> **Status**: Complete
 > **Layer**: QA / Documentation
 > **Type**: Review
 > **Estimate**: 0.5d
 > **Sprint**: Sprint 2
-> **Last Updated**: 2026-05-27
+> **Last Updated**: 2026-06-04
 
 ## Context
 
@@ -56,11 +56,11 @@ This story performs an evidence-first closure review of current M0 playable duel
 
 ## Acceptance Criteria
 
-- [ ] Sprint 1 verified-with-notes items are summarized with impact on current duel.
-- [ ] Current M0 playability gaps are listed clearly with evidence classification.
-- [ ] No gameplay implementation is changed.
-- [ ] Follow-up Sprint 2 work is prioritized and actionable.
-- [ ] Any item requiring OpenSpec is explicitly marked.
+- [x] Sprint 1 verified-with-notes items are summarized with impact on current duel.
+- [x] Current M0 playability gaps are listed clearly with evidence classification.
+- [x] No gameplay implementation is changed.
+- [x] Follow-up Sprint 2 work is prioritized and actionable.
+- [x] Any item requiring OpenSpec is explicitly marked.
 
 ## Out of Scope
 
@@ -91,3 +91,15 @@ Evidence-first review of existing Sprint 1 closure artifacts and latest verifica
 
 This story is a review gate for Sprint 2 execution order.
 Implementation starts only after review findings are accepted.
+
+## Completion Notes
+
+**Completed**: 2026-05-26
+**Closure synced**: 2026-06-04
+**Verdict**: COMPLETE
+
+Evidence:
+- `production/qa/evidence/s2-1-m0-playable-duel-closure-review-2026-05-26.md`
+- `production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md`
+
+Follow-up map produced S2-2 through S2-10 and separated must-have work from optional polish/debt.

@@ -64,3 +64,18 @@
 - Flagged for follow-up: Player Locomotion docs, counter timing ratios (advisory only)
 - Next recommended: /create-architecture or /gate-check (Systems Design phase)
 - Report: design/gdd/gdd-cross-review-2026-06-01.md ✓ written
+
+## Session Extract — /story-done 2026-06-04
+- Verdict: COMPLETE WITH NOTES
+- Story: Sprint 2 closure sync — M0 Feel & Readability Stabilization
+- Tech debt logged: None
+- Must-have closure: S2-1 through S2-5 done
+- OpenSpec evidence map: production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md
+- Smoke evidence: production/qa/smoke-2026-06-04.md (PASS; EditMode 197/197, PlayMode 2/2, manual smoke PASS all)
+- Optional/could-have handling:
+  - S2-6 closed with notes via archived animator observer adapter evidence
+  - S2-7 closed with notes via archived memory reveal VFX placeholder evidence
+  - S2-8 deferred; no dedicated Sprint 2 OpenSpec implementation slice found
+  - S2-9 classified/deferred as external material/HDRP issue unless gameplay-blocking
+  - S2-10 closed with notes via archived debug overlay verification evidence
+- Next recommended: /team-qa sprint or /retrospective

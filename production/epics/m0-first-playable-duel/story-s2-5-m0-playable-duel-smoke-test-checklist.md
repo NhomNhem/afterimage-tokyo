@@ -1,11 +1,11 @@
 # Story S2-5: [QA] M0 Playable Duel Smoke Test Checklist
 
 > **Epic**: M0 First Playable Duel
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Integration
 > **Type**: Integration
 > **Estimate**: 0.5d
-> **Last Updated**: 2026-05-28
+> **Last Updated**: 2026-06-04
 
 ## Context
 
@@ -25,10 +25,10 @@ Create a repeatable M0 duel smoke verification package that:
 
 ## Acceptance Criteria
 
-- [ ] Story file exists and defines scope, non-goals, and execution constraints.
-- [ ] Smoke checklist exists at `production/qa/smoke/m0-playable-duel-smoke-checklist-2026-05-28.md`.
-- [ ] Evidence template exists at `production/qa/evidence/s2-5-m0-playable-duel-smoke-test-verification-2026-05-28.md`.
-- [ ] Checklist includes all required smoke areas:
+- [x] Story file exists and defines scope, non-goals, and execution constraints.
+- [x] Smoke checklist exists at `production/qa/smoke/m0-playable-duel-smoke-checklist-2026-05-28.md`.
+- [x] Evidence template exists at `production/qa/evidence/s2-5-m0-playable-duel-smoke-test-verification-2026-05-28.md`.
+- [x] Checklist includes all required smoke areas:
   - project open/domain reload classification
   - scene/bootstrap load
   - VContainer wiring
@@ -47,10 +47,10 @@ Create a repeatable M0 duel smoke verification package that:
   - known external material/HDRP issue classification
   - dirty scene/prefab check
   - PASS/PARTIAL/FAIL result table
-- [ ] Each checklist item has concrete PASS/PARTIAL/FAIL criteria.
-- [ ] Known external/non-scope issues are explicitly separated from S2 story blockers.
-- [ ] Template does not claim evidence as executed; it is execution-ready only.
-- [ ] Follow-up action rules are explicit for PASS/PARTIAL/FAIL outcomes.
+- [x] Each checklist item has concrete PASS/PARTIAL/FAIL criteria.
+- [x] Known external/non-scope issues are explicitly separated from S2 story blockers.
+- [x] Template does not claim evidence as executed; it is execution-ready only.
+- [x] Follow-up action rules are explicit for PASS/PARTIAL/FAIL outcomes.
 
 ## Out Of Scope
 
@@ -69,3 +69,20 @@ Create a repeatable M0 duel smoke verification package that:
 1. `production/epics/m0-first-playable-duel/story-s2-5-m0-playable-duel-smoke-test-checklist.md`
 2. `production/qa/smoke/m0-playable-duel-smoke-checklist-2026-05-28.md`
 3. `production/qa/evidence/s2-5-m0-playable-duel-smoke-test-verification-2026-05-28.md`
+4. `production/qa/smoke-2026-06-04.md`
+
+## Completion Notes
+
+**Completed**: 2026-06-04
+**Verdict**: COMPLETE
+
+Evidence:
+- Smoke checklist: `production/qa/smoke/m0-playable-duel-smoke-checklist-2026-05-28.md`
+- Initial evidence template/execution notes: `production/qa/evidence/s2-5-m0-playable-duel-smoke-test-verification-2026-05-28.md`
+- Fresh smoke report: `production/qa/smoke-2026-06-04.md`
+
+Fresh smoke result:
+- EditMode project assembly: 197/197 PASS
+- PlayMode project assembly: 2/2 PASS
+- Manual smoke: PASS all
+- Console classification: no gameplay compile/runtime blockers
