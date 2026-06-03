@@ -2,7 +2,7 @@
 
 ## Status
 
-IN PROGRESS
+PASS WITH NOTES
 
 ## Scope
 
@@ -76,17 +76,20 @@ No new direct `UnityEngine.Debug.*` calls were introduced by this patch.
 
 ## Manual PlayMode Checklist
 
-Pending:
-- Load gameplay scene with at least one `MemoryFragment`.
-- Approach fragment and verify eligibility behavior.
-- Press Interact and verify accepted flow.
-- Press Interact again and verify duplicate-safe behavior.
-- Classify console warnings/errors as S3-2 scope vs external warnings.
-- Tooling limitation (2026-05-29): Unity MCP `execute_code` failed in this session with `mono.exe: The filename or extension is too long`, so automated/manual-assist PlayMode capture could not be completed from MCP.
+Partial, superseded by the later accepted-path capture below:
+- Runtime/bootstrap stability was observed.
+- Gameplay input map included `Interact`.
+- Core M0 loop still ran.
+- Accepted first-interaction path was captured later in this evidence file.
+
+Remaining follow-up:
+- Press Interact again and verify duplicate-safe behavior in manual PlayMode.
+- Align `MemoryRaycastProProbe` debug evidence with the `MemoryInteractionService` eligibility path.
+- Tooling limitation (2026-05-29): Unity MCP `execute_code` failed in this session with `mono.exe: The filename or extension is too long`, so some automated/manual-assist PlayMode capture could not be completed from MCP.
 
 ### Manual PlayMode Evidence Snapshot — 2026-05-29
 
-Verdict: `IN PROGRESS`
+Historical interim verdict: pending at the time of capture (superseded by the later `PASS WITH NOTES` accepted-path capture below)
 
 What this capture proves:
 - Runtime/bootstrap stability is present.

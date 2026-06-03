@@ -1,12 +1,12 @@
 # Story S3-1: [Review] M1 Readiness / Scope Review
 
 > **Epic**: M1 Memory Fragment Exploration Slice
-> **Status**: Planned
+> **Status**: Complete
 > **Layer**: QA / Documentation
 > **Type**: Review
 > **Estimate**: 0.5d
 > **Sprint**: Sprint 3
-> **Last Updated**: 2026-05-28
+> **Last Updated**: 2026-06-04
 
 ## Context
 
@@ -65,16 +65,16 @@ Review M1 readiness across existing systems, ownership boundaries, and scope ris
 
 ## Acceptance Criteria
 
-- [ ] Review identifies reusable M0 systems.
-- [ ] Review identifies new M1 boundaries:
+- [x] Review identifies reusable M0 systems.
+- [x] Review identifies new M1 boundaries:
   - `MemoryFragment`
   - `MemoryInteractionService`
   - `InteractionSensor`
   - `RuntimeMemoryLogStore`
-- [ ] Review lists non-goals clearly.
-- [ ] Review recommends whether S3-2 requires OpenSpec.
-- [ ] Review states Nhem DI adoption level.
-- [ ] Review does not claim implementation work.
+- [x] Review lists non-goals clearly.
+- [x] Review recommends whether S3-2 requires OpenSpec.
+- [x] Review states Nhem DI adoption level.
+- [x] Review does not claim implementation work.
 
 ## Out of Scope
 
@@ -87,3 +87,17 @@ Review M1 readiness across existing systems, ownership boundaries, and scope ris
 ## Notes
 
 If this review discovers required contract changes across ownership boundaries, open a small OpenSpec for S3-2 before coding.
+
+## Completion Notes
+
+**Completed**: 2026-05-28
+**Closure synced**: 2026-06-04
+**Verdict**: APPROVED WITH NOTES
+
+Evidence:
+- `production/qa/evidence/m1-readiness-review-2026-05-28.md`
+
+Outcome:
+- M0 foundation is sufficient to begin the M1 memory fragment exploration slice.
+- S3-2 requires a small OpenSpec change before implementation.
+- New M1 boundaries are approved as narrow additions, while save/profile, inventory, quest, dialogue, progression, and broad narrative systems remain out of scope.

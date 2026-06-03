@@ -32,7 +32,7 @@
 ## 6. Verification and Evidence
 
 - [x] 6.1 Add focused tests where feasible for interaction eligibility, service route, MemoryState acceptance/rejection, and duplicate handling.
-- [ ] 6.2 Run compile/domain and classify console output (S2/S3-scope vs external warnings).
+- [x] 6.2 Run compile/domain and classify console output (S2/S3-scope vs external warnings).
 - [ ] 6.3 Execute manual PlayMode checklist for approach -> interact -> accepted/rejected -> duplicate safety.
 - [x] 6.4 Record PASS/PARTIAL/FAIL evidence table, known limitations, and follow-up rules.
 - [x] 6.5 Explicitly list and justify any scene/prefab changes; classify dirty scene/prefab status.
