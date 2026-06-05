@@ -120,3 +120,38 @@
 - Warning: Fresh full Unity Test Runner XML artifact for the current Sprint 3 state was not available; compile smoke passed with 0 errors and manual M1 loop smoke was confirmed PASS all.
 - Code Review: Not applicable; QA/docs-only story.
 - Next recommended: choose S3-5 Runtime Memory Log Placeholder if desired, or proceed to Sprint 3 QA close-out/gate flow.
+
+<!-- RETRO RUN: 2026-06-05 | Sprint: Sprint 3 | Verdict: COMPLETE | Report: production/retrospectives/retro-sprint-3-2026-06-05.md -->
+
+<!-- QA RUN: 2026-06-05 | Sprint: Sprint 3 | Verdict: APPROVED WITH CONDITIONS | Report: production/qa/qa-signoff-sprint-3-2026-06-05.md -->
+
+<!-- SPRINT PLAN: 2026-06-05 | Sprint: Sprint 4 | Plan written: production/sprints/sprint-4.md | QA plan: production/qa/qa-plan-sprint-4-2026-06-05.md -->
+
+<!-- QA-PLAN: 2026-06-05 | System: Sprint 4 | Plan written: production/qa/qa-plan-sprint-4-2026-06-05.md -->
+
+<!-- STORY CREATED: 2026-06-05 | Story: S4-1 | File: production/epics/m1-memory-fragment-exploration/story-s4-1-fresh-unity-test-runner-evidence.md | Status: Ready -->
+
+## Session Extract — /dev-story 2026-06-05
+- Story: `production/epics/m1-memory-fragment-exploration/story-s4-1-fresh-unity-test-runner-evidence.md` — S4-1 Fresh Sprint 3/Sprint 4 Unity Test Runner Evidence
+- Files changed: `production/sprint-status.yaml`, `production/qa/evidence/s4-1-fresh-unity-test-runner-evidence-2026-06-05.md`, `production/session-state/active.md`
+- Test evidence: Compile smoke PASS 0 errors / 148 warnings; Unity MCP EditMode full suite 217/219 PASS; focused M1 EditMode 11/12 PASS; PlayMode 2/2 PASS.
+- Blockers: EditMode failures in `M1MemoryRevealFeedbackBridgeTests.CombatDebugOverlayContainsMemoryRevealPlaceholderOnly` and `NhemBootstrap.Tests.Editor.BootstrapPropertyTests.ExampleTest_VersionMismatch_LogsWarningWhenVersionsDiffer`.
+- Next: fix/classify EditMode blockers before `/story-done production/epics/m1-memory-fragment-exploration/story-s4-1-fresh-unity-test-runner-evidence.md`.
+
+## Session Extract — S4-1 EditMode Fix/Classify 2026-06-05
+- Fixes: narrowed `M1MemoryRevealFeedbackBridgeTests` InputAction guardrail to concrete forbidden Input System patterns; restored `BootstrapContext.Log()` in-memory `Logs.Add(message)` without enabling direct Unity Debug logging.
+- Verification: compile smoke PASS 0 errors / 720 warnings; targeted former failures 2/2 PASS; focused M1 EditMode 12/12 PASS; full EditMode 219/219 PASS; PlayMode 2/2 PASS.
+- Evidence updated: `production/qa/evidence/s4-1-fresh-unity-test-runner-evidence-2026-06-05.md`
+- Remaining warning: untracked Unity recovery files under `afterimage-tokyo/Assets/_Recovery/` were left untouched.
+- Next: `/story-done production/epics/m1-memory-fragment-exploration/story-s4-1-fresh-unity-test-runner-evidence.md`
+
+## Session Extract — /story-done 2026-06-05
+- Verdict: COMPLETE WITH NOTES
+- Story: production/epics/m1-memory-fragment-exploration/story-s4-1-fresh-unity-test-runner-evidence.md — [QA] Fresh Sprint 3/Sprint 4 Unity Test Runner Evidence
+- Tech debt logged: None
+- Acceptance Criteria: 11/11 passing
+- Test Evidence: production/qa/evidence/s4-1-fresh-unity-test-runner-evidence-2026-06-05.md
+- Verification: compile smoke PASS 0 errors / 720 warnings; Unity EditMode full suite 219/219 PASS; focused M1 EditMode 12/12 PASS; PlayMode 2/2 PASS.
+- Advisory notes: Unity MCP did not emit separate XML/log artifacts, console query was blocked by tooling/path-length error, and pre-existing Unity recovery files under `afterimage-tokyo/Assets/_Recovery/` remain untouched.
+- Code Review: Skipped in lean mode; QA evidence story and focused test fixes verified by compile and Unity Test Runner.
+- Next recommended: production/epics/m1-memory-fragment-exploration/story-s4-2-runtime-memory-log-placeholder.md — create/readiness-check before implementation.
