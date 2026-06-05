@@ -1,14 +1,14 @@
 # Story S3-3: [UI] Interaction Prompt Placeholder
 
 > **Epic**: M1 Memory Fragment Exploration Slice
-> **Status**: Done
+> **Status**: Complete
 > **Layer**: UI / Presentation
 > **Type**: UI
 > **Estimate**: 1.0d
 > **Sprint**: Sprint 3
 > **Dependencies**: S3-2
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-04
+> **Last Updated**: 2026-06-05
 
 ## Context
 
@@ -42,16 +42,16 @@ Show a clear, minimal placeholder prompt when a Memory Fragment is eligible for 
 
 ## Acceptance Criteria
 
-- [ ] Prompt appears when the player is within the eligible interaction context for a Memory Fragment.
-- [ ] Prompt disappears when the player leaves eligibility range or no eligible fragment is available.
-- [ ] Prompt text is concise and placeholder-safe, such as `Interact` or `Press F to Interact`.
-- [ ] Prompt does not call `MemoryState`, `MemoryInteractionService`, input callbacks, or fragment mutation methods to decide truth.
-- [ ] Prompt observes read-only interaction eligibility/context produced by S3-2 systems or an approved UI-facing read model.
-- [ ] Pressing Interact remains owned by the existing raw input route and S3-2 interaction orchestration.
-- [ ] Prompt does not change reveal/collect acceptance, duplicate handling, or MemoryState state.
-- [ ] Prompt remains presentation-only and does not create inventory, journal, quest, save/profile, or progression behavior.
-- [ ] Prompt state is evidence-visible in manual capture or debug output.
-- [ ] Console output has no new S3-scope errors/exceptions; warnings are classified.
+- [x] Prompt appears when the player is within the eligible interaction context for a Memory Fragment.
+- [x] Prompt disappears when the player leaves eligibility range or no eligible fragment is available.
+- [x] Prompt text is concise and placeholder-safe, such as `Interact` or `Press F to Interact`.
+- [x] Prompt does not call `MemoryState`, `MemoryInteractionService`, input callbacks, or fragment mutation methods to decide truth.
+- [x] Prompt observes read-only interaction eligibility/context produced by S3-2 systems or an approved UI-facing read model.
+- [x] Pressing Interact remains owned by the existing raw input route and S3-2 interaction orchestration.
+- [x] Prompt does not change reveal/collect acceptance, duplicate handling, or MemoryState state.
+- [x] Prompt remains presentation-only and does not create inventory, journal, quest, save/profile, or progression behavior.
+- [x] Prompt state is evidence-visible in manual capture or debug output.
+- [x] Console output has no new S3-scope errors/exceptions; warnings are classified.
 
 ## Out of Scope
 
@@ -110,3 +110,14 @@ S3-2 dependency is complete with notes and is sufficient to start this prompt st
 - Duplicate manual PlayMode capture is a follow-up; duplicate handling already has focused test coverage.
 
 This story has an OpenSpec proposal, implementation, automated verification, and tester-confirmed manual PlayMode evidence for prompt appear/disappear behavior and Interact routing.
+
+## Completion Notes
+
+**Completed**: 2026-06-05
+**Criteria**: 10/10 passing
+**Deviations**: None
+**Test Evidence**:
+- `production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md`
+- Unity EditMode `GlassRefrain.Tests.EditMode.M1InteractionPromptPlaceholderTests` PASS 3/3
+- OpenSpec `add-m1-interaction-prompt-placeholder` PASS 19/19 tasks
+**Code Review**: Skipped in lean mode; automated guardrails and manual tester confirmation recorded.

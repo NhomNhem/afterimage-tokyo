@@ -79,3 +79,12 @@
   - S2-9 classified/deferred as external material/HDRP issue unless gameplay-blocking
   - S2-10 closed with notes via archived debug overlay verification evidence
 - Next recommended: /team-qa sprint or /retrospective
+
+## Session Extract — /story-done 2026-06-05
+- Verdict: COMPLETE
+- Story: production/epics/m1-memory-fragment-exploration/story-s3-3-interaction-prompt-placeholder.md — [UI] Interaction Prompt Placeholder
+- Tech debt logged: None
+- Acceptance Criteria: 10/10 passing
+- Test Evidence: production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md (PASS), Unity EditMode M1InteractionPromptPlaceholderTests PASS 3/3, OpenSpec add-m1-interaction-prompt-placeholder 19/19
+- Code Review: Skipped in lean mode; automated guardrails and tester-confirmed manual PlayMode evidence recorded
+- Next recommended: production/sprints/sprint-3.md::S3-4 — [Presentation] Memory Reveal VFX/Audio Placeholder

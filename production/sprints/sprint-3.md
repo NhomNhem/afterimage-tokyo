@@ -32,13 +32,13 @@ Deliver a small playable exploration-memory loop where the player explores a Tok
 
 ## Current Progress
 
-**Last Updated**: 2026-06-04
+**Last Updated**: 2026-06-05
 
 | ID | Status | Evidence / Notes |
 |----|--------|------------------|
 | S3-1 | Complete | `production/qa/evidence/m1-readiness-review-2026-05-28.md` approved M1 readiness with notes and required a small S3-2 OpenSpec. |
 | S3-2 | Complete with Notes | `production/qa/evidence/s3-2-memory-fragment-interaction-verification-2026-05-28.md` records core interaction path PASS WITH NOTES; duplicate second-interact manual capture and `MemoryRaycastProProbe` alignment remain follow-ups. |
-| S3-3 | Not Started | Downstream UI prompt placeholder; depends on S3-2. |
+| S3-3 | Complete | `production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md` records PASS; OpenSpec `add-m1-interaction-prompt-placeholder` is 19/19 and ready to archive. |
 | S3-4 | Not Started | Downstream presentation placeholder; depends on S3-2. |
 | S3-5 | Not Started | Optional runtime memory log placeholder; depends on S3-2. |
 | S3-6 | Not Started | Sprint 3 smoke test remains pending until S3-3/S3-4 are complete. |
