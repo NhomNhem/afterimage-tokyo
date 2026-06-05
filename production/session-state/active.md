@@ -78,7 +78,6 @@
   - S2-8 deferred; no dedicated Sprint 2 OpenSpec implementation slice found
   - S2-9 classified/deferred as external material/HDRP issue unless gameplay-blocking
   - S2-10 closed with notes via archived debug overlay verification evidence
-- Next recommended: /team-qa sprint or /retrospective
 
 ## Session Extract — /story-done 2026-06-05
 - Verdict: COMPLETE
@@ -88,3 +87,18 @@
 - Test Evidence: production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md (PASS), Unity EditMode M1InteractionPromptPlaceholderTests PASS 3/3, OpenSpec add-m1-interaction-prompt-placeholder 19/19
 - Code Review: Skipped in lean mode; automated guardrails and tester-confirmed manual PlayMode evidence recorded
 - Next recommended: production/sprints/sprint-3.md::S3-4 — [Presentation] Memory Reveal VFX/Audio Placeholder
+
+## Session Extract — /story-done 2026-06-05
+- Verdict: COMPLETE
+- Story: production/epics/m1-memory-fragment-exploration/story-s3-4-memory-reveal-vfx-audio-placeholder.md — [Presentation] Memory Reveal VFX/Audio Placeholder
+- Tech debt logged: None
+- Acceptance Criteria: 15/15 passing
+  - Accepted Memory Fragment interaction plays a restrained placeholder banner once
+  - Duplicate/spam interaction does not replay accepted feedback
+  - Feedback remains presentation-only and reads `M0MemoryVFXResponse` snapshot
+  - S3-2 interaction path and S3-3 prompt behavior preserved
+  - Console output classified; no S3-4 runtime errors reported
+- Test Evidence: production/qa/evidence/s3-4-memory-reveal-vfx-audio-placeholder-verification-2026-06-05.md
+- OpenSpec: openspec/changes/archive/2026-06-05-add-m1-memory-reveal-vfx-audio-placeholder
+- Code Review: Skipped in lean mode; automated guardrails and manual PlayMode confirmation recorded
+- Next recommended: production/sprints/sprint-3.md::S3-6 — [QA] M1 Exploration-Memory Smoke Test
