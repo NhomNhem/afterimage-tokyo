@@ -36,8 +36,8 @@
 ## 6. Verification and Evidence
 
 - [x] 6.1 Add focused automated/source guardrail tests for accepted feedback trigger and ownership boundaries where practical.
-- [ ] 6.2 Capture manual PlayMode evidence that accepted Memory Fragment interaction plays placeholder feedback.
-- [ ] 6.3 Capture manual or automated evidence that non-accepted/duplicate interaction does not replay accepted reveal feedback.
+- [x] 6.2 Capture manual PlayMode evidence that accepted Memory Fragment interaction plays placeholder feedback.
+- [x] 6.3 Capture manual or automated evidence that non-accepted/duplicate interaction does not replay accepted reveal feedback.
 - [x] 6.4 Capture evidence that the Interact route remains S3-2 input/orchestration before feedback playback.
-- [ ] 6.5 Classify console output as S3-scope vs external/non-scope warnings.
+- [x] 6.5 Classify console output as S3-scope vs external/non-scope warnings.
 - [x] 6.6 Record PASS/PARTIAL/FAIL table at `production/qa/evidence/s3-4-memory-reveal-vfx-audio-placeholder-verification-2026-06-05.md`.
