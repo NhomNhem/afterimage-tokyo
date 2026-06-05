@@ -1,117 +1,74 @@
-sprint: 2
-goal: "Stabilize M0 duel feel and readability for Attack/Dodge/Parry, enemy telegraph, and lock-on camera without changing gameplay ownership boundaries."
-start: "2026-05-30"
-end: "2026-06-12"
-generated: "2026-05-26"
-updated: "2026-06-04"
-status: complete-with-notes
+sprint: 3
+goal: "Deliver a small playable M1 exploration-memory loop where the player approaches a Memory Fragment, sees an interaction prompt, presses Interact, triggers reveal/collect response, receives placeholder feedback, and preserves ownership boundaries."
+start: "2026-06-13"
+end: "2026-06-26"
+generated: "2026-05-28"
+updated: "2026-06-05"
+status: must-have-complete-with-notes
 
 stories:
-  - id: "S2-1"
-    name: "[Review] M0 Sprint 1 Playable Duel Closure Review"
-    file: "production/epics/m0-first-playable-duel/story-s2-1-m0-sprint-1-playable-duel-closure-review.md"
-    priority: must-have
-    status: done
-    owner: "qa-lead"
-    estimate_days: 0.5
-    completed: "2026-05-26"
-    notes: "Review and evidence created/pushed; Sprint 2 follow-up priorities confirmed."
-
-  - id: "S2-2"
-    name: "[Combat Feel] Attack / Dodge / Parry Readability Tuning"
-    file: "openspec/changes/archive/2026-05-27-tune-m0-combat-feel-readability"
-    priority: must-have
-    status: done
-    owner: "gameplay-programmer"
-    estimate_days: 1.5
-    blocker: ""
-    completed: "2026-06-01"
-    notes: "Implementation and verification COMPLETE. Focused EditMode rerun PASS 42/42. All acceptance criteria verified. CombatCore and PlayerLocomotion ownership preserved. Code review approved and OpenSpec archived."
-
-  - id: "S2-3"
-    name: "[Enemy] Telegraph Readability Pass"
-    file: "openspec/changes/archive/tune-m0-enemy-telegraph-readability"
-    priority: must-have
-    status: done
-    owner: "ai-programmer"
-    estimate_days: 1.0
-    blocker: ""
-    completed: "2026-05-27"
-    notes: "Implemented, focused verification PASS, evidence approved, archived, and pushed."
-
-  - id: "S2-4"
-    name: "[Camera] Lock-On Combat Camera Readability Pass"
-    file: "openspec/changes/archive/2026-05-28-implement-m0-lockon-camera-readability"
+  - id: "S3-1"
+    name: "[Review] M1 Readiness / Scope Review"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-1-m1-readiness-review.md"
     priority: must-have
     status: done
     owner: "lead-programmer"
-    estimate_days: 1.0
+    estimate_days: 0.5
     blocker: ""
     completed: "2026-05-28"
-    notes: "Implemented, focused verification PASS WITH NOTES, archived, and pushed."
+    notes: "M1 readiness approved with notes. Evidence: production/qa/evidence/m1-readiness-review-2026-05-28.md."
 
-  - id: "S2-5"
-    name: "[QA] M0 Playable Duel Smoke Test Checklist"
-    file: "production/epics/m0-first-playable-duel/story-s2-5-m0-playable-duel-smoke-test-checklist.md"
+  - id: "S3-2"
+    name: "[Feature] Memory Fragment Interaction Prototype"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-2-memory-fragment-interaction-prototype.md"
+    priority: must-have
+    status: done-with-notes
+    owner: "gameplay-programmer"
+    estimate_days: 2.0
+    blocker: ""
+    completed: "2026-05-29"
+    notes: "Core interaction path complete with notes. Evidence: production/qa/evidence/s3-2-memory-fragment-interaction-verification-2026-05-28.md."
+
+  - id: "S3-3"
+    name: "[UI] Interaction Prompt Placeholder"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-3-interaction-prompt-placeholder.md"
     priority: must-have
     status: done
+    owner: "ui-programmer"
+    estimate_days: 1.0
+    blocker: ""
+    completed: "2026-06-05"
+    notes: "Prompt placeholder complete. Evidence: production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md. OpenSpec archived with 19/19 tasks complete."
+
+  - id: "S3-4"
+    name: "[Presentation] Memory Reveal VFX/Audio Placeholder"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-4-memory-reveal-vfx-audio-placeholder.md"
+    priority: must-have
+    status: done
+    owner: "vfx-programmer"
+    estimate_days: 1.0
+    blocker: ""
+    completed: "2026-06-05"
+    notes: "Reveal feedback placeholder complete. Evidence: production/qa/evidence/s3-4-memory-reveal-vfx-audio-placeholder-verification-2026-06-05.md. OpenSpec archived with 26/26 tasks complete."
+
+  - id: "S3-5"
+    name: "[UI] Runtime Memory Log Placeholder"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-5-runtime-memory-log-placeholder.md"
+    priority: should-have
+    status: not-started
+    owner: "ui-programmer"
+    estimate_days: 1.0
+    blocker: ""
+    completed: ""
+    notes: "Optional should-have story outside the current must-have smoke gate. Requires S3-2."
+
+  - id: "S3-6"
+    name: "[QA] M1 Exploration-Memory Smoke Test"
+    file: "production/epics/m1-memory-fragment-exploration/story-s3-6-m1-exploration-memory-smoke-test.md"
+    priority: must-have
+    status: done-with-notes
     owner: "qa-lead"
     estimate_days: 0.5
     blocker: ""
-    completed: "2026-06-04"
-    notes: "Smoke checklist and fresh smoke report complete. PASS: EditMode 197/197, PlayMode 2/2, manual smoke PASS all. Evidence: production/qa/smoke-2026-06-04.md."
-
-  - id: "S2-6"
-    name: "[Animation] Placeholder Clip Assignment and Timing Readability"
-    file: "openspec/changes/archive/2026-05-26-wire-m0-animator-observer-adapters"
-    priority: should-have
-    status: closed-with-notes
-    owner: "art-director"
-    estimate_days: 0.5
-    blocker: ""
-    completed: "2026-06-04"
-    notes: "Covered by archived animator observer adapter OpenSpec and evidence. Missing clips are warning-only and gameplay continues; final authored clip alignment remains future presentation polish."
-
-  - id: "S2-7"
-    name: "[Memory] Reveal VFX Readability Pass"
-    file: "openspec/changes/archive/2026-05-26-wire-m0-memory-reveal-vfx-placeholder"
-    priority: should-have
-    status: closed-with-notes
-    owner: "vfx-programmer"
-    estimate_days: 0.5
-    blocker: ""
-    completed: "2026-06-04"
-    notes: "Covered by archived memory reveal VFX placeholder OpenSpec and evidence. Placeholder reveal route verified; full VFX lifecycle capture remains follow-up evidence."
-
-  - id: "S2-8"
-    name: "[Audio/VFX] Combat Feedback Placeholder Pass"
-    file: "production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md"
-    priority: should-have
-    status: deferred
-    owner: "sound-designer"
-    estimate_days: 0.5
-    blocker: ""
-    completed: "2026-06-04"
-    notes: "No dedicated Sprint 2 OpenSpec implementation slice found. Feedback placeholder polish is deferred; S2-2 and S2-5 smoke evidence confirm no blocker for must-have closure."
-
-  - id: "S2-9"
-    name: "[Tech Debt] External Material/HDRP Enum Error Classification or Fix"
-    file: "production/qa/evidence/sprint-2-closure-openspec-evidence-2026-06-04.md"
-    priority: nice-to-have
-    status: classified-deferred
-    owner: "technical-artist"
-    estimate_days: 0.5
-    blocker: ""
-    completed: "2026-06-04"
-    notes: "Classified as external/non-scope unless it blocks gameplay execution. No Sprint 2 gameplay blocker remained after smoke PASS."
-
-  - id: "S2-10"
-    name: "[Presentation] Debug Overlay Polish"
-    file: "openspec/changes/archive/2026-05-26-harden-m0-debug-overlay-verification"
-    priority: nice-to-have
-    status: closed-with-notes
-    owner: "ui-programmer"
-    estimate_days: 0.5
-    blocker: ""
-    completed: "2026-06-04"
-    notes: "Covered by archived debug overlay verification hardening OpenSpec and evidence. Overlay remains read-only; additional UI polish is optional."
+    completed: "2026-06-05"
+    notes: "Smoke report complete. Verdict PASS WITH WARNINGS due no fresh full Unity Test Runner XML artifact; manual Sprint 3 M1 loop smoke confirmed PASS all and compile smoke passed with 0 errors. Evidence: production/qa/smoke-2026-06-05.md."

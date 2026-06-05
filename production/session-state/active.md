@@ -102,3 +102,21 @@
 - OpenSpec: openspec/changes/archive/2026-06-05-add-m1-memory-reveal-vfx-audio-placeholder
 - Code Review: Skipped in lean mode; automated guardrails and manual PlayMode confirmation recorded
 - Next recommended: production/sprints/sprint-3.md::S3-6 — [QA] M1 Exploration-Memory Smoke Test
+
+## Session Extract — /story-done 2026-06-05
+- Verdict: COMPLETE WITH NOTES
+- Story: production/epics/m1-memory-fragment-exploration/story-s3-6-m1-exploration-memory-smoke-test.md — [QA] M1 Exploration-Memory Smoke Test
+- Tech debt logged: None
+- Acceptance Criteria: 15/15 passing
+  - M1 scene/bootstrap loads without S3-scope crash
+  - Interact input route reaches MemoryInteractionService
+  - Fragment proximity exposes the S3-3 prompt
+  - Accepted interaction triggers reveal/collect response
+  - S3-4 reveal banner appears once and does not replay on duplicate/spam Interact
+  - MemoryInteractionService and MemoryState ownership boundaries preserved
+  - UI/VFX/Audio/Animancer remain presentation-only
+  - Console output classified; no S3-scope blocker recorded
+- Test Evidence: production/qa/smoke-2026-06-05.md (PASS WITH WARNINGS)
+- Warning: Fresh full Unity Test Runner XML artifact for the current Sprint 3 state was not available; compile smoke passed with 0 errors and manual M1 loop smoke was confirmed PASS all.
+- Code Review: Not applicable; QA/docs-only story.
+- Next recommended: choose S3-5 Runtime Memory Log Placeholder if desired, or proceed to Sprint 3 QA close-out/gate flow.

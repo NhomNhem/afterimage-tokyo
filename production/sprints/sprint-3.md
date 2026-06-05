@@ -1,6 +1,6 @@
 # Sprint 3 — 2026-06-13 to 2026-06-26
 
-**Status**: In Progress with Notes
+**Status**: Must-Have Complete with Notes
 **Review Mode**: lean
 **QA Plan**: `production/qa/qa-plan-sprint-3-2026-05-28.md`
 **Producer Gate**: skipped — Lean mode
@@ -40,8 +40,8 @@ Deliver a small playable exploration-memory loop where the player explores a Tok
 | S3-2 | Complete with Notes | `production/qa/evidence/s3-2-memory-fragment-interaction-verification-2026-05-28.md` records core interaction path PASS WITH NOTES; duplicate second-interact manual capture and `MemoryRaycastProProbe` alignment remain follow-ups. |
 | S3-3 | Complete | `production/qa/evidence/s3-3-interaction-prompt-placeholder-verification-2026-06-04.md` records PASS; OpenSpec `add-m1-interaction-prompt-placeholder` archived with 19/19 tasks complete. |
 | S3-4 | Complete | `production/qa/evidence/s3-4-memory-reveal-vfx-audio-placeholder-verification-2026-06-05.md` records PASS; OpenSpec `add-m1-memory-reveal-vfx-audio-placeholder` archived with 26/26 tasks complete. |
-| S3-5 | Not Started | Optional runtime memory log placeholder; depends on S3-2. |
-| S3-6 | Not Started | Sprint 3 smoke test remains pending until S3-3/S3-4 are complete. |
+| S3-5 | Not Started | Optional runtime memory log placeholder; should-have story outside current must-have smoke gate. |
+| S3-6 | Complete with Notes | `production/qa/smoke-2026-06-05.md` records PASS WITH WARNINGS; manual Sprint 3 M1 loop smoke confirmed PASS all, compile smoke passed with 0 errors, fresh full Unity Test Runner artifact remains recommended before final sprint closure. |
 
 ## Tasks
 
@@ -116,11 +116,31 @@ Docs/review stories usually do not require new OpenSpec:
 
 ## Definition of Done for This Sprint
 
-- [ ] All Must Have stories completed
-- [ ] M1 exploration-memory loop is playable end-to-end
-- [ ] QA plan and smoke evidence exist for Sprint 3
-- [ ] Ownership boundaries are preserved (no truth drift into presentation)
-- [ ] No prohibited scope systems introduced
+- [x] All Must Have stories completed
+- [x] M1 exploration-memory loop is playable end-to-end
+- [x] QA plan and smoke evidence exist for Sprint 3
+- [x] Ownership boundaries are preserved (no truth drift into presentation)
+- [x] No prohibited scope systems introduced
+
+## Sprint 3 Must-Have Closure Notes
+
+**Closed**: 2026-06-05
+
+Must-have path complete:
+- S3-1 readiness review approved M1 scope with notes.
+- S3-2 memory interaction route is complete with notes.
+- S3-3 interaction prompt placeholder is complete.
+- S3-4 reveal feedback placeholder is complete.
+- S3-6 smoke check is complete with notes.
+
+Smoke evidence:
+- `production/qa/smoke-2026-06-05.md`
+
+Closure warning:
+- Fresh full Unity Test Runner XML artifact for the current Sprint 3 state was not available during S3-6. This is recorded as a warning and does not block QA hand-off because compile smoke passed with 0 errors and manual M1 loop smoke was confirmed PASS all.
+
+Optional remaining work:
+- S3-5 Runtime Memory Log Placeholder remains a should-have story and may be pulled in before final Sprint 3 closure if desired.
 
 ## Recommended First Implementation Story
 
