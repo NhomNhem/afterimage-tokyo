@@ -14,7 +14,7 @@ goal: "Harden the M1 exploration-memory loop by adding the runtime memory log pl
 start: "2026-06-27"
 end: "2026-07-10"
 generated: "2026-06-05"
-updated: "2026-06-05"
+updated: "2026-06-06"
 status: planned
 
 stories:
@@ -32,11 +32,11 @@ stories:
     name: "[UI] Runtime Memory Log Placeholder"
     file: "production/epics/m1-memory-fragment-exploration/story-s4-2-runtime-memory-log-placeholder.md"
     priority: must-have
-    status: ready-for-dev
+    status: done
     owner: "ui-programmer"
     estimate_days: 1.0
     blocker: ""
-    completed: ""
+    completed: "2026-06-06"
 
   - id: "S4-3"
     name: "[QA] Runtime Memory Log Smoke"

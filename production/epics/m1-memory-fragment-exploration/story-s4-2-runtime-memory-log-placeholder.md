@@ -1,14 +1,14 @@
 # Story S4-2: [UI] Runtime Memory Log Placeholder
 
 > **Epic**: M1 Memory Fragment Exploration Slice
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: UI / Presentation
 > **Type**: UI
 > **Estimate**: 1.0d
 > **Sprint**: Sprint 4
 > **Dependencies**: S3-2, S3-3, S3-4, S4-1
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-05
+> **Last Updated**: 2026-06-06
 
 ## Context
 
@@ -48,20 +48,20 @@ Show a minimal runtime memory log entry after an accepted Memory Fragment reveal
 
 ## Acceptance Criteria
 
-- [ ] Accepted Memory Fragment reveal/collect appends exactly one visible runtime memory log entry.
-- [ ] Runtime memory log entry does not appear when there is no eligible fragment.
-- [ ] Runtime memory log entry does not appear for MemoryState rejected reveal outcomes.
-- [ ] Duplicate or spam Interact after reveal/collection does not create duplicate log entries.
-- [ ] Log entry content is minimal and placeholder-scoped, such as a fragment label plus a short revealed/collected state.
-- [ ] Runtime log observes accepted interaction/reveal context or an approved read-only memory snapshot; it does not call MemoryState mutation APIs.
-- [ ] Runtime log does not call `MemoryInteractionService` command paths, fragment mutation paths, Unity InputAction callbacks, or Interact execution paths.
-- [ ] Runtime log remains presentation/read-model state only and does not create inventory, quest, journal progression, save/profile, dialogue, lore database, or narrative branching behavior.
-- [ ] S3-2 interaction behavior, S3-3 prompt behavior, and S3-4 reveal feedback behavior remain preserved.
-- [ ] UI/VFX/audio/Animancer remain downstream presentation only and do not own memory truth.
-- [ ] No service locator, `FindObjectOfType`, `Resources.Load`, or direct Unity debug logging is introduced.
-- [ ] Focused EditMode tests cover read-only log behavior, duplicate prevention, and ownership guardrails.
-- [ ] Manual PlayMode evidence confirms prompt -> Interact -> reveal feedback -> runtime log entry appears once.
-- [ ] Console output has no new S4-scope errors/exceptions; warnings are classified.
+- [x] Accepted Memory Fragment reveal/collect appends exactly one visible runtime memory log entry.
+- [x] Runtime memory log entry does not appear when there is no eligible fragment.
+- [x] Runtime memory log entry does not appear for MemoryState rejected reveal outcomes.
+- [x] Duplicate or spam Interact after reveal/collection does not create duplicate log entries.
+- [x] Log entry content is minimal and placeholder-scoped, such as a fragment label plus a short revealed/collected state.
+- [x] Runtime log observes accepted interaction/reveal context or an approved read-only memory snapshot; it does not call MemoryState mutation APIs.
+- [x] Runtime log does not call `MemoryInteractionService` command paths, fragment mutation paths, Unity InputAction callbacks, or Interact execution paths.
+- [x] Runtime log remains presentation/read-model state only and does not create inventory, quest, journal progression, save/profile, dialogue, lore database, or narrative branching behavior.
+- [x] S3-2 interaction behavior, S3-3 prompt behavior, and S3-4 reveal feedback behavior remain preserved.
+- [x] UI/VFX/audio/Animancer remain downstream presentation only and do not own memory truth.
+- [x] No service locator, `FindObjectOfType`, `Resources.Load`, or direct Unity debug logging is introduced.
+- [x] Focused EditMode tests cover read-only log behavior, duplicate prevention, and ownership guardrails.
+- [x] Manual PlayMode evidence confirms prompt -> Interact -> reveal feedback -> runtime log entry appears once.
+- [x] Console output has no new S4-scope errors/exceptions; warnings are classified.
 
 ## Out of Scope
 
@@ -169,9 +169,27 @@ Expected automated coverage:
 - Null or missing display data does not crash.
 - Source/ownership guardrails prevent MemoryState mutation, Interact ownership, and forbidden APIs.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created and passing
 
 ## Dependencies
 
 - Depends on: S3-2 Complete, S3-3 Complete, S3-4 Complete, S4-1 Complete
 - Unlocks: S4-3 Runtime Memory Log Smoke, S4-4 Decide S3-5 Carryover Closure, S4-7 MemoryRaycastProProbe Alignment Spike
+
+## Completion Notes
+
+**Completed**: 2026-06-06
+**Criteria**: 14/14 passing
+**Deviations**: None
+**Test Evidence**: `production/qa/evidence/s4-2-runtime-memory-log-placeholder-verification-2026-06-05.md`
+**Automated Verification**:
+- Compile smoke: `dotnet build afterimage-tokyo.sln --no-restore` PASS with 0 compile errors.
+- Focused S4-2 EditMode: Unity MCP job `fe5c24fa20aa48f5962d157bcfbf5f09`, 6/6 PASS.
+- S3-3/S3-4 regression EditMode: Unity MCP job `a78b89164baf440a8ef415795ab2786d`, 9/9 PASS.
+- OpenSpec `add-m1-runtime-memory-log-placeholder`: 31/31 tasks complete and strict validation PASS.
+**Manual Verification**:
+- Prompt -> Interact -> reveal feedback -> runtime log entry: PASS.
+- Duplicate/spam Interact does not replay banner or duplicate runtime log entry: PASS.
+**Console Classification**: No S4-scope compile/test blocker. External/non-scope Unity/package/Test Runner console entries are classified in the evidence file.
+**Code Review**: Skipped in lean mode; focused tests, source guardrails, manual PlayMode confirmation, and evidence review recorded.
+**Next Recommended**: `production/epics/m1-memory-fragment-exploration/story-s4-3-runtime-memory-log-smoke.md`

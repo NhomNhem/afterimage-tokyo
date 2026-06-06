@@ -9,7 +9,7 @@
 - **AND** no memory bridge component independently drives update order outside tick-handler orchestration
 
 ### Requirement: Extracted bridge SHALL handle memory orchestration only
-The extracted bridge MUST be limited to memory interaction/reveal orchestration routing concerns. It MUST NOT absorb non-memory routing concerns from combat, locomotion, target context, camera, or general input architecture.
+The extracted bridge MUST be limited to memory interaction/reveal orchestration routing concerns, including memory prompt, reveal feedback, runtime memory log, and evidence/debug routing for the memory path. It MUST NOT absorb non-memory routing concerns from combat, locomotion, target context, camera, or general input architecture.
 
 #### Scenario: Scope boundary enforced
 - **WHEN** memory-related logic is moved from `M0GameplayTickHandler`
@@ -38,6 +38,15 @@ Extraction MUST preserve S3-2 interact accepted path behavior and current duplic
 - **THEN** extraction preserves the same observed duplicate behavior
 - **AND** no deduplication policy change is introduced in this slice
 
+### Requirement: Sprint 3 and Sprint 4 memory presentation placeholders SHALL be preserved
+Extraction MUST preserve S3-3 interaction prompt placeholder behavior, S3-4 memory reveal VFX/audio placeholder behavior, and S4-2 runtime memory log placeholder behavior.
+
+#### Scenario: Memory presentation placeholder parity
+- **WHEN** the memory path executes through the extracted bridge
+- **THEN** interaction prompt behavior remains equivalent to baseline
+- **AND** accepted reveal feedback behavior remains equivalent to baseline
+- **AND** runtime memory log output remains equivalent to baseline
+
 ### Requirement: Debug and evidence output SHALL remain equivalent or better
 Extraction MUST keep memory-path debug/evidence outputs equivalent or better for triage and verification.
 
@@ -54,4 +63,5 @@ The change MUST include focused memory interaction checks, M0 regression checks,
 - **THEN** focused tests cover memory interaction path
 - **AND** regression checks cover M0 loop
 - **AND** manual checklist covers `Interact -> MemoryInteractionService -> MemoryState`
+- **AND** manual checklist covers prompt/reveal feedback/runtime memory log observation
 - **AND** console classification and PASS/PARTIAL/FAIL table are recorded

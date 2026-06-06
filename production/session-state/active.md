@@ -155,3 +155,14 @@
 - Advisory notes: Unity MCP did not emit separate XML/log artifacts, console query was blocked by tooling/path-length error, and pre-existing Unity recovery files under `afterimage-tokyo/Assets/_Recovery/` remain untouched.
 - Code Review: Skipped in lean mode; QA evidence story and focused test fixes verified by compile and Unity Test Runner.
 - Next recommended: production/epics/m1-memory-fragment-exploration/story-s4-2-runtime-memory-log-placeholder.md — create/readiness-check before implementation.
+
+## Session Extract — /story-done 2026-06-06
+- Verdict: COMPLETE
+- Story: production/epics/m1-memory-fragment-exploration/story-s4-2-runtime-memory-log-placeholder.md — [UI] Runtime Memory Log Placeholder
+- Tech debt logged: None
+- Acceptance Criteria: 14/14 passing
+- Test Evidence: production/qa/evidence/s4-2-runtime-memory-log-placeholder-verification-2026-06-05.md
+- Verification: compile smoke PASS 0 errors; focused S4-2 EditMode 6/6 PASS; S3-3/S3-4 regression EditMode 9/9 PASS; manual PlayMode all pass.
+- OpenSpec: add-m1-runtime-memory-log-placeholder 31/31 tasks complete, strict validation PASS.
+- Code Review: Skipped in lean mode; automated guardrails and manual PlayMode confirmation recorded.
+- Next recommended: production/epics/m1-memory-fragment-exploration/story-s4-3-runtime-memory-log-smoke.md
