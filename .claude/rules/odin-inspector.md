@@ -140,6 +140,14 @@ public sealed class SimpleView : SerializedMonoBehaviour
 }
 ```
 
+## Odin Assembly Definition Dependencies
+
+When a project type derives from `SerializedMonoBehaviour` or `SerializedScriptableObject`, or uses `[OdinSerialize]`, every asmdef that compiles direct references to that type must be able to reference `Sirenix.Serialization`.
+
+This includes EditMode and PlayMode test assemblies that call APIs such as `ScriptableObject.CreateInstance<T>()`, `AssetDatabase.LoadAssetAtPath<T>()`, or otherwise compile against the Odin-serialized type.
+
+Do not add only an Odin inspector module reference when serialization is the dependency. Add the serialization assembly reference required by the affected asmdef, and prefer normal `MonoBehaviour` / `ScriptableObject` plus Unity `[SerializeField]` when Unity serialization is enough.
+
 ## Odin Serialization Boundary
 
 Do not put gameplay truth inside Odin-serialized MonoBehaviours.
