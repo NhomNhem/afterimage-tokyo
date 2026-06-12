@@ -201,9 +201,38 @@ For M0:
 
 - raw lock-on or target-focus intent comes from `Input Mapping`
 - this system interprets that intent only in the narrow sense of focus acquire/release requests
-- toggle or hold behavior may both be viable for M0, but the project should choose one simple behavior first
+- M0 uses toggle acquire/release behavior for second-press policy
+- first press requests focus acquisition when no valid target is focused
+- second press requests explicit release when the same valid target is focused
+- third press may reacquire the valid duel target
 
 Rejected input requests should be debug-visible when useful.
+
+### M0 Second-Press Policy Decision
+
+Decision date: 2026-06-12
+
+M0 chooses **toggle acquire/release** for LockOn second-press behavior.
+
+Policy:
+
+- Pressing LockOn with no focused valid target requests acquisition of the current duel target.
+- Pressing LockOn while a valid target is focused requests explicit release.
+- Pressing LockOn again after release may reacquire the same valid duel target.
+
+Rationale:
+
+- Toggle release keeps target focus intentional instead of sticky.
+- Explicit release is easier to explain in debug because the player-requested release has a clear reason.
+- The policy supports one readable duel by giving the player a simple way to opt out of focus without adding hold timing, multi-target cycling, or camera-owned target truth.
+- It matches the latest LockOn evidence from `production/qa/evidence/lockon-toggle-release-2026-05-24.md`, where the observed transition was `None -> Enemy -> None -> Enemy`.
+- Earlier acquire/focus evidence in `production/qa/evidence/complete-m0-playable-combat-prototype-verification-evidence.md` remains valid for first-press acquisition; the later toggle-release evidence resolves the second-press ambiguity.
+
+Implementation note:
+
+- This decision documents current M0 policy only.
+- No runtime behavior change is required as long as the active runtime continues to match the `None -> Enemy -> None -> Enemy` transition.
+- Any future divergence between runtime and this policy should be handled by a separate implementation story.
 
 ## 13. Relationship To Input Mapping
 

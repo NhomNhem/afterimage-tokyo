@@ -1,3 +1,11 @@
+## Session Extract — /dev-story 2026-06-12
+- Story: fix Sprint 5 smoke gate SceneComposition_test assertion drift
+- Files changed: afterimage-tokyo/Assets/_Project/Tests/EditMode/SceneComposition_test.cs, production/qa/smoke-2026-06-12.md
+- Test written: None — updated existing smoke-gate assertions for Odin serialization and VContainer UseComponents registration style.
+- Verification: Unity MCP EditMode SceneComposition job `b8de33e32778458ca7b1ac583a3414dd` — 19/19 PASS; full EditMode job `2b6eb2116f894b40b3584efbd28a8722` — 249/249 PASS; S5-4 PlayMode job `cdc9bf494e7d4977bb4f789a0bb9d89f` — 5/5 PASS; S5-5 focused EditMode job `c3483032312c49d0a3c92cd569b21e17` — 29/29 PASS.
+- Blockers: None for automated smoke. Manual Game View core stability and performance remain warnings in the smoke report.
+- Next: /code-review afterimage-tokyo/Assets/_Project/Tests/EditMode/SceneComposition_test.cs production/qa/smoke-2026-06-12.md, then /smoke-check sprint if a fresh gate report is desired.
+
 ## Session Extract — /gate-check 2026-05-15
 - Verdict: PASS WITH CONCERNS
 - Stage Transition: Technical Skeleton → First Playable Duel
@@ -177,3 +185,78 @@
 - OpenSpec: openspec/changes/archive/2026-06-06-extract-m0-gameplay-tick-memory-bridge; synced spec at openspec/specs/m0-gameplay-tick-memory-bridge/spec.md.
 - Code Review: Skipped in lean mode; focused tests, source guardrails, OpenSpec validation, and manual PlayMode confirmation recorded.
 - Next recommended: production/epics/m1-memory-fragment-exploration/story-s4-3-runtime-memory-log-smoke.md
+
+## Session Extract — /dev-story 2026-06-09
+- Story: production/epics/m1-memory-fragment-exploration/story-s4-4-decide-s3-5-carryover-closure.md — [Producer] Decide S3-5 Carryover Closure
+- Files changed: production/qa/evidence/s4-4-carryover-closure-decision-2026-06-09.md (created), story-s4-4-decide-s3-5-carryover-closure.md (acceptance criteria checked, implementation notes added)
+- Test written: None — Config/Data story (documentation only)
+- Decision: S3-5 closed by Sprint 4 absorption via S4-2 + S4-3
+- Blockers: None
+- Next: /story-done production/epics/m1-memory-fragment-exploration/story-s4-4-decide-s3-5-carryover-closure.md
+
+## Session Extract — /story-done 2026-06-09
+- Verdict: COMPLETE
+- Story: production/epics/m1-memory-fragment-exploration/story-s4-4-decide-s3-5-carryover-closure.md — [Producer] Decide S3-5 Carryover Closure
+- Tech debt logged: None
+- Next recommended: S4-5 (Architecture) or S4-7 (Debug) — both optional; or proceed to Sprint 4 must-have closure
+
+<!-- QA-PLAN: 2026-06-09 | System: Sprint 5 | Plan written: production/qa/qa-plan-sprint-5-2026-06-09.md -->
+
+<!-- SMOKE CHECK: 2026-06-09 | Sprint 4 close-out | smoke-2026-06-09.md | Verdict: PASS WITH WARNINGS -->
+
+<!-- QA RUN: 2026-06-09 | Sprint: sprint-4 | Verdict: APPROVED | Report: production/qa/qa-signoff-sprint-4-2026-06-09.md -->
+
+## Session Extract — /dev-story 2026-06-11
+- Story: production/sprints/sprint-5-stories/story-s5-4-wire-m0-dodge-displacement.md — [Feature] Wire M0 Dodge Displacement
+- Files changed: afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0DodgeDisplacementBridge.cs, afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs, afterimage-tokyo/Assets/_Project/Tests/PlayMode/M0DodgeDisplacementIntegrationTests.cs, afterimage-tokyo/Assets/_Project/Tests/PlayMode/GlassRefrain.Tests.PlayMode.asmdef, production/sprints/sprint-5-stories/story-s5-4-wire-m0-dodge-displacement.md, production/sprint-status.yaml, production/qa/evidence/s5-4-wire-m0-dodge-displacement-verification-2026-06-11.md
+- Test written: afterimage-tokyo/Assets/_Project/Tests/PlayMode/M0DodgeDisplacementIntegrationTests.cs (5 PlayMode tests)
+- Verification: git diff --check PASS; Unity PlayMode tests NOT RUN from shell; dotnet build timed out twice without compiler output.
+- Environment note: J: reached 0 bytes free during evidence writes; removed generated Unity `Temp` and `obj` folders to recover ~2.1GB, then restored the S5-4 story file.
+- Blockers: Unity Editor/Test Runner verification and manual dodge-lunge smoke still required before /story-done.
+- Next: /code-review afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0DodgeDisplacementBridge.cs afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs afterimage-tokyo/Assets/_Project/Tests/PlayMode/M0DodgeDisplacementIntegrationTests.cs then /story-done production/sprints/sprint-5-stories/story-s5-4-wire-m0-dodge-displacement.md
+
+## Session Extract — /story-done 2026-06-12
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-5-stories/story-s5-4-wire-m0-dodge-displacement.md — [Feature] Wire M0 Dodge Displacement
+- Tech debt logged: None
+- Acceptance Criteria: 10/10 passing
+- Test Evidence: production/qa/evidence/s5-4-wire-m0-dodge-displacement-verification-2026-06-11.md
+- Verification: Unity MCP compile/refresh PASS; focused PlayMode 7/7 PASS including all 5 M0DodgeDisplacementIntegrationTests; manual dodge-lunge smoke PASS; console classification PASS WITH WARNINGS for optional missing animation-set content only.
+- Code Review: Complete with fixes applied. Missing runtime config serialization and secondary tick-handler NREs after failed DI were fixed before closure.
+- Next recommended: production/sprints/sprint-5-stories/story-s5-5-harden-health-combat-contract.md or Sprint 5 close-out smoke if no should-have work is pulled in.
+
+## Session Extract — /dev-story 2026-06-12
+- Story: production/sprints/sprint-5-stories/story-s5-5-harden-health-combat-contract.md — [Architecture] Harden Health-Combat Contract
+- Files changed: afterimage-tokyo/Assets/_Project/Code/Core/M0Contracts.cs, afterimage-tokyo/Assets/_Project/Code/Health/M0HealthDamageReactionModel.cs, afterimage-tokyo/Assets/_Project/Code/Health/GlassRefrain.Health.asmdef, afterimage-tokyo/Assets/_Project/Tests/EditMode/M0HealthCombatContractTests.cs, afterimage-tokyo/Assets/_Project/Tests/EditMode/M0HealthConsequenceTests.cs, production/sprints/sprint-5-stories/story-s5-5-harden-health-combat-contract.md, production/sprint-status.yaml, production/qa/evidence/s5-5-harden-health-combat-contract-verification-2026-06-12.md
+- Test written: afterimage-tokyo/Assets/_Project/Tests/EditMode/M0HealthCombatContractTests.cs (6 EditMode tests)
+- Verification: Unity MCP focused EditMode 22/22 PASS for M0HealthCombatContractTests, M0HealthConsequenceTests, and M0HealthDamageReactionTests.
+- Blockers: None
+- Next: /code-review afterimage-tokyo/Assets/_Project/Code/Core/M0Contracts.cs afterimage-tokyo/Assets/_Project/Code/Health/M0HealthDamageReactionModel.cs afterimage-tokyo/Assets/_Project/Code/Health/GlassRefrain.Health.asmdef afterimage-tokyo/Assets/_Project/Tests/EditMode/M0HealthCombatContractTests.cs afterimage-tokyo/Assets/_Project/Tests/EditMode/M0HealthConsequenceTests.cs then /story-done production/sprints/sprint-5-stories/story-s5-5-harden-health-combat-contract.md
+
+## Session Extract — /story-done 2026-06-12
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-5-stories/story-s5-5-harden-health-combat-contract.md — [Architecture] Harden Health-Combat Contract
+- Tech debt logged: None
+- Acceptance Criteria: 8/8 passing
+- Test Evidence: production/qa/evidence/s5-5-harden-health-combat-contract-verification-2026-06-12.md
+- Verification: Unity MCP focused EditMode 28/28 PASS including M0HealthCombatContractTests, M0HealthConsequenceTests, M0HealthDamageReactionTests, and M0DebugOverlaySnapshotIntegrationTests.
+- Code Review: Complete with fixes applied. Constructor no longer defaults omitted typed outcomes to ConfirmedHit, and missing source-id rejection is directly tested.
+- Next recommended: production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md or production/sprints/sprint-5-stories/story-s5-8-parry-counter-visual-feedback.md; alternatively run Sprint 5 close-out smoke if no more should-have work is pulled in.
+
+## Session Extract — /dev-story 2026-06-12
+- Story: production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md — [Design Decision] LockOn Toggle Policy
+- Files changed: design/gdd/lock-on-target-context.md, docs/tech-debt-register.md, production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md, production/sprint-status.yaml, production/qa/evidence/s5-6-lockon-toggle-policy-decision-2026-06-12.md
+- Test written: None — Config/Data story
+- Decision: M0 LockOn second-press policy is Option B, toggle acquire/release.
+- Verification: documentation-only scope; targeted git diff --check PASS for S5-6 files; no runtime/scene/prefab/gameplay/UI changes introduced.
+- Blockers: None
+- Next: /code-review design/gdd/lock-on-target-context.md docs/tech-debt-register.md production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md production/qa/evidence/s5-6-lockon-toggle-policy-decision-2026-06-12.md then /story-done production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md
+
+## Session Extract — /story-done 2026-06-12
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-5-stories/story-s5-6-lockon-toggle-policy.md — [Design Decision] LockOn Toggle Policy
+- Tech debt logged: None; existing `m0-lockon-second-press-behavior-decision` debt was marked RESOLVED by S5-6.
+- Acceptance Criteria: 6/6 passing
+- Test Evidence: production/qa/evidence/s5-6-lockon-toggle-policy-decision-2026-06-12.md
+- Verification: Config/Data documentation evidence PASS; code review APPROVED; no runtime/code/scene/prefab/gameplay/UI changes introduced.
+- Next recommended: choose S5-7 MemoryRaycastProbe readiness/debug cleanup, S5-8 Parry/Counter Visual Feedback, or begin Sprint 5 close-out smoke/QA if no more optional work is pulled in.
