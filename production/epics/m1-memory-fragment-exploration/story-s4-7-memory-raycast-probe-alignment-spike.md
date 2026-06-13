@@ -8,7 +8,7 @@
 > **Sprint**: Sprint 4
 > **Dependencies**: S4-2, `align-memory-raycast-probe-with-interaction-service`
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-07
+> **Last Updated**: 2026-06-12
 
 ## Context
 
@@ -80,3 +80,4 @@ Evidence file:
 **Test Evidence**: `production/qa/evidence/s4-7-memory-raycast-probe-alignment-verification-2026-06-07.md`
 **OpenSpec**: `openspec/changes/align-memory-raycast-probe-with-interaction-service`
 **Next Recommended**: Archive the OpenSpec change after approval.
+**Sprint 5 Carryover Sync**: 2026-06-12 `/story-done` confirmed the story was already complete and reconciled the Sprint 5 carryover row. Focused Unity MCP EditMode job `dab8fcb2c85643348dcb3045c47d0308` passed 4/4 `MemoryRaycastProProbeAlignmentTests`.

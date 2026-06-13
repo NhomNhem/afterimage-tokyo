@@ -1,3 +1,35 @@
+## Session Extract — /story-done 2026-06-12
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-6-stories/story-s6-1-reconcile-sprint-5-metadata-and-qa-artifacts.md — S6-1 Reconcile Sprint 5 Metadata and QA Artifacts
+- Tech debt logged: None
+- Verification: 6/6 acceptance criteria covered by `production/qa/evidence/s6-1-sprint-5-metadata-reconciliation.md`; `/code-review` approved the changed production artifacts.
+- Next recommended: S6-2 Parry/Counter Visual Feedback Polish — `production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md`
+
+## Session Extract — /dev-story 2026-06-12
+- Story: production/sprints/sprint-6-stories/story-s6-1-reconcile-sprint-5-metadata-and-qa-artifacts.md — S6-1 Reconcile Sprint 5 Metadata and QA Artifacts
+- Files changed: production/sprints/sprint-5.md, production/sprint-status.yaml, production/qa/evidence/s6-1-sprint-5-metadata-reconciliation.md
+- Test written: None — Config/Data story; document review evidence created instead.
+- Blockers: None
+- Next: /code-review production/sprints/sprint-5.md production/qa/evidence/s6-1-sprint-5-metadata-reconciliation.md production/sprint-status.yaml then /story-done production/sprints/sprint-6-stories/story-s6-1-reconcile-sprint-5-metadata-and-qa-artifacts.md
+
+<!-- CREATE-STORIES: 2026-06-12 | Scope: sprint-6 | Stories written: 7 | Path: production/sprints/sprint-6-stories/ -->
+
+<!-- QA-PLAN: 2026-06-12 | System: sprint-6 | Plan written: production/qa/qa-plan-sprint-6-2026-06-12.md -->
+
+<!-- SPRINT PLAN RUN: 2026-06-12 | Sprint: Sprint 6 | Verdict: COMPLETE WITH QA-PLAN WARNING | Plan: production/sprints/sprint-6.md | Status: production/sprint-status.yaml -->
+
+<!-- RETRO RUN: 2026-06-12 | Sprint: Sprint 5 | Verdict: COMPLETE | Report: production/retrospectives/retro-sprint-5-2026-06-12.md -->
+
+<!-- QA RUN: 2026-06-12 | Sprint: sprint-5 | Verdict: APPROVED | Report: production/qa/qa-signoff-sprint-5-2026-06-12.md -->
+
+## Session Extract — /story-done 2026-06-12
+- Verdict: COMPLETE WITH NOTES
+- Story: production/epics/m1-memory-fragment-exploration/story-s4-7-memory-raycast-probe-alignment-spike.md — Story S4-7: [Debug] MemoryRaycastProProbe Alignment Spike
+- Tech debt logged: None
+- Verification: Story was already Complete from 2026-06-07; focused Unity MCP EditMode job `dab8fcb2c85643348dcb3045c47d0308` passed 4/4 `MemoryRaycastProProbeAlignmentTests`.
+- Sprint sync: S5-7 carryover row in `production/sprint-status.yaml` marked done with blocker cleared.
+- Next recommended: choose S5-8 Parry/Counter Visual Feedback, S5-9 HDRP Material Enum cleanup, or proceed to sprint close-out QA/signoff.
+
 ## Session Extract — /dev-story 2026-06-12
 - Story: fix Sprint 5 smoke gate SceneComposition_test assertion drift
 - Files changed: afterimage-tokyo/Assets/_Project/Tests/EditMode/SceneComposition_test.cs, production/qa/smoke-2026-06-12.md
@@ -260,3 +292,19 @@
 - Test Evidence: production/qa/evidence/s5-6-lockon-toggle-policy-decision-2026-06-12.md
 - Verification: Config/Data documentation evidence PASS; code review APPROVED; no runtime/code/scene/prefab/gameplay/UI changes introduced.
 - Next recommended: choose S5-7 MemoryRaycastProbe readiness/debug cleanup, S5-8 Parry/Counter Visual Feedback, or begin Sprint 5 close-out smoke/QA if no more optional work is pulled in.
+
+## Session Extract — /dev-story 2026-06-12
+- Story: production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md — Story S6-2: Parry/Counter Visual Feedback Polish
+- Files changed: afterimage-tokyo/Assets/_Project/Code/Presentation/M0CombatVisualFeedbackAdapter.cs, afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs, afterimage-tokyo/Assets/_Project/Tests/EditMode/AnimatorPresentationOnly_test.cs, afterimage-tokyo/Assets/_Project/Tests/EditMode/SceneComposition_test.cs, production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md, production/qa/evidence/s6-2-parry-counter-visual-feedback-polish.md
+- Test written: Visual/Feel story; added 2 EditMode regression guards for presentation hook and CounterWindow-based routing.
+- Verification: Unity MCP EditMode assembly 251/251 PASS. Console check showed existing vendor/plugin warnings only; no compile errors found.
+- Blockers: Manual Game View capture still required for parry success, counter availability, counter result, and no hitch/log-spam/readability regression.
+- Next: /code-review afterimage-tokyo/Assets/_Project/Code/Presentation/M0CombatVisualFeedbackAdapter.cs afterimage-tokyo/Assets/_Project/Code/Bootstrap/M0GameplayTickHandler.cs afterimage-tokyo/Assets/_Project/Tests/EditMode/AnimatorPresentationOnly_test.cs afterimage-tokyo/Assets/_Project/Tests/EditMode/SceneComposition_test.cs production/qa/evidence/s6-2-parry-counter-visual-feedback-polish.md then /story-done production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md
+
+## Session Extract — /dev-story 2026-06-12
+- Story: production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md — Story S6-3: Parry/Counter Feedback Smoke Evidence
+- Files changed: production/qa/evidence/s6-3-parry-counter-feedback-smoke-evidence.md, production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md, production/sprint-status.yaml
+- Test written: None — Visual/Feel QA evidence story.
+- Verification: Unity MCP full EditMode job `f69868e2c1ff4c2c8b6db58d4afaf531` 251/251 PASS; full PlayMode job `847aa73d67c14d4889d7543fd89ff820` 7/7 PASS; post-run console review found no compile/runtime errors or warning entries.
+- Blockers: Manual Game View smoke still required for parry success, counter availability, counter result, readability, no hitch/log spam, and debug overlay readability.
+- Next: /code-review production/qa/evidence/s6-3-parry-counter-feedback-smoke-evidence.md production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md production/sprint-status.yaml then /story-done production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md

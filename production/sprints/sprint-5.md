@@ -1,9 +1,24 @@
 # Sprint 5 — 2026-06-23 to 2026-07-04
 
-**Status**: Planned
+**Status**: Closed
 **Review Mode**: lean
-**QA Plan**: TBD — run `/qa-plan sprint` before implementation begins
+**QA Plan**: `production/qa/qa-plan-sprint-5-2026-06-09.md`
+**Smoke Report**: `production/qa/smoke-2026-06-12.md` — PASS
+**QA Sign-Off**: `production/qa/qa-signoff-sprint-5-2026-06-12.md` — APPROVED
+**Retrospective**: `production/retrospectives/retro-sprint-5-2026-06-12.md`
 **Producer Gate**: skipped — Lean mode
+
+## Close-Out Reconciliation
+
+Sprint 5 closed on 2026-06-12 with the delivered scope approved.
+
+- Delivered: S5-1 through S5-7.
+- Deferred: S5-8 Parry/Counter Visual Feedback and S5-9 Resolve HDRP Material Enum Error.
+- Smoke gate: PASS. Full EditMode Unity MCP job `f3d6639045b44a5b9b21745a584e4451` passed 262/262; full PlayMode Unity MCP job `dd714edc7c9145f78cab9d15593016ac` passed 7/7.
+- Manual Game View smoke: PASS for core stability, M0 duel loop, M1 memory loop, and performance smoke.
+- QA sign-off: APPROVED, no S1/S2 bugs open for delivered scope.
+- Retrospective: Complete. Main follow-up was this metadata reconciliation plus explicit Sprint 6 carryover decisions.
+- Gate check: Sprint close-out passed with concerns because this sprint plan markdown lagged behind final QA/smoke/retro artifacts; this section resolves that drift.
 
 ## Sprint Goal
 
@@ -41,6 +56,11 @@ Close out Sprint 4 with QA sign-off, address high-priority M0 tech debt (dodge d
 | S5-8 | [Visual Polish] Parry/Counter Visual Feedback | technical-artist | 1.0 | None | Capture/polish direct visual feedback for Parry and Counter (PARTIAL → COMPLETE) |
 | S5-9 | [Dependency] Resolve HDRP Material Enum Error | engine-programmer | 0.5 | None | Migrate HDRP TransparentCullMode to URP-compatible drawer/dependency |
 
+Deferred close-out decision:
+
+- S5-8 was carried into Sprint 6 as S6-2 Parry/Counter Visual Feedback Polish.
+- S5-9 was carried into Sprint 6 as S6-4 Resolve HDRP Material Enum Error.
+
 ## Carryover from Previous Sprint
 
 | Task | Reason | New Estimate |
@@ -72,21 +92,35 @@ Close out Sprint 4 with QA sign-off, address high-priority M0 tech debt (dodge d
 
 ## Definition of Done for This Sprint
 
-- [ ] All Must Have tasks completed
-- [ ] QA plan exists for Sprint 5
-- [ ] Sprint 4 smoke check: PASS
-- [ ] Sprint 4 QA sign-off: APPROVED or APPROVED WITH CONDITIONS
-- [ ] Sprint 4 retrospective completed
-- [ ] Dodge displacement wiring verified via manual PlayMode
-- [ ] All Logic/Integration stories have passing unit/integration tests
-- [ ] Smoke report exists for Sprint 5 (`/smoke-check sprint`)
-- [ ] QA sign-off report for Sprint 5: APPROVED or APPROVED WITH CONDITIONS
-- [ ] No S1/S2 bugs in delivered features
-- [ ] Design documents updated for any deviations
-- [ ] Code reviewed and merged
+- [x] All Must Have tasks completed
+- [x] QA plan exists for Sprint 5 (`production/qa/qa-plan-sprint-5-2026-06-09.md`)
+- [x] Sprint 4 smoke check: PASS
+- [x] Sprint 4 QA sign-off: APPROVED or APPROVED WITH CONDITIONS
+- [x] Sprint 4 retrospective completed
+- [x] Dodge displacement wiring verified via manual PlayMode and PlayMode coverage
+- [x] All Logic/Integration stories have passing unit/integration tests or explicit evidence
+- [x] Smoke report exists for Sprint 5 (`production/qa/smoke-2026-06-12.md`) — PASS
+- [x] QA sign-off report for Sprint 5: APPROVED (`production/qa/qa-signoff-sprint-5-2026-06-12.md`)
+- [x] No S1/S2 bugs in delivered features
+- [x] Design documents updated for delivered deviations
+- [x] Code reviewed and merged for delivered implementation stories
 
-## Recommended First Story
+## Final Delivered Scope
+
+| Story | Final Status | Evidence |
+|-------|--------------|----------|
+| S5-1 Sprint 4 Smoke Check | Complete | `production/qa/smoke-2026-06-09.md` |
+| S5-2 Sprint 4 QA Sign-Off | Complete | `production/qa/qa-signoff-sprint-4-2026-06-09.md` |
+| S5-3 Sprint 4 Retrospective | Complete | `production/retrospectives/retro-sprint-4-2026-06-09.md` |
+| S5-4 Wire M0 Dodge Displacement | Complete | `production/qa/evidence/s5-4-wire-m0-dodge-displacement-verification-2026-06-11.md`; Sprint 5 full PlayMode 7/7 PASS |
+| S5-5 Harden Health-Combat Contract | Complete | `production/qa/evidence/s5-5-harden-health-combat-contract-verification-2026-06-12.md`; Sprint 5 full EditMode 262/262 PASS |
+| S5-6 LockOn Toggle Policy | Complete | `production/qa/evidence/s5-6-lockon-toggle-policy-decision-2026-06-12.md` |
+| S5-7 MemoryRaycastProbe Alignment Carryover | Complete | Focused EditMode job `dab8fcb2c85643348dcb3045c47d0308`, 4/4 PASS |
+| S5-8 Parry/Counter Visual Feedback | Deferred | Carried to Sprint 6 as S6-2 |
+| S5-9 Resolve HDRP Material Enum Error | Deferred | Carried to Sprint 6 as S6-4 |
+
+## Historical Planning Note
 
 `S5-1 — [QA] Sprint 4 Smoke Check`
 
-Reason: Sprint 4 must-have closure requires smoke check before QA sign-off can begin.
+This was the recommended first story when Sprint 5 was planned. Sprint 5 is now closed; this note is retained only as planning history.
