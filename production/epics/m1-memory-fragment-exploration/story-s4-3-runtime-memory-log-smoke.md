@@ -1,7 +1,7 @@
 # Story S4-3: [QA] Runtime Memory Log Smoke
 
 > **Epic**: M1 Memory Fragment Exploration Slice
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: QA / Integration
 > **Type**: Integration
 > **Estimate**: 0.5d
@@ -37,14 +37,14 @@ Capture smoke evidence that the accepted M1 memory interaction path still presen
 
 ## Acceptance Criteria
 
-- [ ] Prompt -> Interact -> Reveal feedback -> runtime log path is verified with PASS/PARTIAL/FAIL evidence.
-- [ ] Duplicate/spam Interact after accepted reveal does not replay the banner or duplicate the runtime log entry.
-- [ ] S4-2 focused automated checks are reused or explicitly linked; no new automated tests are required unless smoke finds a regression.
-- [ ] Console output is classified as blocking, acceptable, known external, or unrelated.
-- [ ] Dirty scene/prefab/assets status is checked and any unrelated dirt is explicitly classified.
-- [ ] Evidence records setup, command/tooling used, timestamp, pass/fail status, and any manual limitations.
-- [ ] Runtime memory log remains read-only presentation/read-model state and does not own memory truth.
-- [ ] No runtime feature, scene, prefab, or gameplay behavior is changed by this story unless a smoke blocker is found and separately approved.
+- [x] Prompt -> Interact -> Reveal feedback -> runtime log path is verified with PASS/PARTIAL/FAIL evidence.
+- [x] Duplicate/spam Interact after accepted reveal does not replay the banner or duplicate the runtime log entry.
+- [x] S4-2 focused automated checks are reused or explicitly linked; no new automated tests are required unless smoke finds a regression.
+- [x] Console output is classified as blocking, acceptable, known external, or unrelated.
+- [x] Dirty scene/prefab/assets status is checked and any unrelated dirt is explicitly classified.
+- [x] Evidence records setup, command/tooling used, timestamp, pass/fail status, and any manual limitations.
+- [x] Runtime memory log remains read-only presentation/read-model state and does not own memory truth.
+- [x] No runtime feature, scene, prefab, or gameplay behavior is changed by this story unless a smoke blocker is found and separately approved.
 
 ## Out of Scope
 
@@ -120,7 +120,7 @@ Required evidence:
 - Link to S4-2 automated/manual evidence.
 - PASS/PARTIAL/FAIL table for prompt, Interact, reveal feedback, runtime log, duplicate/spam behavior, console classification, and dirty asset classification.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created — `production/qa/evidence/s4-3-runtime-memory-log-smoke-verification-2026-06-07.md`
 
 ## Dependencies
 

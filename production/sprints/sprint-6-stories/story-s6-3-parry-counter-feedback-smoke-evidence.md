@@ -1,12 +1,12 @@
 # Story S6-3: Parry/Counter Feedback Smoke Evidence
 
 > **Sprint**: Sprint 6
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: QA
 > **Type**: Visual/Feel
 > **Estimate**: 0.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-12
+> **Last Updated**: 2026-06-16
 
 ## Context
 
@@ -96,3 +96,10 @@
 
 - Depends on: S6-2 complete or ready for QA.
 - Unlocks: Sprint 6 QA hand-off.
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 7/7 passing
+**Deviations**: None
+**Test Evidence**: Visual/Feel — evidence doc at `production/qa/evidence/s6-3-parry-counter-feedback-smoke-evidence.md`
+**Code Review**: APPROVED (lean mode)

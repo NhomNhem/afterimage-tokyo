@@ -1,12 +1,12 @@
 # Story S6-2: Parry/Counter Visual Feedback Polish
 
 > **Sprint**: Sprint 6
-> **Status**: Ready
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 1.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-12
+> **Last Updated**: 2026-06-16
 
 ## Context
 
@@ -99,8 +99,16 @@
 - Manual evidence must note whether repeated parry/counter attempts produced visible hitching, log spam, or any readability regression.
 
 **Status**: [x] Created at `production/qa/evidence/s6-2-parry-counter-visual-feedback-polish.md`
+**Manual verification**: [x] Parry/counter feedback confirmed readable with no console errors
 
 ---
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 7/7 passing
+**Deviations**: None
+**Test Evidence**: Visual/Feel — evidence doc at `production/qa/evidence/s6-2-parry-counter-visual-feedback-polish.md`
+**Code Review**: APPROVED WITH SUGGESTIONS (2 required fixes applied: enemy material reset removed from ResetFeedback(), private runtime fields renamed to _camelCase per AGENTS.md)
 
 ## Dependencies
 

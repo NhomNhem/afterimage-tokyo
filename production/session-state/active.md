@@ -1,3 +1,48 @@
+## Session Extract — /story-done 2026-06-19
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-8-stories/story-s8-1-attack-animation-windup-recovery-clarity.md — S8-1 Attack Animation Windup and Recovery Clarity
+- Tech debt logged: None
+- Verification: 5/5 AC (AC-1/2/3 deferred for Game View playtest; AC-4/5 auto-verified PASS). Code review: APPROVED WITH SUGGESTIONS.
+- Next recommended: S8-2 Dodge Phase Distinction or continue with S8-9 close
+
+## Session Extract — /dev-story 2026-06-19
+- Story: production/sprints/sprint-8-stories/story-s8-1-attack-animation-windup-recovery-clarity.md — S8-1 Attack Animation Windup and Recovery Clarity
+- Files changed: PlayerStateResolver.cs, M0PlayerAnimationSet.cs, AnimancerPlayerAnimationDriver.cs, AnimatorPresentationOnly_test.cs
+- Test written: 5 new EditMode tests added to AnimatorPresentationOnly_test.cs
+- Blockers: None — Visual/Feel story; manual Game View verification required
+- Next: /code-review PlayerStateResolver.cs M0PlayerAnimationSet.cs AnimancerPlayerAnimationDriver.cs AnimatorPresentationOnly_test.cs then /story-done production/sprints/sprint-8-stories/story-s8-1-attack-animation-windup-recovery-clarity.md
+
+## Session Extract — /dev-story 2026-06-18
+- Story: production/sprints/sprint-8-stories/story-s8-9-add-turn-animation.md — S8-9 Fix Animation Clip Mappings — Peace/Combat Mode Split
+- Files changed:
+  - IPlayerAnimationService.cs — removed PlayTurn, added SetCombatMode, PlayDash, PlayHitReaction, PlayStun
+  - M0PlayerAnimationSet.cs — removed turnLeft/turnRight, added peace clips (idle, locomotion, walk) + combat clips (combatIdle, combatLocomotion, combatWalk) + dash, hitReaction, stun, walkBack, walkLeft, walkRight
+  - AnimancerPlayerAnimationDriver.cs — removed PlayTurn, added SetCombatMode with dual clip set selection (peace vs combat), added PlayDash, PlayHitReaction, PlayStun
+  - M0AnimationPresentationAdapter.cs — added combat mode detection (HasTargetFocus || CombatState != Neutral) and SetCombatMode call before routing
+  - M0PlayerAnimationSet.asset — reassigned all clips: peace idle→Normal Idle, peace locomotion→Normal Run, combat idle→Sp_Idle, combat locomotion→Sp_Run, parry→Quickshift_B, counter→FS counter_, hitReaction→Hit1, dash→Quickshift_F, stun→Stun, directional walks→FS Melee
+  - M0DirectPlayerInput.cs — replaced FindAction with M0InputActions generated wrapper class
+  - Gameplay_CombatPrototype.unity — removed inputAsset serialized field from M0DirectPlayerInput
+  - AnimatorPresentationOnly_test.cs — added SetCombatMode assertion, updated PlayTurn → PlayDash/PlayHitReaction/PlayStun
+  - M0PlayerStateMachineDodgeTests.cs — added SetCombatMode to MockAnimationService
+  - story-s8-9-add-turn-animation.md — rewritten to reflect peace/combat mode split scope
+- Test written: Updated existing test assertions (PlayTurn → SetCombatMode + PlayDash/PlayHitReaction/PlayStun)
+- Blockers: None — but Dash and Stun animation routing requires PlayerState.Dash/Stun (future domain story); walk directional blending logic is future work
+- Next: /code-review then /story-done production/sprints/sprint-8-stories/story-s8-9-add-turn-animation.md
+
+## Session Extract — /story-done 2026-06-16
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md — S6-3 Parry/Counter Feedback Smoke Evidence
+- Tech debt logged: None
+- Verification: 7/7 acceptance criteria passing. Automated suites PASS (EditMode 251/251, PlayMode 7/7). Manual readability confirmed.
+- Next recommended: Sprint 6 close-out sequence
+
+## Session Extract — /story-done 2026-06-16
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md — S6-2 Parry/Counter Visual Feedback Polish
+- Tech debt logged: None
+- Verification: 7/7 acceptance criteria passing. Code review: APPROVED WITH SUGGESTIONS. Two required fixes applied (enemy material reset removed, private field naming).
+- Next recommended: S6-3 Parry/Counter Feedback Smoke Evidence — production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md
+
 ## Session Extract — /story-done 2026-06-12
 - Verdict: COMPLETE
 - Story: production/sprints/sprint-6-stories/story-s6-1-reconcile-sprint-5-metadata-and-qa-artifacts.md — S6-1 Reconcile Sprint 5 Metadata and QA Artifacts
@@ -308,3 +353,33 @@
 - Verification: Unity MCP full EditMode job `f69868e2c1ff4c2c8b6db58d4afaf531` 251/251 PASS; full PlayMode job `847aa73d67c14d4889d7543fd89ff820` 7/7 PASS; post-run console review found no compile/runtime errors or warning entries.
 - Blockers: Manual Game View smoke still required for parry success, counter availability, counter result, readability, no hitch/log spam, and debug overlay readability.
 - Next: /code-review production/qa/evidence/s6-3-parry-counter-feedback-smoke-evidence.md production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md production/sprint-status.yaml then /story-done production/sprints/sprint-6-stories/story-s6-3-parry-counter-feedback-smoke-evidence.md
+
+<!-- QA-PLAN: 2026-06-16 | System: sprint-7 | Plan written: production/qa/qa-plan-sprint-7-2026-06-16.md -->
+
+## Session Extract — /dev-story 2026-06-16
+- Story: production/sprints/sprint-6-stories/story-s6-7-select-next-m0-m1-feel-slice.md — Select Next M0/M1 Feel Slice
+- Files changed: production/qa/evidence/s6-7-next-m0-m1-feel-slice-decision.md, story-s6-7-select-next-m0-m1-feel-slice.md (status/date), sprint-status.yaml (S7-1 → in-progress)
+- Test written: None — Config/Data story
+- Decision: Player animation polish selected as next slice
+- Blockers: None
+- Next: /code-review production/qa/evidence/s6-7-next-m0-m1-feel-slice-decision.md then /story-done production/sprints/sprint-6-stories/story-s6-7-select-next-m0-m1-feel-slice.md
+
+<!-- QA RUN: 2026-06-16 | Sprint: sprint-7 | Verdict: APPROVED WITH CONDITIONS | Report: production/qa/qa-signoff-sprint-7-2026-06-16.md -->
+
+## Session Extract — /dev-story 2026-06-17
+- Story: production/sprints/sprint-8-stories/story-s8-8-decompose-player-state-machine.md — [Architecture] Decompose PlayerStateMachine into Layer State Machines
+- Files changed: CombatStateMachine.cs (created), LocomotionStateMachine.cs (created), PlayerStateResolver.cs (created), PlayerStateMachine.cs (deleted), PlayerStateMachineFactory.cs (deleted), M0SceneCompositionRegistrar.cs (modified), M0PlayerStateMachineDodgeTests.cs (modified), GlassRefrain.Tests.EditMode.asmdef (modified)
+- Test written: Assets/_Project/Tests/EditMode/M0StateMachineDecompositionTests.cs (8 tests)
+- Blockers: None
+- Next: /code-review then /story-done production/sprints/sprint-8-stories/story-s8-8-decompose-player-state-machine.md
+
+<!-- RETROSPECTIVE: 2026-06-16 | Sprint: 7 | Retro written: production/retrospectives/retro-sprint-7-2026-06-16.md -->
+<!-- SPRINT-PLAN: 2026-06-16 | Sprint: 8 | Plan written: production/sprints/sprint-8.md | Status: production/sprint-status.yaml -->
+<!-- QA-PLAN: 2026-06-16 | System: sprint-8 | Plan written: production/qa/qa-plan-sprint-8-2026-06-16.md -->
+
+## Session Extract — /story-done 2026-06-17
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-8-stories/story-s8-8-decompose-player-state-machine.md — [Architecture] Decompose PlayerStateMachine into Layer State Machines
+- Tech debt logged: None
+- Verification: 10/10 AC passing. EditMode 260/260 PASS, PlayMode 5/5 PASS. Console clean. Code review: passed with suggestions.
+- Next recommended: S8-7 Wire School_Katana_Girl into M0 Duel Scene

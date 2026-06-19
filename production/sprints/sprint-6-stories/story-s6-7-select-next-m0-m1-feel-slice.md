@@ -1,12 +1,12 @@
 # Story S6-7: Select Next M0/M1 Feel Slice
 
 > **Sprint**: Sprint 6
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Design / Production
 > **Type**: Config/Data
 > **Estimate**: 0.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-12
+> **Last Updated**: 2026-06-16
 
 ## Context
 
@@ -29,11 +29,11 @@
 
 ## Acceptance Criteria
 
-- [ ] One primary next slice is selected.
-- [ ] Alternatives are named and deferred with reasons.
-- [ ] Decision ties back to M0 combat feel or M1 memory fragment exploration.
-- [ ] Decision cites current evidence from Sprint 5/Sprint 6 smoke or QA notes.
-- [ ] Decision does not introduce broad RPG, open-world, save, equipment, or progression scope.
+- [x] One primary next slice is selected.
+- [x] Alternatives are named and deferred with reasons.
+- [x] Decision ties back to M0 combat feel or M1 memory fragment exploration.
+- [x] Decision cites current evidence from Sprint 5/Sprint 6 smoke or QA notes.
+- [x] Decision does not introduce broad RPG, open-world, save, equipment, or progression scope.
 
 ---
 
@@ -78,7 +78,17 @@
 **Required evidence**:
 - `production/qa/evidence/s6-7-next-m0-m1-feel-slice-decision.md` or an equivalent design decision note.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created — `production/qa/evidence/s6-7-next-m0-m1-feel-slice-decision.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 5/5 passing
+**Deviations**: None
+**Test Evidence**: Config/Data — evidence doc at `production/qa/evidence/s6-7-next-m0-m1-feel-slice-decision.md`
+**Decision**: Player animation polish selected as next slice
+**Code Review**: N/A — Design/Production story
 
 ---
 

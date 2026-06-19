@@ -1,7 +1,7 @@
 # Story S6-6: Add Artifact-Based Fallback Notes to QA/Retro Workflows
 
 > **Sprint**: Sprint 6
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Production / Process
 > **Type**: Config/Data
 > **Estimate**: 0.5 days
@@ -29,11 +29,11 @@
 
 ## Acceptance Criteria
 
-- [ ] QA workflow explains artifact-based fallback when interactive helpers are unavailable.
-- [ ] Retro workflow explains artifact-based fallback when interactive helpers are unavailable.
-- [ ] Fallback still requires explicit evidence files, verdicts, and session markers.
-- [ ] Fallback does not weaken QA signoff or retrospective accountability.
-- [ ] Changed workflow files are listed in evidence.
+- [x] QA workflow explains artifact-based fallback when interactive helpers are unavailable.
+- [x] Retro workflow explains artifact-based fallback when interactive helpers are unavailable.
+- [x] Fallback still requires explicit evidence files, verdicts, and session markers.
+- [x] Fallback does not weaken QA signoff or retrospective accountability.
+- [x] Changed workflow files are listed in evidence.
 
 ---
 
@@ -78,7 +78,16 @@
 **Required evidence**:
 - `production/qa/evidence/s6-6-artifact-fallback-workflow-notes.md` or story-done summary listing changed workflow files.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created — `production/qa/evidence/s6-6-artifact-fallback-workflow-notes.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 5/5 passing
+**Deviations**: None
+**Test Evidence**: Config/Data — evidence doc at `production/qa/evidence/s6-6-artifact-fallback-workflow-notes.md`
+**Code Review**: N/A — Production/Process story
 
 ---
 

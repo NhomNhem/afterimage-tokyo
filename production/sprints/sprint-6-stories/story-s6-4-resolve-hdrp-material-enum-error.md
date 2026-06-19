@@ -1,12 +1,12 @@
 # Story S6-4: Resolve HDRP Material Enum Error
 
 > **Sprint**: Sprint 6
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Engine / Tools
 > **Type**: Config/Data
 > **Estimate**: 0.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-12
+> **Last Updated**: 2026-06-16
 
 ## Context
 
@@ -83,7 +83,16 @@
 - Console screenshot/log excerpt after domain reload/import.
 - Targeted EditMode result if tooling code changes.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created at `production/qa/evidence/s6-4-resolve-hdrp-material-enum-error.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 6/6 passing
+**Deviations**: None
+**Test Evidence**: Config/Data — evidence doc at `production/qa/evidence/s6-4-resolve-hdrp-material-enum-error.md`
+**Code Review**: N/A — Config/Data story
 
 ---
 

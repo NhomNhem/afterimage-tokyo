@@ -1,7 +1,7 @@
 # Story S6-5: Standardize Retrospective Debt Marker Baseline
 
 > **Sprint**: Sprint 6
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Production / Tools
 > **Type**: Config/Data
 > **Estimate**: 0.5 days
@@ -29,12 +29,12 @@
 
 ## Acceptance Criteria
 
-- [ ] TODO/FIXME/HACK marker command is documented.
-- [ ] Included paths are explicit.
-- [ ] Excluded paths are explicit.
-- [ ] Generated/vendor/build folders are excluded.
-- [ ] Resulting counts are captured as evidence.
-- [ ] Future retros can rerun the same command and compare counts reliably.
+- [x] TODO/FIXME/HACK marker command is documented.
+- [x] Included paths are explicit.
+- [x] Excluded paths are explicit.
+- [x] Generated/vendor/build folders are excluded.
+- [x] Resulting counts are captured as evidence.
+- [x] Future retros can rerun the same command and compare counts reliably.
 
 ---
 
@@ -74,7 +74,16 @@
 **Required evidence**:
 - `production/qa/evidence/s6-5-retro-debt-marker-baseline.md` or an updated retrospective/process note.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created — `production/qa/evidence/s6-5-retro-debt-marker-baseline.md`
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-16
+**Criteria**: 6/6 passing
+**Deviations**: None
+**Test Evidence**: Config/Data — evidence doc at `production/qa/evidence/s6-5-retro-debt-marker-baseline.md`
+**Code Review**: N/A — Production/Tools story
 
 ---
 

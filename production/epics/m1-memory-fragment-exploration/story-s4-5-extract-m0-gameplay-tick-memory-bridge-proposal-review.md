@@ -1,7 +1,7 @@
 # Story S4-5: [Architecture] Extract M0 Gameplay Tick Memory Bridge Proposal Review
 
 > **Epic**: M1 Memory Fragment Exploration Slice
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Architecture / Review
 > **Type**: Integration
 > **Estimate**: 0.5d
@@ -33,13 +33,13 @@ Review and approve or defer the `extract-m0-gameplay-tick-memory-bridge` OpenSpe
 
 ## Acceptance Criteria
 
-- [ ] OpenSpec `extract-m0-gameplay-tick-memory-bridge` validates with `--strict`, or the validation blocker is recorded.
-- [ ] Proposal, design, tasks, and spec delta are reviewed for ADR-0001 alignment.
-- [ ] Scope remains memory interaction/reveal orchestration only.
-- [ ] No CombatCore, Input architecture, MemoryState truth, scene/prefab, R3/MessagePipe, or broad Nhem DI migration is included.
-- [ ] Behavior-preserving verification requirements are present for S3-2 interaction, S3-3 prompt, S3-4 reveal feedback, and S4-2 runtime memory log.
-- [ ] Decision is recorded: approved for implementation, deferred, or needs revision.
-- [ ] No runtime implementation is performed in this review story.
+- [x] OpenSpec `extract-m0-gameplay-tick-memory-bridge` validates with `--strict`, or the validation blocker is recorded.
+- [x] Proposal, design, tasks, and spec delta are reviewed for ADR-0001 alignment.
+- [x] Scope remains memory interaction/reveal orchestration only.
+- [x] No CombatCore, Input architecture, MemoryState truth, scene/prefab, R3/MessagePipe, or broad Nhem DI migration is included.
+- [x] Behavior-preserving verification requirements are present for S3-2 interaction, S3-3 prompt, S3-4 reveal feedback, and S4-2 runtime memory log.
+- [x] Decision is recorded: approved for implementation, deferred, or needs revision.
+- [x] No runtime implementation is performed in this review story.
 
 ## Out of Scope
 
@@ -108,7 +108,10 @@ Expected evidence:
 - Link to `openspec/changes/archive/2026-06-06-extract-m0-gameplay-tick-memory-bridge` if already archived.
 - Link to `production/qa/evidence/extract-m0-gameplay-tick-memory-bridge-verification-2026-06-06.md` if implementation has already occurred.
 
-**Status**: [ ] Not yet created
+**Status**: [x] Created — `production/qa/evidence/s4-5-m0-gameplay-tick-memory-bridge-review-2026-06-16.md`
+
+Archived change: `openspec/changes/archive/2026-06-06-extract-m0-gameplay-tick-memory-bridge/`
+Implementation evidence: `production/qa/evidence/extract-m0-gameplay-tick-memory-bridge-verification-2026-06-06.md`
 
 ## Dependencies
 
