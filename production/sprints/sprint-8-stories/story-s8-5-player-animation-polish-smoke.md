@@ -1,12 +1,13 @@
 # Story S8-5: [QA] Player Animation Polish Smoke
 
 > **Sprint**: Sprint 8
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: QA / Integration
 > **Type**: Visual/Feel
 > **Estimate**: 0.5 days
+> **ADR**: N/A — no code changes; QA smoke only
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-16
+> **Last Updated**: 2026-06-21
 
 ## Context
 
@@ -14,6 +15,9 @@
 **Epic**: M0 First Playable Duel — player animation polish pass
 **QA Plan**: `production/qa/qa-plan-sprint-8.md`
 **Requirement**: Sprint 8 QA gate for animation polish stories S8-1 through S8-4.
+
+**GDD**: N/A — QA smoke story; validates S8-1 through S8-4 which each have their own GDD references.
+**Control Manifest Rules**: N/A — no code changes; QA smoke only.
 
 **Engine**: Unity 6000.3.x + URP | **Risk**: LOW
 **Engine Notes**: Manual PlayMode smoke only. No runtime code changes.
@@ -76,3 +80,12 @@ Confirm that all four animation polish areas (attack, dodge, parry/counter, hit 
 
 - Depends on: S8-1, S8-2, S8-3, S8-4 all complete
 - Unlocks: Sprint 8 QA sign-off
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-21
+**Criteria**: 7/7 passing
+**Deviations**: None
+**Test Evidence**: Visual/Feel — `production/qa/evidence/s8-5-animation-polish-smoke.md` (PASS, sign-offs complete)
+**Code Review**: N/A — QA smoke story, no code changes

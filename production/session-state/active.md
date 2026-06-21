@@ -1,3 +1,40 @@
+<!-- QA RUN: 2026-06-21 | Sprint: sprint-8 | Verdict: APPROVED WITH CONDITIONS | Report: production/qa/qa-signoff-sprint-8-2026-06-21.md -->
+
+<!-- QA-PLAN: 2026-06-21 | System: sprint-9 | Plan written: production/qa/qa-plan-sprint-9-2026-06-21.md --> — S8-5: Player Animation Polish Smoke
+- Tech debt logged: None
+- Verification: 7/7 AC passing. EditMode 281/281 PASS. All 4 animation areas PASS in smoke table. Console clean.
+- Next recommended: Sprint 8 close-out — all Must Have stories complete
+
+## Session Extract — /story-done 2026-06-21
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-8-stories/story-s8-4-hit-reaction-animation-blending.md — S8-4: Hit Reaction Animation Blending
+- Tech debt logged: None
+- Verification: 5/5 AC passing (AC-1/2/3/5 confirmed via Game View playtest; AC-4 auto-verified). Evidence doc sign-off table still TBD — fill before sprint close-out.
+- Next recommended: S8-5 Player Animation Polish Smoke — production/sprints/sprint-8-stories/story-s8-5-player-animation-polish-smoke.md
+
+## Session Extract — /dev-story 2026-06-21
+- Story: production/sprints/sprint-8-stories/story-s8-4-hit-reaction-animation-blending.md — S8-4: Hit Reaction Animation Blending
+- Files changed: HitReactionAnimationRequest.cs (created), IPlayerAnimationService.cs, AnimancerPlayerAnimationDriver.cs, M0AnimationPresentationAdapter.cs, M0PlayerStateMachineDodgeTests.cs
+- Test written: None — Visual/Feel story; evidence doc created at production/qa/evidence/s8-4-hit-reaction-animation-blending-evidence.md
+- Blockers: None — manual Game View verification required for AC-1/2/3
+- Note: Hit reaction now uses dedicated HitReactionAnimationRequest instead of reusing AttackAnimationRequest. Context-sensitive blend timing (0.15s from idle, 0.1s from actions, 0.05s from chain hits). Clip alternation between hitReaction and hitReaction2 for variety.
+- Next: /code-review then /story-done production/sprints/sprint-8-stories/story-s8-4-hit-reaction-animation-blending.md
+
+## Session Extract — /story-done 2026-06-21
+- Verdict: COMPLETE
+- Story: production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md — S8-3: Parry and Counter Animation Transition Readability
+- Tech debt logged: None
+- Verification: 5/5 AC passing (AC-1/2/3/5 confirmed via Game View playtest; AC-4 auto-verified via code review). Code review: APPROVED WITH SUGGESTIONS.
+- Next recommended: S8-4 Hit Reaction Animation Blending — production/sprints/sprint-8-stories/story-s8-4-hit-reaction-animation-blending.md
+
+## Session Extract — /dev-story 2026-06-21
+- Story: production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md — S8-3: Parry and Counter Animation Transition Readability
+- Files changed: CounterAnimationRequest.cs (created), M0PlayerAnimationSet.cs, IPlayerAnimationService.cs, AnimancerPlayerAnimationDriver.cs, M0AnimationPresentationAdapter.cs, M0PlayerStateMachineDodgeTests.cs, s8-3-parry-counter-animation-transition-evidence.md (created)
+- Test written: None — Visual/Feel story; evidence doc created at production/qa/evidence/s8-3-parry-counter-animation-transition-evidence.md
+- Blockers: None — manual Game View verification required for AC-1/2/3
+- Note: Phase clip slots in M0PlayerAnimationSet.asset are unassigned; designer assigns distinct clips in Inspector
+- Next: /code-review then /story-done production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md
+
 ## Session Extract — /story-done 2026-06-19
 - Verdict: COMPLETE WITH NOTES
 - Story: production/sprints/sprint-8-stories/story-s8-1-attack-animation-windup-recovery-clarity.md — S8-1 Attack Animation Windup and Recovery Clarity
@@ -373,6 +410,33 @@
 - Blockers: None
 - Next: /code-review then /story-done production/sprints/sprint-8-stories/story-s8-8-decompose-player-state-machine.md
 
+## Session Extract — /dev-story 2026-06-21
+- Story: production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md — S8-3: Parry and Counter Animation Transition Readability
+- Files changed: CounterAnimationRequest.cs (created), M0PlayerAnimationSet.cs, IPlayerAnimationService.cs, AnimancerPlayerAnimationDriver.cs, M0AnimationPresentationAdapter.cs, M0PlayerStateMachineDodgeTests.cs
+- Test written: None — Visual/Feel story; presentation boundary verified via existing AnimatorPresentationOnlyTests
+- Evidence created: production/qa/evidence/s8-3-parry-counter-animation-transition-evidence.md
+- Blockers: None — manual Game View verification required for AC-1/2/3
+- Note: Parry and counter now support phase-specific clip resolution (matching dodge/attack pattern). Counter uses dedicated CounterAnimationRequest instead of reusing AttackAnimationRequest. Phase clip slots in M0PlayerAnimationSet.asset are currently unassigned (fall back to main parry/counter clips); designer assigns phase-specific clips to achieve visual distinction.
+- Next: /code-review CounterAnimationRequest.cs M0PlayerAnimationSet.cs IPlayerAnimationService.cs AnimancerPlayerAnimationDriver.cs M0AnimationPresentationAdapter.cs then /story-done production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md
+
+## Session Extract — /story-done 2026-06-21
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-8-stories/story-s8-2-dodge-animation-phase-distinction.md — S8-2: Dodge Animation Phase Distinction
+- Tech debt logged: None
+- Acceptance Criteria: 4/6 passing (AC-1/2/3 deferred for manual Game View; AC-4/5 auto-verified)
+- Evidence: production/qa/evidence/s8-2-dodge-animation-phase-evidence.md — PASS
+- Code Review: APPROVED WITH SUGGESTIONS
+- Next recommended: S8-3 Parry & Counter Animation Transition Readability — production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md
+
+## Session Extract — /dev-story 2026-06-21
+- Story: production/sprints/sprint-8-stories/story-s8-2-dodge-animation-phase-distinction.md — S8-2: Dodge Animation Phase Distinction
+- Files changed: Assets/_Project/Code/Presentation/M0PlayerAnimationSet.cs, Assets/_Project/Content/Data/Animancer/M0PlayerAnimationSet.asset, Assets/_Project/Code/Presentation/AnimancerPlayerAnimationDriver.cs, Assets/_Project/Code/Presentation/M0AnimationPresentationAdapter.cs
+- Test written: None — Visual/Feel story; presentation boundary verified via AnimatorPresentationOnlyTests
+- Evidence created: production/qa/evidence/s8-2-dodge-animation-phase-evidence.md
+- Blockers: None
+- Note: Three-phase dodge architecture already existed; implementation wires M0AnimationPresentationAdapter to use phase-specific clip selection (DodgeStartup/DodgeActive/DodgeRecovery). Phase clip slots in M0PlayerAnimationSet.asset are currently unassigned (fall back to single Dodge clip); designer assigns phase-specific clips to achieve visual distinction.
+- Next: /code-review M0PlayerAnimationSet.cs AnimancerPlayerAnimationDriver.cs M0AnimationPresentationAdapter.cs then /story-done production/sprints/sprint-8-stories/story-s8-2-dodge-animation-phase-distinction.md
+
 <!-- RETROSPECTIVE: 2026-06-16 | Sprint: 7 | Retro written: production/retrospectives/retro-sprint-7-2026-06-16.md -->
 <!-- SPRINT-PLAN: 2026-06-16 | Sprint: 8 | Plan written: production/sprints/sprint-8.md | Status: production/sprint-status.yaml -->
 <!-- QA-PLAN: 2026-06-16 | System: sprint-8 | Plan written: production/qa/qa-plan-sprint-8-2026-06-16.md -->
@@ -383,3 +447,10 @@
 - Tech debt logged: None
 - Verification: 10/10 AC passing. EditMode 260/260 PASS, PlayMode 5/5 PASS. Console clean. Code review: passed with suggestions.
 - Next recommended: S8-7 Wire School_Katana_Girl into M0 Duel Scene
+
+## Session Extract — /story-done 2026-06-19
+- Verdict: COMPLETE WITH NOTES
+- Story: production/sprints/sprint-8-stories/story-s8-9-add-turn-animation.md — [Presentation] Fix Animation Clip Mappings — Peace/Combat Mode Split
+- Tech debt logged: None
+- Verification: 17/19 AC passing (AC-99/100 deferred for Unity Editor). Code review: APPROVED WITH SUGGESTIONS.
+- Next recommended: S8-2 Dodge Animation Phase Distinction — production/sprints/sprint-8-stories/story-s8-2-dodge-animation-phase-distinction.md

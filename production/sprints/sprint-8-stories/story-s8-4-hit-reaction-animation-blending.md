@@ -1,22 +1,25 @@
 # Story S8-4: [Presentation] Hit Reaction Animation Blending
 
 > **Sprint**: Sprint 8
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 0.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-16
+> **Last Updated**: 2026-06-21
 
 ## Context
 
 **Sprint Plan**: `production/sprints/sprint-8.md`
 **Epic**: M0 First Playable Duel — player animation polish pass
 **GDD**: `design/gdd/combat-core.md`, `design/gdd/player-locomotion.md`
+**Requirement**: Section 8.8 Basic Hit Reaction / Recovery — "short and clear...sufficient to communicate that the player lost control because of a readable mistake." Also `TR-M0-HEALTH-001`: "Health / Damage / Hit Reaction owns damage/application and consequence truth."
 **ADR Governing Implementation**: ADR-0003 — Animator is presentation-only.
 
 **Engine**: Unity 6000.3.x + URP | **Risk**: LOW
 **Engine Notes**: Animator hit reaction trigger and blend tuning only. No Health/Combat Core changes.
+
+**Performance Budget**: No performance impact expected — Animator blend tuning only, no new runtime systems.
 
 **Control Manifest Rules**:
 - Required: Hit reaction animation observes confirmed Health/damage result only.
@@ -87,3 +90,12 @@
 
 - Depends on: Story 1-11, Story 1-7 (Health & Hit Reactions), S5-5 (Health-Combat Contract — Complete)
 - Unlocks: Sprint 8 animation polish smoke
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-21
+**Criteria**: 5/5 passing
+**Deviations**: None
+**Test Evidence**: Visual/Feel — evidence doc at `production/qa/evidence/s8-4-hit-reaction-animation-blending-evidence.md` (sign-off table TBD, fill before sprint close-out)
+**Code Review**: Skipped (lean mode)

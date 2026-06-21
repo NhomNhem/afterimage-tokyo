@@ -1,12 +1,12 @@
 # Story S8-9: [Presentation] Fix Animation Clip Mappings — Peace/Combat Mode Split
 
 > **Sprint**: Sprint 8
-> **Status**: In Progress
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 1.5 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-18
+> **Last Updated**: 2026-06-19
 
 ## Context
 
@@ -157,6 +157,13 @@ Manual testing revealed multiple animation clip mapping errors, missing slots, a
 - **AC-15**: Turn slots removed — No turnLeft/turnRight in M0PlayerAnimationSet.
 - **AC-16**: No FindAction in M0DirectPlayerInput — Source uses M0InputActions.Gameplay.X pattern.
 - **AC-17**: Console clean — No new S1/S2 errors.
+
+## Completion Notes
+**Completed**: 2026-06-19
+**Criteria**: 17/19 passing (AC-99 and AC-100 deferred — require Unity Editor verification)
+**Deviations**: None
+**Test Evidence**: Visual/Feel — no sign-off evidence file found (ADVISORY — create `production/qa/evidence/story-s8-9-add-turn-animation-evidence.md` if desired)
+**Code Review**: Complete — APPROVED WITH SUGGESTIONS (3 warnings: naming in M0DirectPlayerInput, unused overload parameter, interface event pattern)
 
 ## Dependencies
 

@@ -9,100 +9,80 @@
 #   done           ↔  Complete
 #   blocked        ↔  Blocked
 
-sprint: 8
-goal: "Polish player animation readability across the M0 duel loop — attack windup/recovery, dodge phase distinction, parry/counter transition clarity, and hit reaction blending."
-start: "2026-08-04"
-end: "2026-08-15"
-generated: "2026-06-16"
-updated: "2026-06-19"
+sprint: 9
+goal: "Wire Genshin-style combat camera, add enemy hit reactions, close M1 carryover — so M0 duel feels frame-ready from any camera angle."
+start: "2026-08-18"
+end: "2026-08-29"
+generated: "2026-06-21"
+updated: "2026-06-21"
 
 stories:
-  - id: "S8-7"
-    name: "Wire School_Katana_Girl into M0 Duel Scene"
-    file: "production/sprints/sprint-8-stories/story-s8-7-wire-school-katana-girl-into-m0-scene.md"
+  - id: "S9-1"
+    name: "Commit & Stabilize Sprint 8 Work"
+    file: "production/sprints/sprint-9-stories/story-s9-1-commit-stabilize-sprint-8.md"
     priority: must-have
-    status: done
-    owner: ""
-    estimate_days: 1.5
-    blocker: ""
-    completed: "2026-06-17"
-
-  - id: "S8-1"
-    name: "Attack Animation Windup and Recovery Clarity"
-    file: "production/sprints/sprint-8-stories/story-s8-1-attack-animation-windup-recovery-clarity.md"
-    priority: must-have
-    status: done
-    owner: ""
-    estimate_days: 1.0
-    blocker: ""
-    completed: "2026-06-19"
-
-  - id: "S8-2"
-    name: "Dodge Animation Phase Distinction"
-    file: "production/sprints/sprint-8-stories/story-s8-2-dodge-animation-phase-distinction.md"
-    priority: must-have
-    status: backlog
-    owner: ""
-    estimate_days: 1.0
-    blocker: ""
-    completed: ""
-
-  - id: "S8-3"
-    name: "Parry and Counter Animation Transition Readability"
-    file: "production/sprints/sprint-8-stories/story-s8-3-parry-counter-animation-transition-readability.md"
-    priority: must-have
-    status: backlog
-    owner: ""
-    estimate_days: 1.0
-    blocker: ""
-    completed: ""
-
-  - id: "S8-4"
-    name: "Hit Reaction Animation Blending"
-    file: "production/sprints/sprint-8-stories/story-s8-4-hit-reaction-animation-blending.md"
-    priority: must-have
-    status: backlog
+    status: ready-for-dev
     owner: ""
     estimate_days: 0.5
     blocker: ""
     completed: ""
 
-  - id: "S8-5"
-    name: "Player Animation Polish Smoke"
-    file: "production/sprints/sprint-8-stories/story-s8-5-player-animation-polish-smoke.md"
+  - id: "S9-2"
+    name: "Combat Camera Integration"
+    file: "production/sprints/sprint-9-stories/story-s9-2-combat-camera-integration.md"
     priority: must-have
-    status: backlog
+    status: ready-for-dev
     owner: ""
-    estimate_days: 0.5
-    blocker: "S8-1, S8-2, S8-3, S8-4"
+    estimate_days: 2.0
+    blocker: ""
+    completed: ""
+
+  - id: "S9-3"
+    name: "Enemy Hit Reaction Animation"
+    file: "production/sprints/sprint-9-stories/story-s9-3-enemy-hit-reaction-animation.md"
+    priority: must-have
+    status: ready-for-dev
+    owner: ""
+    estimate_days: 1.0
+    blocker: ""
     completed: ""
 
   - id: "S8-6"
-    name: "M1 Epic Closure Review"
-    file: ""
-    priority: should-have
-    status: backlog
+    name: "M1 Epic Closure"
+    file: "production/sprints/sprint-9-stories/story-s8-6-m1-epic-closure.md"
+    priority: must-have
+    status: ready-for-dev
     owner: ""
     estimate_days: 0.5
     blocker: ""
     completed: ""
 
-  - id: "S8-8"
-    name: "Decompose PlayerStateMachine into Layer State Machines"
-    file: "production/sprints/sprint-8-stories/story-s8-8-decompose-player-state-machine.md"
+  - id: "S9-4"
+    name: "EditMode Tests: HasTargetFocus + SetStrafeMode"
+    file: "production/sprints/sprint-9-stories/story-s9-4-editmode-tests-hastargetfocus-strafemode.md"
     priority: should-have
-    status: done
+    status: backlog
     owner: ""
     estimate_days: 1.0
     blocker: ""
-    completed: "2026-06-17"
+    completed: ""
 
-  - id: "S8-9"
-    name: "Add Turn Animation to Player Locomotion"
-    file: "production/sprints/sprint-8-stories/story-s8-9-add-turn-animation.md"
-    priority: must-have
-    status: in-progress
+  - id: "S9-5"
+    name: "Enemy Telegraph Readability Polish"
+    file: "production/sprints/sprint-9-stories/story-s9-5-enemy-telegraph-readability-polish.md"
+    priority: should-have
+    status: backlog
     owner: ""
     estimate_days: 1.0
+    blocker: ""
+    completed: ""
+
+  - id: "S9-6"
+    name: "Assign Turn Clips"
+    file: "production/sprints/sprint-9-stories/story-s9-6-assign-turn-clips.md"
+    priority: nice-to-have
+    status: backlog
+    owner: ""
+    estimate_days: 0.5
     blocker: ""
     completed: ""

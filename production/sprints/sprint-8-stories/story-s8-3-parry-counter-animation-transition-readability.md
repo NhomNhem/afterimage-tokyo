@@ -1,22 +1,25 @@
 # Story S8-3: [Presentation] Parry and Counter Animation Transition Readability
 
 > **Sprint**: Sprint 8
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 1.0 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-16
+> **Last Updated**: 2026-06-21
 
 ## Context
 
 **Sprint Plan**: `production/sprints/sprint-8.md`
 **Epic**: M0 First Playable Duel — player animation polish pass
 **GDD**: `design/gdd/combat-core.md`
+**Requirement**: Section 10.5 Defensive Answer Philosophy — "dodge = spatial answer, parry = timing answer, counter = reward answer... If dodge, parry, and attack blur into one generic answer space, the system loses its interpretive clarity." Also Section 10.3: "parry feedback must be readable in animation, sound, VFX, and debug overlay."
 **ADR Governing Implementation**: ADR-0003 — Animator is presentation-only.
 
 **Engine**: Unity 6000.3.x + URP | **Risk**: LOW-MEDIUM
 **Engine Notes**: Animator Controller transition tuning only. No Combat Core changes.
+
+**Performance Budget**: No performance impact expected — Animator Controller transition tuning only, no new runtime systems or per-frame allocations.
 
 **Control Manifest Rules**:
 - Required: Parry and counter animations observe confirmed Combat Core state only.
@@ -90,5 +93,14 @@
 
 ## Dependencies
 
-- Depends on: Story 1-11, Story 1-6 (Defensive Wiring), S6-2 (Parry/Counter Visual Feedback Polish — Complete)
+- Depends on: Story 1-11, Story 1-6 (Defensive Wiring), `production/sprints/sprint-6-stories/story-s6-2-parry-counter-visual-feedback-polish.md` (Complete)
 - Unlocks: Sprint 8 animation polish smoke
+
+---
+
+## Completion Notes
+**Completed**: 2026-06-21
+**Criteria**: 5/5 passing (AC-1/2/3/5 confirmed via Game View playtest; AC-4 auto-verified via code review)
+**Deviations**: None
+**Test Evidence**: Visual/Feel — evidence doc at `production/qa/evidence/s8-3-parry-counter-animation-transition-evidence.md`
+**Code Review**: APPROVED WITH SUGGESTIONS (lean mode)

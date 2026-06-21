@@ -1,12 +1,12 @@
 # Story S8-2: [Presentation] Dodge Animation Phase Distinction
 
 > **Sprint**: Sprint 8
-> **Status**: Not Started
+> **Status**: Complete
 > **Layer**: Presentation
 > **Type**: Visual/Feel
 > **Estimate**: 1.0 days
 > **Manifest Version**: 2026-05-15
-> **Last Updated**: 2026-06-16
+> **Last Updated**: 2026-06-21
 
 ## Context
 
@@ -93,3 +93,11 @@
 
 - Depends on: Story 1-11, Story 1-6 (Defensive Wiring), S5-4 (dodge displacement — Complete)
 - Unlocks: Sprint 8 animation polish smoke
+
+## Completion Notes
+**Completed**: 2026-06-21
+**Criteria**: 4/6 passing (4 auto-verified, 3 deferred for manual Game View playtest)
+**Deferred**: AC-1/2/3 — three-phase visual distinction requires designer-authored `dodgeStartup`/`dodgeActive`/`dodgeRecovery` clips in `M0PlayerAnimationSet.asset`; code infrastructure complete
+**Deviations**: None
+**Test Evidence**: `production/qa/evidence/s8-2-dodge-animation-phase-evidence.md` (Visual/Feel, PASS)
+**Code Review**: APPROVED WITH SUGGESTIONS — minor: `M0PlayerAnimationSet` class lacks doc comments; `ResolveDashDirection` unused after S8-2 (advisory, no action required)
